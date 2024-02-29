@@ -1,11 +1,18 @@
 .wrapper {
-    background-color: #fff;
-    border: 1px solid red;
+    padding: 9px 16px;
+    min-width: 100px;
+    font-weight: 700;
+    font-size: 1.6rem;
+    font-family: var(--font-family);
+    background-color: var(--white-color);
     border-radius: 8px;
+    border: 1px solid red;
     cursor: pointer;
     user-select: none;
+}
 
+.text {
     &:hover {
-        background-color: var(--hover-color);
+        text-decoration: underline;
     }
 }

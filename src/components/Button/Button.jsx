@@ -7,7 +7,7 @@ import styles from './Button.module.scss';
 
 const cx = classNames.bind(styles);
 
-function Button({ to, href, children, className, primary, disabled, onClick, ...passProps }) {
+function Button({ to, href, children, className, primary, text, disabled, onClick, ...passProps }) {
     let Comp = 'button';
 
     const props = {
@@ -34,6 +34,7 @@ function Button({ to, href, children, className, primary, disabled, onClick, ...
     const classes = cx('wrapper', {
         [className]: className,
         primary,
+        text,
         disabled,
     });
 
@@ -50,6 +51,7 @@ Button.propTypes = {
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
     primary: PropTypes.bool,
+    text: PropTypes.bool,
     disabled: PropTypes.bool,
     onClick: PropTypes.func,
 };
