@@ -1,12 +1,30 @@
 .wrapper {
     width: 100%;
-    height: var(--defauft-layout-header-height);
+    height: var(--default-layout-header-height);
     border-bottom: 1px solid red;
+    display: flex;
+    text-align: center;
+    justify-content: center;
 }
 
 .inner {
     display: flex;
-    width: var(--defauft-layout-width);
     align-items: center;
     justify-content: space-between;
+    width: var(--default-layout-width);
+    padding: 0 26px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-link {
+    display: flex;
+    flex-direction: column;
+
+    .icon {
+        font-size: 2.4rem;
+    }
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
@@ -7,7 +7,7 @@ import styles from './Button.module.scss';
 
 const cx = classNames.bind(styles);
 
-function Button({ to, href, children, className, primary, text, disabled, onClick, ...passProps }) {
+const Button = forwardRef(({ to, href, children, className, primary, text, disabled, onClick, ...passProps }, ref) => {
     let Comp = 'button';
 
     const props = {
@@ -39,11 +39,11 @@ function Button({ to, href, children, className, primary, text, disabled, onClic
     });
 
     return (
-        <Comp className={classes} {...props}>
+        <Comp ref={ref} className={classes} {...props}>
             {children}
         </Comp>
     );
-}
+});
 
 Button.propTypes = {
     to: PropTypes.string,

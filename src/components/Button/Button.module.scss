@@ -1,12 +1,15 @@
 .wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 9px 16px;
-    min-width: 100px;
+    min-width: 32px;
     font-weight: 700;
     font-size: 1.6rem;
     font-family: var(--font-family);
     background-color: var(--white-color);
     border-radius: 8px;
-    border: 1px solid red;
+    border: 1px solid transparent;
     cursor: pointer;
     user-select: none;
 }

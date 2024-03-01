@@ -8,10 +8,10 @@
     --white-color: #fff;
     --hover-color: #16182308;
 
-    // defauft layout
-    --defauft-layout-header-height: 60px;
-    --defauft-layout-width: 1200px;
-    --defauft-layout-horizontal-spacer: 24px;
+    // default layout
+    --default-layout-header-height: 66px;
+    --default-layout-width: 100%;
+    --default-layout-horizontal-spacer: 24px;
 }
 
 * {
@@ -40,5 +40,6 @@ input,
 }
 
 a {
+    color: var(--text-color);
     text-decoration: none;
 }
