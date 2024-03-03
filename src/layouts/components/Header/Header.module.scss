@@ -15,7 +15,9 @@
     padding: 0 26px;
 }
 
-.logo {
+.logo,
+.body,
+.actions {
     display: flex;
     align-items: center;
 }

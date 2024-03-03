@@ -1,18 +1,24 @@
 import classnames from 'classnames/bind';
-import Tippy from '@tippyjs/react/headless';
 import 'tippy.js/dist/tippy.css';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSeedling } from '@fortawesome/free-solid-svg-icons';
 
 import styles from './Header.module.scss';
+import config from '~/config';
+import images from '~/assets/images';
+import Search from '../Search';
+import Menu from './Menu';
 import Button from '~/components/Button';
 import { MessageIcon } from '~/components/Icon';
-import config from '~/config';
+import Image from '~/components/Image';
+import { useState } from 'react';
 
 const cx = classnames.bind(styles);
 
 function Header() {
+    const [isLogin] = useState(false);
+
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
@@ -24,25 +30,28 @@ function Header() {
                 </div>
 
                 <div className={cx('body')}>
-                    <Tippy content="tooltip">
-                        <div>hello</div>
-                    </Tippy>
+                    <Search />
                 </div>
+
                 <div className={cx('actions')}>
-                    <Tippy
-                        delay={[0, 200]}
-                        interactive={true}
-                        placement="bottom"
-                        render={(attrs) => (
-                            <span tabIndex="-1" {...attrs}>
-                                123
-                            </span>
-                        )}
-                    >
-                        <Button>
-                            <MessageIcon />
-                        </Button>
-                    </Tippy>
+                    {isLogin ? (
+                        <>
+                            <Button>
+                                <MessageIcon />
+                            </Button>
+
+                            <Menu>
+                                <div className={cx('custom-btn')}>
+                                    <Image src={images.avatar} alt="avatar" />
+                                </div>
+                            </Menu>
+                        </>
+                    ) : (
+                        <>
+                            <Button>Login</Button>
+                            <Button>Sign Up</Button>
+                        </>
+                    )}
                 </div>
             </div>
         </header>
