@@ -7,7 +7,6 @@ import { useState } from 'react';
 
 import styles from './Search.module.scss';
 import PopperWrapper from '~/components/Popper/Wrapper';
-import Button from '~/components/Button';
 import CourseItem from '~/components/CourseItem';
 
 const cx = classnames.bind(styles);
@@ -42,6 +41,7 @@ function Search() {
                                 <CourseItem />
                                 <CourseItem />
                                 <CourseItem />
+                                <CourseItem />
                             </PopperWrapper>
                         </div>
                     );
@@ -61,9 +61,9 @@ function Search() {
                     />
 
                     <Tippy content="search" placement="right">
-                        <Button className={cx('btn-search')}>
+                        <button className={cx('btn-search')}>
                             <FontAwesomeIcon icon={faMagnifyingGlass} />
-                        </Button>
+                        </button>
                     </Tippy>
                 </div>
             </HeadlessTippy>

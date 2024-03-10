@@ -70,7 +70,7 @@ function About() {
 
                                     <div className="post-item__body">
                                         <div className="post-item__info">
-                                            <a href>
+                                            <a href="/">
                                                 <h3 className="post-item__title">title</h3>
                                             </a>
                                             <p className="post-item__description">description</p>

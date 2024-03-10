@@ -42,15 +42,15 @@ function Header() {
                     {isLogin ? (
                         <>
                             <Tippy content="Message">
-                                <Button className={cx('btn-action')}>
+                                <button className={cx('btn-action')}>
                                     <MessageIcon />
-                                </Button>
+                                </button>
                             </Tippy>
 
                             <Menu>
-                                <Button className={cx('btn-action')}>
+                                <button className={cx('btn-action')}>
                                     <Image className={cx('avatar')} src={images.avatar} alt="avatar" />
-                                </Button>
+                                </button>
                             </Menu>
                         </>
                     ) : (

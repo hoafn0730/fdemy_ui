@@ -1,11 +1,18 @@
-import actions from '~/actions/searchAction';
+import { actions } from '~/actions/searchAction';
 
 const initialState = {
     todoList: [],
+    isLoading: false,
 };
 
 const searchReducer = (state, action) => {
     switch (action.type) {
+        case actions.ADD_TODO_ITEM_REQUEST:
+            return {
+                ...state,
+                todoList: [...state.todoList],
+                isLoading: true,
+            };
         case actions.ADD_TODO_ITEM:
             return {
                 ...state,
@@ -13,8 +20,10 @@ const searchReducer = (state, action) => {
             };
 
         case actions.REMOVE_TODO_ITEM: {
-            const filteredTodoItem = state.todoList.filter((todoItem) => todoItem.id !== action.todoItemId);
-            return { todoList: filteredTodoItem };
+            const filteredTodoItem = state.todoList.filter((todoItem) => {
+                return todoItem.id !== action.payload.id;
+            });
+            return { ...state, todoList: filteredTodoItem };
         }
 
         case actions.TOGGLE_COMPLETED: {

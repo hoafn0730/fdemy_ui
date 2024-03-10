@@ -33,10 +33,16 @@
 }
 
 .btn-search {
+    width: 52px;
+    height: 100%;
+    background-color: var(--white-color);
     color: #a6a7ab;
     transition: color 0.2s ease-in-out;
+    cursor: pointer;
+    border-left: 1px solid rgba(22, 24, 35, 0.2);
 
     &:hover {
+        background-color: var(--hover-color);
         color: rgba(22, 24, 35, 0.3);
     }
 
@@ -46,7 +52,7 @@
 }
 
 .search-result {
-    padding: 10px 0;
+    padding: 10px;
     box-shadow: 0 -4px 32px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     animation: fadeIn 0.3s ease;

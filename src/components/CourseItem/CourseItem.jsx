@@ -10,12 +10,7 @@ function CourseItem() {
     return (
         <div>
             course
-            <Image
-                style={{
-                    width: '40px',
-                }}
-                src={images.avatar}
-            />
+            <Image className={cx('avatar')} src={images.avatar} />
         </div>
     );
 }
