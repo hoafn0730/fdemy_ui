@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import classnames from 'classnames/bind';
+import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCode } from '@fortawesome/free-solid-svg-icons';
-import Tippy from '@tippyjs/react';
+import { faCode, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 import styles from './Header.module.scss';
 import Search from '../Search';
@@ -44,6 +44,12 @@ function Header() {
                             <Tippy content="Message">
                                 <button className={cx('btn-action')}>
                                     <MessageIcon />
+                                </button>
+                            </Tippy>
+
+                            <Tippy content="Create">
+                                <button className={cx('btn-action')}>
+                                    <FontAwesomeIcon icon={faPlus} />
                                 </button>
                             </Tippy>
 

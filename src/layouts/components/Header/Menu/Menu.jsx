@@ -13,14 +13,14 @@ function Menu({ children }) {
             interactive={true}
             placement="bottom"
             render={(attrs) => (
-                <div className={cx('menu-user')} tabIndex={-1} {...attrs}>
-                    <PopperWrapper>
+                <PopperWrapper>
+                    <div className={cx('menu-user')} tabIndex={-1} {...attrs}>
                         <div>1</div>
                         <div>2</div>
                         <div>3</div>
                         <div>4</div>
-                    </PopperWrapper>
-                </div>
+                    </div>
+                </PopperWrapper>
             )}
         >
             {children}

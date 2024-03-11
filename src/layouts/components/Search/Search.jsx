@@ -7,7 +7,8 @@ import { useState } from 'react';
 
 import styles from './Search.module.scss';
 import PopperWrapper from '~/components/Popper/Wrapper';
-import CourseItem from '~/components/CourseItem';
+import SearchItem from '~/layouts/components/Search/SearchItem';
+import { Link } from 'react-router-dom';
 
 const cx = classnames.bind(styles);
 
@@ -21,53 +22,83 @@ function Search() {
         if (!searchValue.startsWith(' ')) {
             setSearchValue(searchValue);
         }
+
+        if (searchValue) {
+            setShowResult(true);
+        } else {
+            setShowResult(false);
+        }
+    };
+
+    const handleFocus = (e) => {
+        if (e.target.value) {
+            setShowResult(true);
+        }
     };
 
     const handleHideResult = () => {
         setShowResult(false);
     };
 
-    return (
-        <div>
-            <HeadlessTippy
-                visible={showResult}
-                interactive={true}
-                placement="bottom"
-                render={(attrs) => {
-                    return (
-                        <div className={cx('search-result')} tabIndex={-1} {...attrs}>
-                            <PopperWrapper>
-                                <CourseItem />
-                                <CourseItem />
-                                <CourseItem />
-                                <CourseItem />
-                                <CourseItem />
-                            </PopperWrapper>
-                        </div>
-                    );
-                }}
-                onClickOutside={handleHideResult}
-            >
-                <div className={cx('search')}>
-                    <input
-                        value={searchValue}
-                        type="text"
-                        className={cx('search-input')}
-                        placeholder="search..."
-                        onChange={handleChange}
-                        onFocus={() => {
-                            setShowResult(true);
-                        }}
-                    />
+    const handleClearText = () => {
+        setSearchValue('');
+        setShowResult(false);
+    };
 
-                    <Tippy content="search" placement="right">
-                        <button className={cx('btn-search')}>
-                            <FontAwesomeIcon icon={faMagnifyingGlass} />
-                        </button>
-                    </Tippy>
-                </div>
-            </HeadlessTippy>
-        </div>
+    return (
+        <HeadlessTippy
+            visible={showResult}
+            interactive={true}
+            placement="bottom"
+            render={(attrs) => {
+                return (
+                    <PopperWrapper tabIndex={-1} {...attrs}>
+                        <div className={cx('result')}>
+                            <div className={cx('header')}>
+                                <FontAwesomeIcon icon={faMagnifyingGlass} className={cx('icon')} />
+                                <span>Kết quả cho '{searchValue}'</span>
+                            </div>
+
+                            <div className={cx('heading')}>
+                                <h5>KHÓA HỌC</h5>
+                                <Link to="/" className={cx('seeMore')}>
+                                    Xem thêm
+                                </Link>
+                            </div>
+                            <SearchItem />
+                            <SearchItem />
+                            <SearchItem />
+                            <SearchItem />
+                            <SearchItem />
+                        </div>
+                    </PopperWrapper>
+                );
+            }}
+            onClickOutside={handleHideResult}
+        >
+            <div className={cx('search')}>
+                <input
+                    value={searchValue}
+                    type="text"
+                    className={cx('search-input')}
+                    placeholder="search..."
+                    onChange={handleChange}
+                    onFocus={handleFocus}
+                />
+
+                {searchValue && (
+                    <div className={cx('clearText')} onClick={handleClearText}>
+                        &times;
+                    </div>
+                )}
+
+                <Tippy content="search" placement="right">
+                    <button className={cx('btn-search')}>
+                        <FontAwesomeIcon icon={faMagnifyingGlass} />
+                    </button>
+                </Tippy>
+            </div>
+        </HeadlessTippy>
     );
 }
 
