@@ -15,7 +15,7 @@ function DefaultLayout({ children }) {
                 <SideBar />
                 <div className={cx('content')}>{children}</div>
             </main>
-            <Footer />
+            {/* <Footer /> */}
         </div>
     );
 }

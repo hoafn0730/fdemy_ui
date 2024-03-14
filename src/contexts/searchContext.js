@@ -1,6 +1,6 @@
-import { createContext, useReducer } from 'react';
+import { createContext, useContext, useReducer } from 'react';
 
-import { searchReducer, initialState } from '~/reducers/searchReducer';
+import { searchReducer, initialState } from '~/store/reducer/searchReducer';
 
 const SearchContext = createContext();
 
@@ -18,6 +18,10 @@ function SearchProvider({ children }) {
         </SearchContext.Provider>
     );
 }
-export { SearchProvider };
+
+const useSearchContext = () => {
+    return useContext(SearchContext);
+};
+export { SearchProvider, useSearchContext };
 
 export default SearchContext;

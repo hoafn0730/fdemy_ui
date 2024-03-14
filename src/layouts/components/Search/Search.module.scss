@@ -78,6 +78,15 @@
     align-items: center;
     font-size: 1.4rem;
     padding-top: 6px;
+
+    span {
+        display: -webkit-box;
+        text-align: start;
+        word-wrap: break-word;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
+    }
 }
 
 .icon {
@@ -110,8 +119,8 @@
         word-wrap: break-word;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 2;
-        color: #292929;
         display: -webkit-box;
+        color: #292929;
         line-height: 1.6;
         margin-left: 12px;
         overflow: hidden;

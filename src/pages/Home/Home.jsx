@@ -4,8 +4,9 @@ import { useContext, useRef, useState } from 'react';
 import styles from './Home.module.scss';
 import Button from '~/components/Button';
 import IndexModule from '~/components/index-module';
-import SearchContext from '~/contexts/searchContext';
-import { addTodoItem, removeTodoItem } from '~/actions/searchAction';
+import { addTodoItem, removeTodoItem } from '~/store/action/searchAction';
+import { useSearchContext } from '~/contexts/searchContext';
+import ThemeContext from '~/contexts/themeContext';
 
 const cx = classnames.bind(styles);
 
@@ -16,7 +17,11 @@ function Home() {
     const {
         state: { todoList, isLoading },
         dispatch,
-    } = useContext(SearchContext);
+    } = useSearchContext();
+
+    const {
+        state: { isDarkMode },
+    } = useContext(ThemeContext);
 
     const handleClick = () => {
         if (inputValue) {
@@ -45,6 +50,8 @@ function Home() {
                     <Button text onClick={handleClick}>
                         Click me!
                     </Button>
+
+                    <Button>{isDarkMode ? 'dark' : 'light'}</Button>
                 </IndexModule>
                 <IndexModule className={cx('col', 'l-8')}>
                     {isLoading ? (

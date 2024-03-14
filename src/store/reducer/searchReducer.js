@@ -1,4 +1,4 @@
-import { actions } from '~/actions/searchAction';
+import { actions } from '~/store/action/searchAction';
 
 const initialState = {
     todoList: [],

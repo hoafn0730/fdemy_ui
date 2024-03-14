@@ -21,12 +21,14 @@ function Search() {
 
         if (!searchValue.startsWith(' ')) {
             setSearchValue(searchValue);
-        }
 
-        if (searchValue) {
-            setShowResult(true);
-        } else {
-            setShowResult(false);
+            if (searchValue) {
+                console.log(searchValue);
+
+                setShowResult(true);
+            } else {
+                setShowResult(false);
+            }
         }
     };
 

@@ -6,7 +6,7 @@ import styles from './Button.module.scss';
 
 const cx = classNames.bind(styles);
 
-function Button({ to, href, children, className, primary, text, disabled, onClick, ...passProps }) {
+function Button({ to, href, children, className, primary, text, disabled, leftIcon, onClick, ...passProps }) {
     let Comp = 'button';
 
     const props = {
@@ -39,7 +39,8 @@ function Button({ to, href, children, className, primary, text, disabled, onClic
 
     return (
         <Comp className={classes} {...props}>
-            {children}
+            {leftIcon && <span className={cx('icon')}>{leftIcon}</span>}
+            <span className={cx('title')}> {children}</span>
         </Comp>
     );
 }
@@ -52,6 +53,7 @@ Button.propTypes = {
     primary: PropTypes.bool,
     text: PropTypes.bool,
     disabled: PropTypes.bool,
+    leftIcon: PropTypes.node,
     onClick: PropTypes.func,
 };
 
