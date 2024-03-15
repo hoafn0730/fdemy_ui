@@ -67,8 +67,8 @@ function Menu({ children, isLogin, items = [] }) {
             interactive
             placement="bottom"
             render={(attrs) => (
-                <PopperWrapper>
-                    <div className={cx('list')} tabIndex={-1} {...attrs}>
+                <PopperWrapper tabIndex={-1} {...attrs}>
+                    <div className={cx('list')}>
                         {history.length > 1 && <Header title={current.title} onBack={handleBack} />}
                         {/* {isLogin && !(history.length > 1) && <span className={cx('user')}>hoafn.t</span>} */}
                         <div className={cx('body')}>{renderItems()}</div>

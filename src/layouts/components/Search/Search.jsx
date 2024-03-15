@@ -4,11 +4,11 @@ import classnames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import styles from './Search.module.scss';
 import PopperWrapper from '~/components/Popper/Wrapper';
 import SearchItem from '~/layouts/components/Search/SearchItem';
-import { Link } from 'react-router-dom';
 
 const cx = classnames.bind(styles);
 

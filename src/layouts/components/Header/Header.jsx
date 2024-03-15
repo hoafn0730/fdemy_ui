@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import classnames from 'classnames/bind';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCode, faEllipsisVertical, faPenToSquare, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faCode, faEllipsisVertical, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 
 import styles from './Header.module.scss';
 import Search from '../Search';
@@ -16,14 +16,16 @@ import {
     BookMarkIcon,
     DarkModeIcon,
     FeedBackIcon,
-    KeyBoardIcon,
+    InboxActiveIcon,
+    InboxIcon,
     LanguageIcon,
     LogoutIcon,
-    MessageIcon,
     SettingIcon,
     UserIcon,
 } from '~/components/Icons';
 import Image from '~/components/Image';
+import Inbox from './Inbox';
+import MyCourses from './MyCourses';
 
 const cx = classnames.bind(styles);
 
@@ -53,10 +55,6 @@ const MENU_ITEMS = [
         to: '/feedback',
     },
     {
-        title: 'Keyboard shortcut',
-        icon: <KeyBoardIcon />,
-    },
-    {
         title: 'Dark mode',
         type: 'theme',
         icon: <DarkModeIcon />,
@@ -66,6 +64,8 @@ const MENU_ITEMS = [
 
 function Header() {
     const [isLogin] = useState(true);
+    const [showPopper, setShowPopper] = useState({ inbox: false, myCourses: false });
+    const firstClickRef = useRef({ inbox: false, myCourses: false });
     const username = 'hoafn0730';
 
     const userMenu = [
@@ -97,6 +97,34 @@ function Header() {
         },
     ];
 
+    const handleShowPopper = (e) => {
+        const { id } = e.target.closest('.Header_btn-action__DisSd');
+
+        if (id === 'my-courses') {
+            firstClickRef.current.myCourses = !firstClickRef.current.myCourses;
+            if (firstClickRef.current.myCourses) {
+                setShowPopper({ myCourses: true });
+            } else {
+                setShowPopper({ myCourses: false });
+            }
+        } else if (id === 'inbox') {
+            firstClickRef.current.inbox = !firstClickRef.current.inbox;
+            if (firstClickRef.current.inbox) {
+                setShowPopper({ inbox: true });
+            } else {
+                setShowPopper({ inbox: false });
+            }
+        }
+    };
+
+    const handleHidePopper = () => {
+        firstClickRef.current = {
+            myCourses: false,
+            inbox: false,
+        };
+        setShowPopper({ inbox: false, myCourses: false });
+    };
+
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
@@ -107,7 +135,7 @@ function Header() {
                     </Link>
 
                     <Button text to={'/about'}>
-                        <div>About</div>
+                        <div>Categories</div>
                     </Button>
                 </div>
 
@@ -118,22 +146,25 @@ function Header() {
                 <div className={cx('actions')}>
                     {isLogin ? (
                         <>
-                            <Tippy content="Message">
-                                <button className={cx('btn-action')}>
-                                    <MessageIcon />
-                                </button>
-                            </Tippy>
+                            <MyCourses isShow={showPopper.myCourses} onHide={handleHidePopper}>
+                                <Tippy disabled={showPopper.myCourses} content="My Courses">
+                                    <button id="my-courses" className={cx('btn-action')} onClick={handleShowPopper}>
+                                        <span>My Courses</span>
+                                    </button>
+                                </Tippy>
+                            </MyCourses>
 
-                            <Tippy content="Create">
-                                <button className={cx('btn-action')}>
-                                    <FontAwesomeIcon icon={faPlus} />
-                                </button>
-                            </Tippy>
+                            <Inbox isShow={showPopper.inbox} onHide={handleHidePopper}>
+                                <Tippy disabled={showPopper.inbox} content="Inbox">
+                                    <button id="inbox" className={cx('btn-action')} onClick={handleShowPopper}>
+                                        {showPopper.inbox ? <InboxActiveIcon /> : <InboxIcon />}
+                                    </button>
+                                </Tippy>
+                            </Inbox>
                         </>
                     ) : (
                         <>
-                            <Button>Login</Button>
-                            <Button>Sign Up</Button>
+                            <Button to={'login'}>Login</Button>
                         </>
                     )}
 

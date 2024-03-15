@@ -56,4 +56,12 @@
     background-color: transparent;
     cursor: pointer;
     user-select: none;
+
+    span {
+        font-size: 1.6rem;
+    }
+
+    span.active {
+        font-weight: 700;
+    }
 }
