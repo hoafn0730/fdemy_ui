@@ -1,6 +1,9 @@
 // .user {
 //     font-size: 2rem;
 // }
+.wrapper {
+    overflow: visible;
+}
 
 .list {
     width: 230px;
@@ -18,9 +21,19 @@
     overflow-y: auto;
 }
 
+.styledArrow {
+    position: absolute;
+    top: -16px;
+    right: 28px;
+    border-width: 8px 8px;
+    border-style: solid;
+    border-color: transparent transparent var(--white-color) transparent;
+}
+
 // Menu items
 .item {
     width: 100%;
+    transition: background-color 0.3s;
 
     &.separate {
         border-top: 1px solid rgba(22, 24, 35, 0.12);

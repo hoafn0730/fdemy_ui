@@ -3,12 +3,13 @@ import HeadlessTippy from '@tippyjs/react/headless';
 import classnames from 'classnames/bind';
 import { useState } from 'react';
 
-import Header from './Header';
 import styles from './Menu.module.scss';
+import Header from './Header';
 import MenuItem from './MenuItem';
 import PopperWrapper from '~/components/Popper';
 import { changeTheme } from '~/store/action/themeAction';
 import { useTheme } from '~/contexts/themeContext';
+import { ArrowIcon } from '~/components/Icons';
 
 const cx = classnames.bind(styles);
 
@@ -63,16 +64,17 @@ function Menu({ children, isLogin, items = [] }) {
     return (
         <HeadlessTippy
             delay={[0, 200]}
-            offset={[0, 4]}
+            offset={[13, 4]}
             interactive
-            placement="bottom"
+            placement="bottom-end"
             render={(attrs) => (
-                <PopperWrapper tabIndex={-1} {...attrs}>
+                <PopperWrapper tabIndex={-1} {...attrs} className={cx('wrapper')}>
                     <div className={cx('list')}>
                         {history.length > 1 && <Header title={current.title} onBack={handleBack} />}
                         {/* {isLogin && !(history.length > 1) && <span className={cx('user')}>hoafn.t</span>} */}
                         <div className={cx('body')}>{renderItems()}</div>
                     </div>
+                    <ArrowIcon className={cx('styledArrow')} />
                 </PopperWrapper>
             )}
         >

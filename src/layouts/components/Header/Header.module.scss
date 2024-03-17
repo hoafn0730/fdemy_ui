@@ -4,11 +4,11 @@
     left: 0;
     width: 100%;
     height: var(--default-layout-header-height);
-    border-bottom: 1px solid red;
     display: flex;
     text-align: center;
     justify-content: center;
     background-color: var(--white-color);
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 1px;
     z-index: 10;
 }
 

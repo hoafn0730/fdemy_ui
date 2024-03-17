@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import HeadlessTippy from '@tippyjs/react/headless';
 import PopperWrapper from '~/components/Popper';
 
@@ -8,15 +9,17 @@ function MyCourses({ children, isShow, onHide }) {
                 visible={isShow}
                 interactive
                 delay={[0, 200]}
-                placement="bottom"
+                placement="bottom-end"
                 render={(attrs) => {
                     return (
                         <PopperWrapper tabIndex={-1} {...attrs}>
-                            <h3>1</h3>
-                            <h3>1</h3>
-                            <h3>1</h3>
-                            <h3>1</h3>
-                            <h3>1</h3>
+                            <div style={{ width: '400px' }}>
+                                <h3>1</h3>
+                                <h3>1</h3>
+                                <h3>1</h3>
+                                <h3>1</h3>
+                                <h3>1</h3>
+                            </div>
                         </PopperWrapper>
                     );
                 }}
@@ -27,5 +30,11 @@ function MyCourses({ children, isShow, onHide }) {
         </div>
     );
 }
+
+MyCourses.propTypes = {
+    children: PropTypes.node.isRequired,
+    isShow: PropTypes.bool,
+    onHide: PropTypes.func,
+};
 
 export default MyCourses;

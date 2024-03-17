@@ -9,9 +9,12 @@ import { faCode, faEllipsisVertical, faPenToSquare } from '@fortawesome/free-sol
 import styles from './Header.module.scss';
 import Search from '../Search';
 import Menu from './Menu';
+import Inbox from './Inbox';
+import MyCourses from './MyCourses';
 import config from '~/config';
 import images from '~/assets/images';
 import Button from '~/components/Button';
+import Image from '~/components/Image';
 import {
     BookMarkIcon,
     DarkModeIcon,
@@ -23,9 +26,6 @@ import {
     SettingIcon,
     UserIcon,
 } from '~/components/Icons';
-import Image from '~/components/Image';
-import Inbox from './Inbox';
-import MyCourses from './MyCourses';
 
 const cx = classnames.bind(styles);
 
@@ -147,7 +147,7 @@ function Header() {
                     {isLogin ? (
                         <>
                             <MyCourses isShow={showPopper.myCourses} onHide={handleHidePopper}>
-                                <Tippy disabled={showPopper.myCourses} content="My Courses">
+                                <Tippy delay={[0, 200]} disabled={showPopper.myCourses} content="My Courses">
                                     <button id="my-courses" className={cx('btn-action')} onClick={handleShowPopper}>
                                         <span>My Courses</span>
                                     </button>
@@ -155,7 +155,7 @@ function Header() {
                             </MyCourses>
 
                             <Inbox isShow={showPopper.inbox} onHide={handleHidePopper}>
-                                <Tippy disabled={showPopper.inbox} content="Inbox">
+                                <Tippy offset={[0, 3]} delay={[0, 200]} disabled={showPopper.inbox} content="Inbox">
                                     <button id="inbox" className={cx('btn-action')} onClick={handleShowPopper}>
                                         {showPopper.inbox ? <InboxActiveIcon /> : <InboxIcon />}
                                     </button>
@@ -164,7 +164,7 @@ function Header() {
                         </>
                     ) : (
                         <>
-                            <Button to={'login'}>Login</Button>
+                            <Button to={'/login'}>Login</Button>
                         </>
                     )}
 

@@ -94,8 +94,13 @@ function Search() {
                     </div>
                 )}
 
-                <Tippy content="search" placement="right">
-                    <button className={cx('btn-search')}>
+                <Tippy delay={[0, 200]} content="search" placement="right">
+                    <button
+                        className={cx('btn-search')}
+                        onClick={() => {
+                            alert('123');
+                        }}
+                    >
                         <FontAwesomeIcon icon={faMagnifyingGlass} />
                     </button>
                 </Tippy>
