@@ -1,33 +1,6 @@
 .wrapper {
     width: 400px;
     overflow: visible;
-
-    .styledArrow {
-        position: absolute;
-        top: -16px;
-        right: 76px;
-        border-width: 8px 8px;
-        border-style: solid;
-        border-color: transparent transparent #fff transparent;
-    }
-}
-
-.header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 16px 20px;
-
-    h6 {
-        font-size: 1.8rem;
-        font-weight: 500;
-    }
-}
-
-.viewAllBtn {
-    font-size: 1.4rem;
-    padding: 8px;
-    color: var(--primary-color);
 }
 
 .content {
@@ -37,6 +10,7 @@
     padding-bottom: 8px;
 }
 
+// Inbox items
 .item {
     display: flex;
     align-items: center;

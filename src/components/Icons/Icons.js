@@ -235,9 +235,16 @@ export const LogoutIcon = ({ className, width = '2rem', height = '2rem' }) => {
     );
 };
 
-export const ArrowIcon = ({ className, width = '0.8rem', height = '0.8rem' }) => {
+export const ArrowIcon = ({ className, style, width = '0.8rem', height = '0.8rem' }) => {
     return (
-        <svg width={width} height={height} className={className} xmlns="http://www.w3.org/2000/svg" fill="#fff">
+        <svg
+            width={width}
+            height={height}
+            className={className}
+            style={style}
+            xmlns="http://www.w3.org/2000/svg"
+            fill="#fff"
+        >
             <use xlinkHref="#tip_arrow_white-99f4b53c" />
         </svg>
     );

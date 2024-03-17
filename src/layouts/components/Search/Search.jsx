@@ -23,8 +23,6 @@ function Search() {
             setSearchValue(searchValue);
 
             if (searchValue) {
-                console.log(searchValue);
-
                 setShowResult(true);
             } else {
                 setShowResult(false);

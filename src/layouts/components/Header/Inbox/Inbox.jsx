@@ -5,8 +5,8 @@ import classnames from 'classnames/bind';
 import styles from './Inbox.module.scss';
 import InboxItem from './InboxItem';
 import PopperWrapper from '~/components/Popper';
+import HeaderPopper from '~/components/Popper/Header';
 import Button from '~/components/Button';
-import { ArrowIcon } from '~/components/Icons';
 
 const cx = classnames.bind(styles);
 
@@ -16,18 +16,18 @@ function Inbox({ children, isShow, onHide }) {
             <HeadlessTippy
                 visible={isShow}
                 interactive
-                offset={[60, 4]}
+                offset={[64, 4]}
                 delay={[0, 200]}
                 placement="bottom-end"
                 render={(attrs) => {
                     return (
-                        <PopperWrapper className={cx('wrapper')} tabIndex={-1} {...attrs}>
-                            <div className={cx('header')}>
-                                <h6>Notifications</h6>
-                                <Button text className={cx('viewAllBtn')}>
-                                    Mark as read
-                                </Button>
-                            </div>
+                        <PopperWrapper
+                            className={cx('wrapper')}
+                            position={{ top: '-16px', right: '80px' }}
+                            tabIndex={-1}
+                            {...attrs}
+                        >
+                            <HeaderPopper title={'Notifications'} titleBtn={'Mark as read'} />
                             <div className={cx('content')}>
                                 <InboxItem
                                     data={{
@@ -44,7 +44,6 @@ function Inbox({ children, isShow, onHide }) {
                             <Button to={'/notifications'} className={cx('seeAll')}>
                                 See all notifications
                             </Button>
-                            <ArrowIcon className={cx('styledArrow')} />
                         </PopperWrapper>
                     );
                 }}

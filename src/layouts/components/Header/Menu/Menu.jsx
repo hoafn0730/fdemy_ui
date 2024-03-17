@@ -9,7 +9,7 @@ import MenuItem from './MenuItem';
 import PopperWrapper from '~/components/Popper';
 import { changeTheme } from '~/store/action/themeAction';
 import { useTheme } from '~/contexts/themeContext';
-import { ArrowIcon } from '~/components/Icons';
+import Image from '~/components/Image';
 
 const cx = classnames.bind(styles);
 
@@ -68,13 +68,31 @@ function Menu({ children, isLogin, items = [] }) {
             interactive
             placement="bottom-end"
             render={(attrs) => (
-                <PopperWrapper tabIndex={-1} {...attrs} className={cx('wrapper')}>
+                <PopperWrapper
+                    className={cx('wrapper')}
+                    position={{ top: '-16px', right: '28px' }}
+                    tabIndex={-1}
+                    {...attrs}
+                >
                     <div className={cx('list')}>
                         {history.length > 1 && <Header title={current.title} onBack={handleBack} />}
-                        {/* {isLogin && !(history.length > 1) && <span className={cx('user')}>hoafn.t</span>} */}
+                        {isLogin && !(history.length > 1) && (
+                            <div className={cx('user')}>
+                                <Image
+                                    src="http://localhost:3000/static/media/avatar.629fae61566dbce528a0.jpg"
+                                    alt=""
+                                    className={cx('avatar')}
+                                />
+                                <div className={cx('info')}>
+                                    <span className={cx('name')}>Hoàn Trần</span>
+                                    <div className={cx('username')}>
+                                        @<span>hoafn.t</span>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
                         <div className={cx('body')}>{renderItems()}</div>
                     </div>
-                    <ArrowIcon className={cx('styledArrow')} />
                 </PopperWrapper>
             )}
         >

@@ -4,7 +4,8 @@ import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCode, faEllipsisVertical, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faCode, faEllipsisVertical, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { useMediaQuery } from 'react-responsive';
 
 import styles from './Header.module.scss';
 import Search from '../Search';
@@ -67,6 +68,7 @@ function Header() {
     const [showPopper, setShowPopper] = useState({ inbox: false, myCourses: false });
     const firstClickRef = useRef({ inbox: false, myCourses: false });
     const username = 'hoafn0730';
+    const isTabletOrMobile = useMediaQuery({ query: '(min-width: 1224px)' });
 
     const userMenu = [
         {
@@ -134,9 +136,11 @@ function Header() {
                         <strong>CodeLearn</strong>
                     </Link>
 
-                    <Button text to={'/about'}>
-                        <div>Categories</div>
-                    </Button>
+                    {isTabletOrMobile && (
+                        <Button text to={'/about'}>
+                            <div>Categories</div>
+                        </Button>
+                    )}
                 </div>
 
                 <div className={cx('body')}>
@@ -146,13 +150,15 @@ function Header() {
                 <div className={cx('actions')}>
                     {isLogin ? (
                         <>
-                            <MyCourses isShow={showPopper.myCourses} onHide={handleHidePopper}>
-                                <Tippy delay={[0, 200]} disabled={showPopper.myCourses} content="My Courses">
-                                    <button id="my-courses" className={cx('btn-action')} onClick={handleShowPopper}>
-                                        <span>My Courses</span>
-                                    </button>
-                                </Tippy>
-                            </MyCourses>
+                            {isTabletOrMobile && (
+                                <MyCourses isShow={showPopper.myCourses} onHide={handleHidePopper}>
+                                    <Tippy delay={[0, 200]} disabled={showPopper.myCourses} content="My Courses">
+                                        <button id="my-courses" className={cx('btn-action')} onClick={handleShowPopper}>
+                                            <span>My Courses</span>
+                                        </button>
+                                    </Tippy>
+                                </MyCourses>
+                            )}
 
                             <Inbox isShow={showPopper.inbox} onHide={handleHidePopper}>
                                 <Tippy offset={[0, 3]} delay={[0, 200]} disabled={showPopper.inbox} content="Inbox">
@@ -168,17 +174,23 @@ function Header() {
                         </>
                     )}
 
-                    <Menu isLogin={isLogin} items={isLogin ? userMenu : MENU_ITEMS}>
-                        {isLogin ? (
-                            <button className={cx('btn-action')}>
-                                <Image className={cx('avatar')} src={images.avatar} alt="avatar" />
-                            </button>
-                        ) : (
-                            <button className={cx('btn-action')}>
-                                <FontAwesomeIcon icon={faEllipsisVertical} />
-                            </button>
-                        )}
-                    </Menu>
+                    {isTabletOrMobile ? (
+                        <Menu isLogin={isLogin} items={isLogin ? userMenu : MENU_ITEMS}>
+                            {isLogin ? (
+                                <button className={cx('btn-action')}>
+                                    <Image className={cx('avatar')} src={images.avatar} alt="avatar" />
+                                </button>
+                            ) : (
+                                <button className={cx('btn-action')}>
+                                    <FontAwesomeIcon icon={faEllipsisVertical} />
+                                </button>
+                            )}
+                        </Menu>
+                    ) : (
+                        <button className={cx('btn-action')}>
+                            <FontAwesomeIcon icon={faBars} />
+                        </button>
+                    )}
                 </div>
             </div>
         </header>

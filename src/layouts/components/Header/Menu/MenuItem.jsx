@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
 
-import styles from '../Menu.module.scss';
+import styles from './Menu.module.scss';
 import Button from '~/components/Button';
 import ToggleButton from '~/components/Button/ToggleButton';
 

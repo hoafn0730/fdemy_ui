@@ -8,6 +8,32 @@
     will-change: opacity, transform;
 }
 
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+
+    h6 {
+        font-size: 1.8rem;
+        font-weight: 500;
+    }
+
+    .btn-header {
+        font-size: 1.4rem;
+        padding: 8px;
+        min-width: auto;
+        color: var(--primary-color);
+    }
+}
+
+.styledArrow {
+    position: absolute;
+    border-width: 8px 8px;
+    border-style: solid;
+    border-color: transparent transparent #fff transparent;
+}
+
 @keyframes fadeIn {
     0% {
         opacity: 0;
