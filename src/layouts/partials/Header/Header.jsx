@@ -100,7 +100,7 @@ function Header() {
     ];
 
     const handleShowPopper = (e) => {
-        const { id } = e.target.closest('.Header_btn-action__DisSd');
+        const { id } = e.target.closest('button');
 
         if (id === 'my-courses') {
             firstClickRef.current.myCourses = !firstClickRef.current.myCourses;

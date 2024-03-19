@@ -1,9 +1,9 @@
 import classnames from 'classnames/bind';
+import { Link } from 'react-router-dom';
 
-import styles from '../Search.module.scss';
+import styles from './Search.module.scss';
 import Image from '~/components/Image';
 import images from '~/assets/images';
-import { Link } from 'react-router-dom';
 
 const cx = classnames.bind(styles);
 

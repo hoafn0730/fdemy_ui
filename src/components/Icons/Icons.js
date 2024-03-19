@@ -1,41 +1,3 @@
-export const MessageIcon = ({ className, width = '2.6rem', height = '2.6rem' }) => {
-    return (
-        <svg
-            className={className}
-            width={width}
-            height={height}
-            viewBox="0 0 48 48"
-            fill="currentColor"
-            xmlns="http://www.w3.org/2000/svg"
-        >
-            <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M2.17877 7.17357C2.50304 6.45894 3.21528 6 4.00003 6H44C44.713 6 45.372 6.37952 45.7299 6.99615C46.0877 7.61278 46.0902 8.37327 45.7365 8.99228L25.7365 43.9923C25.3423 44.6821 24.5772 45.0732 23.7872 44.9886C22.9972 44.9041 22.3321 44.3599 22.0929 43.6023L16.219 25.0017L2.49488 9.31701C1.97811 8.72642 1.85449 7.88819 2.17877 7.17357ZM20.377 24.8856L24.531 38.0397L40.5537 10H8.40757L18.3918 21.4106L30.1002 14.2054C30.5705 13.9159 31.1865 14.0626 31.4759 14.533L32.5241 16.2363C32.8136 16.7066 32.6669 17.3226 32.1966 17.612L20.377 24.8856Z"
-            />
-        </svg>
-    );
-};
-export const MessageActiveIcon = ({ className, width = '2.6rem', height = '2.6rem' }) => {
-    return (
-        <svg
-            className={className}
-            width={width}
-            height={height}
-            data-e2e
-            viewBox="0 0 48 48"
-            fill="currentColor"
-            xmlns="http://www.w3.org/2000/svg"
-        >
-            <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M45.7321 7.00001C45.3748 6.3812 44.7146 6 44 6H4.00004C3.20826 6 2.49103 6.4671 2.17085 7.19125C1.85068 7.9154 1.98785 8.76026 2.52068 9.34592L12.9607 20.8209C13.5137 21.4288 14.3824 21.6365 15.1506 21.3445L29.65 15.8336C29.8188 15.7694 29.8953 15.796 29.9287 15.8092C29.9872 15.8325 30.0709 15.8928 30.1366 16.0041C30.2023 16.1154 30.2147 16.2179 30.2068 16.2802C30.2023 16.3159 30.1885 16.3958 30.0509 16.5125L18.1464 26.6098C17.5329 27.1301 17.2908 27.9674 17.5321 28.7348L22.0921 43.2398C22.33 43.9967 22.9928 44.5413 23.7815 44.628C24.5701 44.7147 25.3354 44.3271 25.7321 43.64L45.7321 9.00002C46.0894 8.38122 46.0894 7.61882 45.7321 7.00001Z"
-            />
-        </svg>
-    );
-};
-
 export const InboxIcon = ({ className, width = '3.2rem', height = '3.2rem' }) => {
     return (
         <svg
@@ -75,6 +37,22 @@ export const InboxActiveIcon = ({ className, width = '3.2rem', height = '3.2rem'
     );
 };
 
+export const ArrowIcon = ({ className, style, width = '0.8rem', height = '0.8rem' }) => {
+    return (
+        <svg
+            width={width}
+            height={height}
+            className={className}
+            style={style}
+            xmlns="http://www.w3.org/2000/svg"
+            fill="#fff"
+        >
+            <use xlinkHref="#tip_arrow_white-99f4b53c" />
+        </svg>
+    );
+};
+
+// Menu Icons
 export const UserIcon = ({ className, width = '2rem', height = '2rem' }) => {
     return (
         <svg
@@ -94,7 +72,6 @@ export const UserIcon = ({ className, width = '2rem', height = '2rem' }) => {
         </svg>
     );
 };
-
 export const BookMarkIcon = ({ className, width = '2rem', height = '2rem' }) => {
     return (
         <svg
@@ -114,7 +91,6 @@ export const BookMarkIcon = ({ className, width = '2rem', height = '2rem' }) => 
         </svg>
     );
 };
-
 export const SettingIcon = ({ className, width = '2rem', height = '2rem' }) => {
     return (
         <svg
@@ -134,7 +110,6 @@ export const SettingIcon = ({ className, width = '2rem', height = '2rem' }) => {
         </svg>
     );
 };
-
 export const LanguageIcon = ({ className, width = '2rem', height = '2rem' }) => {
     return (
         <svg
@@ -154,7 +129,6 @@ export const LanguageIcon = ({ className, width = '2rem', height = '2rem' }) => 
         </svg>
     );
 };
-
 export const FeedBackIcon = ({ className, width = '2rem', height = '2rem' }) => {
     return (
         <svg
@@ -174,7 +148,6 @@ export const FeedBackIcon = ({ className, width = '2rem', height = '2rem' }) => 
         </svg>
     );
 };
-
 export const KeyBoardIcon = ({ className, width = '2rem', height = '2rem' }) => {
     return (
         <svg
@@ -194,7 +167,6 @@ export const KeyBoardIcon = ({ className, width = '2rem', height = '2rem' }) => 
         </svg>
     );
 };
-
 export const DarkModeIcon = ({ className, width = '2rem', height = '2rem' }) => {
     return (
         <svg
@@ -214,7 +186,6 @@ export const DarkModeIcon = ({ className, width = '2rem', height = '2rem' }) => 
         </svg>
     );
 };
-
 export const LogoutIcon = ({ className, width = '2rem', height = '2rem' }) => {
     return (
         <svg
@@ -235,17 +206,167 @@ export const LogoutIcon = ({ className, width = '2rem', height = '2rem' }) => {
     );
 };
 
-export const ArrowIcon = ({ className, style, width = '0.8rem', height = '0.8rem' }) => {
+// Sidebar Icons
+export const HomeIcon = ({ className, width = '3.2rem', height = '3.2rem' }) => {
     return (
         <svg
+            aria-label="Home"
             width={width}
             height={height}
             className={className}
-            style={style}
+            data-e2e
+            viewBox="0 0 48 48"
+            fill="currentColor"
             xmlns="http://www.w3.org/2000/svg"
-            fill="#fff"
         >
-            <use xlinkHref="#tip_arrow_white-99f4b53c" />
+            <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M23.0484 7.84003C23.6014 7.38666 24.3975 7.38666 24.9504 7.84001L41.051 21.04C41.5411 21.4418 41.7258 22.1082 41.5125 22.705C41.2991 23.3017 40.7338 23.7 40.1 23.7H37.769L36.5769 36.7278C36.4592 38.0149 35.3798 39 34.0873 39H13.9127C12.6202 39 11.5409 38.0149 11.4231 36.7278L10.231 23.7H7.89943C7.2657 23.7 6.70035 23.3017 6.487 22.705C6.27364 22.1083 6.45833 21.4418 6.9484 21.04L23.0484 7.84003ZM23.9995 10.9397L12.0948 20.7H12.969L14.369 36H22.4994V28.3138C22.4994 27.7616 22.9471 27.3138 23.4994 27.3138H24.4994C25.0517 27.3138 25.4994 27.7616 25.4994 28.3138V36H33.631L35.031 20.7H35.9045L23.9995 10.9397Z"
+            />
+        </svg>
+    );
+};
+export const HomeActiveIcon = ({ className, width = '3.2rem', height = '3.2rem' }) => {
+    return (
+        <svg
+            aria-label="Home"
+            width={width}
+            height={height}
+            className={className}
+            fill="currentColor"
+            data-e2e
+            viewBox="0 0 48 48"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M24.9505 7.84001C24.3975 7.38666 23.6014 7.38666 23.0485 7.84003L6.94846 21.04C6.45839 21.4418 6.2737 22.1083 6.48706 22.705C6.70041 23.3017 7.26576 23.7 7.89949 23.7H10.2311L11.4232 36.7278C11.5409 38.0149 12.6203 39 13.9128 39H21.5C22.0523 39 22.5 38.5523 22.5 38V28.3153C22.5 27.763 22.9477 27.3153 23.5 27.3153H24.5C25.0523 27.3153 25.5 27.763 25.5 28.3153V38C25.5 38.5523 25.9477 39 26.5 39H34.0874C35.3798 39 36.4592 38.0149 36.577 36.7278L37.7691 23.7H40.1001C40.7338 23.7 41.2992 23.3017 41.5125 22.705C41.7259 22.1082 41.5412 21.4418 41.0511 21.04L24.9505 7.84001Z"
+            />
+        </svg>
+    );
+};
+
+export const RoadMapIcon = ({ className, width = '2.4rem', height = '2.4rem' }) => {
+    return (
+        <svg
+            aria-label="Explore"
+            width={width}
+            height={height}
+            className={className}
+            fill="currentColor"
+            role="img"
+            viewBox="0 0 24 24"
+        >
+            <title>Explore</title>
+            <polygon
+                fill="none"
+                points="13.941 13.953 7.581 16.424 10.06 10.056 16.42 7.585 13.941 13.953"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+            />
+            <polygon fillRule="evenodd" points="10.06 10.056 13.949 13.945 7.581 16.424 10.06 10.056" />
+            <circle
+                cx="12.001"
+                cy="12.005"
+                fill="none"
+                r="10.5"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+            />
+        </svg>
+    );
+};
+export const RoadMapActiveIcon = ({ className, width = '2.4rem', height = '2.4rem' }) => {
+    return (
+        <svg
+            aria-label="Explore"
+            width={width}
+            height={height}
+            className={className}
+            fill="currentColor"
+            role="img"
+            viewBox="0 0 24 24"
+        >
+            <path d="m13.173 13.164 1.491-3.829-3.83 1.49ZM12.001.5a11.5 11.5 0 1 0 11.5 11.5A11.513 11.513 0 0 0 12.001.5Zm5.35 7.443-2.478 6.369a1 1 0 0 1-.57.569l-6.36 2.47a1 1 0 0 1-1.294-1.294l2.48-6.369a1 1 0 0 1 .57-.569l6.359-2.47a1 1 0 0 1 1.294 1.294Z" />
+        </svg>
+    );
+};
+
+export const BlogIcon = ({ className, width = '2.6rem', height = '2.6rem' }) => {
+    return (
+        <svg
+            aria-label="Blog"
+            width={width}
+            height={height}
+            className={className}
+            fill="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+        >
+            <g>
+                <path d="M3 4.5C3 3.12 4.12 2 5.5 2h13C19.88 2 21 3.12 21 4.5v15c0 1.38-1.12 2.5-2.5 2.5h-13C4.12 22 3 20.88 3 19.5v-15zM5.5 4c-.28 0-.5.22-.5.5v15c0 .28.22.5.5.5h13c.28 0 .5-.22.5-.5v-15c0-.28-.22-.5-.5-.5h-13zM16 10H8V8h8v2zm-8 2h8v2H8v-2z" />
+            </g>
+        </svg>
+    );
+};
+export const BlogActiveIcon = ({ className, width = '2.6rem', height = '2.6rem' }) => {
+    return (
+        <svg
+            aria-label="Blog"
+            width={width}
+            height={height}
+            className={className}
+            fill="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+        >
+            <g>
+                <path d="M18.5 2h-13C4.12 2 3 3.12 3 4.5v15C3 20.88 4.12 22 5.5 22h13c1.38 0 2.5-1.12 2.5-2.5v-15C21 3.12 19.88 2 18.5 2zM16 14H8v-2h8v2zm0-4H8V8h8v2z" />
+            </g>
+        </svg>
+    );
+};
+
+export const MessageIcon = ({ className, width = '2.6rem', height = '2.6rem' }) => {
+    return (
+        <svg
+            className={className}
+            width={width}
+            height={height}
+            viewBox="0 0 48 48"
+            fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M2.17877 7.17357C2.50304 6.45894 3.21528 6 4.00003 6H44C44.713 6 45.372 6.37952 45.7299 6.99615C46.0877 7.61278 46.0902 8.37327 45.7365 8.99228L25.7365 43.9923C25.3423 44.6821 24.5772 45.0732 23.7872 44.9886C22.9972 44.9041 22.3321 44.3599 22.0929 43.6023L16.219 25.0017L2.49488 9.31701C1.97811 8.72642 1.85449 7.88819 2.17877 7.17357ZM20.377 24.8856L24.531 38.0397L40.5537 10H8.40757L18.3918 21.4106L30.1002 14.2054C30.5705 13.9159 31.1865 14.0626 31.4759 14.533L32.5241 16.2363C32.8136 16.7066 32.6669 17.3226 32.1966 17.612L20.377 24.8856Z"
+            />
+        </svg>
+    );
+};
+export const MessageActiveIcon = ({ className, width = '2.6rem', height = '2.6rem' }) => {
+    return (
+        <svg
+            className={className}
+            width={width}
+            height={height}
+            data-e2e
+            viewBox="0 0 48 48"
+            fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M45.7321 7.00001C45.3748 6.3812 44.7146 6 44 6H4.00004C3.20826 6 2.49103 6.4671 2.17085 7.19125C1.85068 7.9154 1.98785 8.76026 2.52068 9.34592L12.9607 20.8209C13.5137 21.4288 14.3824 21.6365 15.1506 21.3445L29.65 15.8336C29.8188 15.7694 29.8953 15.796 29.9287 15.8092C29.9872 15.8325 30.0709 15.8928 30.1366 16.0041C30.2023 16.1154 30.2147 16.2179 30.2068 16.2802C30.2023 16.3159 30.1885 16.3958 30.0509 16.5125L18.1464 26.6098C17.5329 27.1301 17.2908 27.9674 17.5321 28.7348L22.0921 43.2398C22.33 43.9967 22.9928 44.5413 23.7815 44.628C24.5701 44.7147 25.3354 44.3271 25.7321 43.64L45.7321 9.00002C46.0894 8.38122 46.0894 7.61882 45.7321 7.00001Z"
+            />
         </svg>
     );
 };
