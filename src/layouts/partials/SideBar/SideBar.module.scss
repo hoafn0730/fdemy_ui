@@ -1,5 +1,5 @@
 .wrapper {
-    --width: 100px;
+    --width: 96px;
     position: -webkit-sticky;
     position: sticky;
     top: var(--default-layout-header-height);
@@ -28,8 +28,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 76px;
-    height: 76px;
+    width: 72px;
+    height: 72px;
     background-color: var(--white-color);
     border-radius: 16px;
     margin-top: 4px;

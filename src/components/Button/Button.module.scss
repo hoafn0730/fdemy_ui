@@ -10,7 +10,7 @@
     font-family: var(--font-family);
     background-color: var(--white-color);
     border-radius: 8px;
-    border: 1px solid transparent;
+    border: 2px solid transparent;
     cursor: pointer;
     user-select: none;
 }
@@ -35,6 +35,16 @@
     &:hover {
         text-decoration: underline;
     }
+}
+
+.outline {
+    color: var(--white-color);
+    border-color: currentColor;
+    background-color: transparent;
+}
+
+.rounded {
+    border-radius: 20px;
 }
 
 // Toggle button

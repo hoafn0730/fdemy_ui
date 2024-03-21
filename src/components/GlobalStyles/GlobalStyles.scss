@@ -96,3 +96,36 @@ body {
         top: -8px;
     }
 }
+
+// Custom slick slider
+body .slick-dots {
+    bottom: -38px;
+    left: 40px;
+    text-align: left;
+}
+
+body .slick-dots li,
+body .slick-dots li button {
+    width: 32px;
+}
+
+body .slick-dots li.slick-active,
+body .slick-dots li.slick-active button {
+    width: 50px;
+}
+
+body .slick-dots li button:before {
+    background-color: #dce0e3;
+    border-radius: 4px;
+    content: '';
+    height: 8px;
+    margin-right: 10px;
+    opacity: 1;
+    transition: width 0.3s linear, background-color 0.3s linear;
+    width: 32px;
+}
+
+body .slick-dots li.slick-active button:before {
+    background-color: #9aa6af;
+    width: 50px;
+}
