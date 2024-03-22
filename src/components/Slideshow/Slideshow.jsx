@@ -14,6 +14,10 @@ const BANNER_ITEMS = [
         linkTo: '/',
         ctaTitle: 'ĐĂNG KÝ NGAY',
         image: 'https://files.fullstack.edu.vn/f8-prod/banners/Banner_web_ReactJS.png',
+        style: {
+            '--cta-hover-color': '#2877FA',
+            background: 'linear-gradient(to right, rgb(40, 119, 250), rgb(103, 23, 205))',
+        },
     },
     {
         title: 'Học ReactJS Miễn Phí!',
@@ -21,6 +25,10 @@ const BANNER_ITEMS = [
         linkTo: '/',
         ctaTitle: 'ĐĂNG KÝ NGAY',
         image: 'https://files.fullstack.edu.vn/f8-prod/banners/Banner_web_ReactJS.png',
+        style: {
+            '--cta-hover-color': '#FD225C',
+            background: 'linear-gradient(to right, rgb(253, 34, 92), rgb(253, 144, 4))',
+        },
     },
 ];
 
@@ -43,15 +51,21 @@ function Slideshow() {
     return (
         <div className={cx('wrapper')}>
             <Slider {...settings}>
-                {BANNER_ITEMS.map((item) => (
-                    <SlideItem
-                        title={item.title}
-                        desc={item.desc}
-                        linkTo={item.linkTo}
-                        ctaTitle={item.ctaTitle}
-                        image={item.image}
-                    />
-                ))}
+                {BANNER_ITEMS.map((item, index) => {
+                    console.log(item.style);
+
+                    return (
+                        <SlideItem
+                            key={index}
+                            title={item.title}
+                            desc={item.desc}
+                            linkTo={item.linkTo}
+                            ctaTitle={item.ctaTitle}
+                            image={item.image}
+                            styles={item.style}
+                        />
+                    );
+                })}
             </Slider>
         </div>
     );

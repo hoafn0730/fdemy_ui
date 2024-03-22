@@ -1,5 +1,5 @@
 @import 'normalize.css';
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
 
 :root {
     --primary-color: #fe2c55;
@@ -98,6 +98,11 @@ body {
 }
 
 // Custom slick slider
+body .slick-list {
+    border-radius: 16px;
+    overflow: hidden;
+}
+
 body .slick-dots {
     bottom: -38px;
     left: 40px;

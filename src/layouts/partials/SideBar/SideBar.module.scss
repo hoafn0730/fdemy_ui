@@ -28,6 +28,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    color: #404040;
     width: 72px;
     height: 72px;
     background-color: var(--white-color);
@@ -36,7 +37,8 @@
     transition: all ease-in-out 0.3s;
 
     &.active {
-        background-color: var(--hover-color);
+        background-color: #e8ebed;
+        color: #1a1a1a;
 
         .title {
             font-weight: 600;
@@ -70,7 +72,7 @@
 }
 
 .title {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     font-weight: 500;
     margin-top: 2px;
 }

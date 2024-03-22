@@ -7,15 +7,11 @@ import Button from '../Button';
 
 const cx = classnames.bind(styles);
 
-function SlideItem({ title, desc, ctaTitle, linkTo, image }) {
+function SlideItem({ title, desc, ctaTitle, linkTo, image, styles }) {
+    console.log(styles);
+
     return (
-        <div
-            className={cx('item')}
-            style={{
-                '--cta-hover-color': '#2877FA',
-                background: 'linear-gradient(to right, rgb(40, 119, 250), rgb(103, 23, 205))',
-            }}
-        >
+        <div className={cx('item')} style={styles}>
             <div className={cx('left')}>
                 <h2 className={cx('heading')}>
                     <Link to={linkTo}>{title}</Link>
