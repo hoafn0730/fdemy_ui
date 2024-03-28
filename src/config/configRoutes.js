@@ -1,6 +1,7 @@
 const routes = {
     home: '/',
     about: '/about',
+    detail: '/courses/:slug',
     roadMap: '/road-map',
     blog: '/blogs',
     message: '/messages',

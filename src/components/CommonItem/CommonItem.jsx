@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import styles from './CommonItem.module.scss';
 import Button from '../Button';
 import Image from '../Image';
-import IndexModule from '../index-module';
+import IndexModule from '../IndexModule';
 
 const cx = classnames.bind(styles);
 

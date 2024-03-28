@@ -3,15 +3,21 @@ import { Fragment, useEffect } from 'react';
 
 import { DefaultLayout } from '~/layouts';
 import { publicRoutes } from '~/routes';
-import { useTheme } from './contexts/themeContext';
 import useLocalStorage from './hooks/useLocalStorage';
 import { changeTheme } from './store/action/themeAction';
+import Preview from './components/Preview';
+import { useTheme } from './contexts/themeContext';
+import { usePreview } from './contexts/previewContext';
 
 function App() {
     const {
         state: { isDarkMode },
         dispatch,
     } = useTheme();
+    const {
+        state: { isOpen },
+    } = usePreview();
+
     const [theme, setTheme] = useLocalStorage('theme');
 
     useEffect(() => {
@@ -55,6 +61,7 @@ function App() {
                         );
                     })}
                 </Routes>
+                {isOpen && <Preview />}
             </div>
         </Router>
     );

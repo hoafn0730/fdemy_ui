@@ -1,7 +1,7 @@
 import classnames from 'classnames/bind';
 
 import styles from './Footer.module.scss';
-import IndexModule from '~/components/index-module';
+import IndexModule from '~/components/IndexModule';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCode } from '@fortawesome/free-solid-svg-icons';
 import { faFacebook, faInstagram, faLinkedin } from '@fortawesome/free-brands-svg-icons';

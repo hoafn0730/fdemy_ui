@@ -8,8 +8,6 @@ import Button from '../Button';
 const cx = classnames.bind(styles);
 
 function SlideItem({ title, desc, ctaTitle, linkTo, image, styles }) {
-    console.log(styles);
-
     return (
         <div className={cx('item')} style={styles}>
             <div className={cx('left')}>

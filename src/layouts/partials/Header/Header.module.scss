@@ -54,9 +54,14 @@
     font-size: 2rem;
     padding: 8px;
     margin-left: 6px;
+    text-align: center;
     background-color: transparent;
     cursor: pointer;
     user-select: none;
+
+    svg {
+        min-width: 30px;
+    }
 
     span {
         font-size: 1.6rem;
@@ -64,5 +69,27 @@
 
     span.active {
         font-weight: 700;
+    }
+}
+
+.btn-back {
+    display: flex;
+    align-items: center;
+    background-color: var(--white-color);
+    margin-left: 16px;
+    font-size: 1.4rem;
+    color: #808990;
+    transition: all ease 0.3s;
+    text-transform: uppercase;
+    cursor: pointer;
+
+    & svg {
+        font-size: 1.4rem;
+        transition: 0.3s ease;
+        margin-right: 4px;
+    }
+
+    &:hover svg {
+        transform: translateX(-4px);
     }
 }

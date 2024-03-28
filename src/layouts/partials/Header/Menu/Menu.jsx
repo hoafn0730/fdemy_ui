@@ -13,7 +13,7 @@ import Image from '~/components/Image';
 
 const cx = classnames.bind(styles);
 
-function Menu({ children, isLogin, items = [] }) {
+function Menu({ children, isShow, isLogin, items = [], onHide }) {
     const [history, setHistory] = useState([{ data: items }]);
     const current = history[history.length - 1];
     const {
@@ -63,6 +63,7 @@ function Menu({ children, isLogin, items = [] }) {
 
     return (
         <HeadlessTippy
+            visible={isShow}
             delay={[0, 200]}
             offset={[13, 4]}
             interactive
@@ -95,6 +96,7 @@ function Menu({ children, isLogin, items = [] }) {
                     </div>
                 </PopperWrapper>
             )}
+            onClickOutside={onHide}
         >
             {children}
         </HeadlessTippy>

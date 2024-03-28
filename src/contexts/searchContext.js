@@ -19,9 +19,9 @@ function SearchProvider({ children }) {
     );
 }
 
-const useSearchContext = () => {
+const useSearch = () => {
     return useContext(SearchContext);
 };
-export { SearchProvider, useSearchContext };
+export { SearchProvider, useSearch };
 
 export default SearchContext;

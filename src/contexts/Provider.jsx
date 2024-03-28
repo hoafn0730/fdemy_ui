@@ -2,11 +2,14 @@ import PropTypes from 'prop-types';
 
 import { SearchProvider } from '~/contexts/searchContext';
 import { ThemeProvider } from '~/contexts/themeContext';
+import { PreviewProvider } from '~/contexts/previewContext';
 
 function Provider({ children }) {
     return (
         <SearchProvider>
-            <ThemeProvider>{children}</ThemeProvider>
+            <ThemeProvider>
+                <PreviewProvider>{children}</PreviewProvider>
+            </ThemeProvider>
         </SearchProvider>
     );
 }

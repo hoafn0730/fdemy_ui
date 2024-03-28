@@ -2,7 +2,7 @@ import classnames from 'classnames/bind';
 import PropTypes from 'prop-types';
 
 import styles from './ScrollList.module.scss';
-import IndexModule from '../index-module';
+import IndexModule from '../IndexModule';
 
 const cx = classnames.bind(styles);
 

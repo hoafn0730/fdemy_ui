@@ -1,4 +1,5 @@
 import classnames from 'classnames/bind';
+import { useMediaQuery } from 'react-responsive';
 
 import styles from './DefaultLayout.module.scss';
 import Header from '../partials/Header';
@@ -8,13 +9,16 @@ import Footer from '../partials/Footer';
 const cx = classnames.bind(styles);
 
 function DefaultLayout({ children }) {
+    const isTabletOrMobile = useMediaQuery({ query: '(min-width: 1224px)' });
     return (
         <div className={cx('wrapper')}>
             <Header />
             <main className={cx('container')}>
-                <div className={cx('sidebar')}>
-                    <SideBar />
-                </div>
+                {isTabletOrMobile && (
+                    <div className={cx('sidebar')}>
+                        <SideBar />
+                    </div>
+                )}
                 <div className={cx('content')}>{children}</div>
             </main>
             <Footer />

@@ -2,9 +2,9 @@ import { useRef, useState } from 'react';
 import classnames from 'classnames/bind';
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faCode, faEllipsisVertical, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { faAngleLeft, faBars, faCode, faEllipsisVertical, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { useMediaQuery } from 'react-responsive';
 
 import styles from './Header.module.scss';
@@ -65,10 +65,12 @@ const MENU_ITEMS = [
 
 function Header() {
     const [isLogin] = useState(true);
-    const [showPopper, setShowPopper] = useState({ inbox: false, myCourses: false });
+    const [showPopper, setShowPopper] = useState({ inbox: false, myCourses: false, menu: false });
     const firstClickRef = useRef({ inbox: false, myCourses: false });
     const username = 'hoafn0730';
     const isTabletOrMobile = useMediaQuery({ query: '(min-width: 1224px)' });
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const userMenu = [
         {
@@ -116,6 +118,13 @@ function Header() {
             } else {
                 setShowPopper({ inbox: false });
             }
+        } else if (id === 'menu') {
+            firstClickRef.current.menu = !firstClickRef.current.menu;
+            if (firstClickRef.current.menu) {
+                setShowPopper({ menu: true });
+            } else {
+                setShowPopper({ menu: false });
+            }
         }
     };
 
@@ -123,8 +132,9 @@ function Header() {
         firstClickRef.current = {
             myCourses: false,
             inbox: false,
+            menu: false,
         };
-        setShowPopper({ inbox: false, myCourses: false });
+        setShowPopper({ inbox: false, myCourses: false, menu: false });
     };
 
     return (
@@ -137,9 +147,25 @@ function Header() {
                     </Link>
 
                     {isTabletOrMobile && (
-                        <Button text to={'/about'}>
-                            <div>Categories</div>
-                        </Button>
+                        <>
+                            {location.pathname === '/' ? (
+                                <Button to={'/about'}>Categories</Button>
+                            ) : (
+                                <button
+                                    className={cx('btn-back')}
+                                    onClick={() => {
+                                        if (['/road-map', '/blogs', '/messages'].includes(location.pathname)) {
+                                            navigate('/');
+                                        } else {
+                                            navigate(-1);
+                                        }
+                                    }}
+                                >
+                                    <FontAwesomeIcon icon={faAngleLeft} />
+                                    <span>Back</span>
+                                </button>
+                            )}
+                        </>
                     )}
                 </div>
 
@@ -175,13 +201,18 @@ function Header() {
                     )}
 
                     {isTabletOrMobile ? (
-                        <Menu isLogin={isLogin} items={isLogin ? userMenu : MENU_ITEMS}>
+                        <Menu
+                            isShow={showPopper.menu}
+                            isLogin={isLogin}
+                            items={isLogin ? userMenu : MENU_ITEMS}
+                            onHide={handleHidePopper}
+                        >
                             {isLogin ? (
-                                <button className={cx('btn-action')}>
+                                <button id="menu" className={cx('btn-action')} onClick={handleShowPopper}>
                                     <Image className={cx('avatar')} src={images.avatar} alt="avatar" />
                                 </button>
                             ) : (
-                                <button className={cx('btn-action')}>
+                                <button id="menu" className={cx('btn-action')} onClick={handleShowPopper}>
                                     <FontAwesomeIcon icon={faEllipsisVertical} />
                                 </button>
                             )}
