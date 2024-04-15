@@ -83,7 +83,7 @@ function CourseDetail() {
                             <p>Xem giới thiệu khóa học</p>
                         </div>
                         <h5>Miễn phí</h5>
-                        <Button primary className={cx('learnNow')}>
+                        <Button to={'/watch'} primary className={cx('learnNow')}>
                             Đăng ký học
                         </Button>
                         <ul>

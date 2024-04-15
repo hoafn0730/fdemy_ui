@@ -37,7 +37,7 @@
     transition: all ease-in-out 0.3s;
 
     &.active {
-        background-color: #e8ebed;
+        background-color: var(--hover-color);
         color: #1a1a1a;
 
         .title {

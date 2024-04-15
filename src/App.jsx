@@ -3,11 +3,12 @@ import { Fragment, useEffect } from 'react';
 
 import { DefaultLayout } from '~/layouts';
 import { publicRoutes } from '~/routes';
-import useLocalStorage from './hooks/useLocalStorage';
-import { changeTheme } from './store/action/themeAction';
-import Preview from './components/Preview';
-import { useTheme } from './contexts/themeContext';
-import { usePreview } from './contexts/previewContext';
+import useLocalStorage from '~/hooks/useLocalStorage';
+import { changeTheme } from '~/store/action/themeAction';
+import { useTheme } from '~/contexts/themeContext';
+import { usePreview } from '~/contexts/previewContext';
+import Preview from '~/components/Preview';
+import NotFound from '~/pages/NotFound';
 
 function App() {
     const {
@@ -57,9 +58,17 @@ function App() {
                                         <Page />
                                     </Layout>
                                 }
-                            />
+                            >
+                                {route.children &&
+                                    route.children.map((routeChild, index) => {
+                                        const PageChild = routeChild.component;
+                                        return <Route key={index} path={routeChild.path} element={<PageChild />} />;
+                                    })}
+                            </Route>
                         );
                     })}
+
+                    <Route path={'*'} element={NotFound} />
                 </Routes>
                 {isOpen && <Preview />}
             </div>

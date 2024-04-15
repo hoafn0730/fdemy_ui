@@ -47,13 +47,19 @@
 }
 
 .outline {
-    color: var(--white-color);
+    color: var(--primary-color);
     border-color: currentColor;
     background-color: transparent;
 }
 
 .rounded {
     border-radius: 20px;
+}
+
+.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: default;
 }
 
 // Toggle button

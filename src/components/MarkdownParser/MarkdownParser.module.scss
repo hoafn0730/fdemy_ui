@@ -1,0 +1,24 @@
+.wrapper {
+    word-wrap: break-word;
+    color: #292929;
+    font-size: 1.8rem;
+    font-size: var(--font-size, 1.8rem);
+    line-height: 2;
+    line-height: var(--line-height, 2);
+
+    blockquote {
+        border-left: 3px solid var(--primary-color);
+        color: #757575;
+        margin-left: 0;
+        padding: 0 0 2px 20px;
+    }
+
+    a[href] {
+        color: var(--primary-color);
+        text-decoration: underline;
+    }
+
+    .MarkdownParser_wrapper__JYN63 p {
+        margin: 6px 0;
+    }
+}

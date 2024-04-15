@@ -17,6 +17,7 @@ function Button({
     rounded,
     disabled,
     leftIcon,
+    rightIcon,
     onClick,
     ...passProps
 }) {
@@ -56,6 +57,7 @@ function Button({
         <Comp className={classes} {...props}>
             {leftIcon && <span className={cx('icon')}>{leftIcon}</span>}
             <span className={cx('title')}> {children}</span>
+            {rightIcon && <span className={cx('icon')}>{rightIcon}</span>}
         </Comp>
     );
 }
@@ -71,6 +73,7 @@ Button.propTypes = {
     rounded: PropTypes.bool,
     disabled: PropTypes.bool,
     leftIcon: PropTypes.node,
+    rightIcon: PropTypes.node,
     onClick: PropTypes.func,
 };
 
