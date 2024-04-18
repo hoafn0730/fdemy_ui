@@ -5,11 +5,17 @@ import styles from './Heading.module.scss';
 
 const cx = classnames.bind(styles);
 
-function Heading({ title, updatedAt }) {
+function Heading({ title, updatedAt, className }) {
     return (
         <div className={cx('wrapper')}>
-            <h1 className={cx('heading')}>{title}</h1>
-            <p className={cx('updated')}>Cập nhật {updatedAt}</p>
+            <h1
+                className={cx('heading', {
+                    [className]: className,
+                })}
+            >
+                {title}
+            </h1>
+            {updatedAt && <p className={cx('updated')}>Cập nhật {updatedAt}</p>}
         </div>
     );
 }

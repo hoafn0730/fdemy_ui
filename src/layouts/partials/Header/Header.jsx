@@ -69,6 +69,7 @@ function Header() {
     const firstClickRef = useRef({ inbox: false, myCourses: false });
     const username = 'hoafn0730';
     const isTabletOrMobile = useMediaQuery({ query: '(min-width: 1224px)' });
+    const isMobile = useMediaQuery({ query: '(min-width: 630px)' });
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -169,9 +170,11 @@ function Header() {
                     )}
                 </div>
 
-                <div className={cx('body')}>
-                    <Search />
-                </div>
+                {isMobile && (
+                    <div className={cx('body')}>
+                        <Search />
+                    </div>
+                )}
 
                 <div className={cx('actions')}>
                     {isLogin ? (

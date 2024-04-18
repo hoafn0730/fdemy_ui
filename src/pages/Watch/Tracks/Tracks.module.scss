@@ -44,6 +44,7 @@
     list-style: none;
     overflow-y: auto;
     overscroll-behavior: contain;
+    padding-bottom: 8px;
 }
 
 // trackItem
@@ -57,6 +58,10 @@
 
     &:hover {
         background-color: rgba(22, 24, 35, 0.05);
+    }
+
+    &.active {
+        // background-color: #ffcda9;
     }
 }
 

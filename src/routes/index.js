@@ -1,18 +1,19 @@
 import config from '~/config';
 import HeaderOnly from '~/layouts/HeaderOnly';
 
-import About from '~/pages/About';
-import Blog from '~/pages/Blog';
-import CourseDetail from '~/pages/CourseDetail';
 import Home from '~/pages/Home';
-import Message from '~/pages/Message';
-import NotFound from '~/pages/NotFound';
-import Profile from '~/pages/Profile';
-import RoadMap from '~/pages/RoadMap';
-import Personal from '~/pages/Setting/Personal/Personal';
-import Security from '~/pages/Setting/Security';
-import Setting from '~/pages/Setting/Setting';
+import CourseDetail from '~/pages/CourseDetail';
 import Watch from '~/pages/Watch';
+import Blog from '~/pages/Blog';
+import About from '~/pages/About';
+import RoadMap from '~/pages/RoadMap';
+import Message from '~/pages/Message';
+import Profile from '~/pages/Profile';
+import Setting from '~/pages/Setting';
+import Personal from '~/pages/Setting/Personal';
+import Security from '~/pages/Setting/Security';
+import NotFound from '~/pages/NotFound';
+import BlogDetail from '~/pages/BlogDetail';
 
 const publicRoutes = [
     { path: config.routes.home, component: Home },
@@ -21,6 +22,7 @@ const publicRoutes = [
     { path: config.routes.watch, component: Watch, layout: null },
     { path: config.routes.roadMap, component: RoadMap },
     { path: config.routes.blog, component: Blog },
+    { path: config.routes.blogDetail, component: BlogDetail },
     { path: config.routes.message, component: Message },
     { path: config.routes.profile, component: Profile, layout: HeaderOnly },
     {

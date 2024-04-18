@@ -1,11 +1,11 @@
 import classnames from 'classnames/bind';
+import { useState } from 'react';
 
 import styles from './Watch.module.scss';
 import Header from './Header';
 import Video from './Video';
 import Tracks from './Tracks';
 import ActionBar from '~/components/ActionBar';
-import { useState } from 'react';
 
 const cx = classnames.bind(styles);
 
@@ -15,6 +15,7 @@ function Watch() {
     const handleShowTracks = () => {
         setIsShowTracks((prev) => !prev);
     };
+
     return (
         <div className={cx('wrapper')}>
             <Header />

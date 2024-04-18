@@ -14,11 +14,18 @@
 }
 
 .body {
-    background-color: #fff;
-    border-radius: 16px;
+    background-color: transparent;
+    overflow: hidden;
     color: var(--white-color);
-    margin: 2vh 0;
     padding: 12px 28px 28px;
     position: relative;
     width: 100%;
+}
+
+.closeBtn {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    cursor: pointer;
+    font-size: 3.2rem;
 }

@@ -1,5 +1,11 @@
+import Heading from '~/components/Heading';
+
 function RoadMap() {
-    return <h1>RoadMap</h1>;
+    return (
+        <div>
+            <Heading title="Road Map" />
+        </div>
+    );
 }
 
 export default RoadMap;

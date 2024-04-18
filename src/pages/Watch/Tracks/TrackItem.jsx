@@ -6,7 +6,11 @@ const cx = classnames.bind(styles);
 
 function TrackItem({ title, image, index }) {
     return (
-        <div className={cx('item')}>
+        <div
+            className={cx('item', {
+                active: true,
+            })}
+        >
             <span className={cx('index')}>{index}</span>
             <a href="watch-course.html" className={cx('link')}>
                 <img src={image} alt={title} className={cx('thumb')} />

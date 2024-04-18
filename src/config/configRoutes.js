@@ -5,6 +5,7 @@ const routes = {
     watch: '/watch',
     roadMap: '/road-map',
     blog: '/blogs',
+    blogDetail: '/blogs/:slug',
     message: '/messages',
     setting: '/settings',
     profile: '/:username',
