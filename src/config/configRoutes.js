@@ -4,6 +4,7 @@ const routes = {
     detail: '/courses/:slug',
     watch: '/watch',
     roadMap: '/road-map',
+    roadMapDetail: '/road-map/:slug',
     blog: '/blogs',
     blogDetail: '/blogs/:slug',
     message: '/messages',

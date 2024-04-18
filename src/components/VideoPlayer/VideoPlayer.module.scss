@@ -24,9 +24,9 @@
     color: var(--white-color);
     position: absolute;
     font-size: 1.8rem;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 40%;
+    left: 44%;
+    transform: translate(-50%, -50%) scale(0.2);
     padding: 12px 20px;
     border-radius: 50%;
     background-color: #0000009e;
@@ -42,10 +42,10 @@
     }
     80% {
         opacity: 0;
-        transform: scale(1.2);
+        transform: scale(1.4);
     }
     100% {
         opacity: 0;
-        transform: scale(2.2);
+        transform: scale(2.4);
     }
 }

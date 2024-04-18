@@ -13,7 +13,7 @@ const cx = classnames.bind(styles);
 
 function PostItem({}) {
     const image = images.anh1;
-    const video = '';
+    const video = 'dsfd';
 
     return (
         <div className={cx('wrapper')}>

@@ -2,19 +2,26 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
 
 import styles from './Heading.module.scss';
+import MarkdownParser from '../MarkdownParser';
 
 const cx = classnames.bind(styles);
 
-function Heading({ title, updatedAt, className }) {
+function Heading({ title, desc, updatedAt, className }) {
     return (
-        <div className={cx('wrapper')}>
-            <h1
-                className={cx('heading', {
-                    [className]: className,
-                })}
-            >
-                {title}
-            </h1>
+        <div
+            className={cx('wrapper', {
+                [className]: className,
+            })}
+        >
+            <h1 className={cx('heading')}>{title}</h1>
+
+            {desc && (
+                <MarkdownParser
+                    className={cx('desc')}
+                    style={{ '--font-size': '1.6rem', '--line-height': '1.6' }}
+                    content={desc}
+                />
+            )}
             {updatedAt && <p className={cx('updated')}>Cập nhật {updatedAt}</p>}
         </div>
     );
@@ -22,7 +29,9 @@ function Heading({ title, updatedAt, className }) {
 
 Heading.propTypes = {
     title: PropTypes.string.isRequired,
+    desc: PropTypes.string,
     updatedAt: PropTypes.string,
+    className: PropTypes.string,
 };
 
 export default Heading;
