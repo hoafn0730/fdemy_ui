@@ -7,9 +7,10 @@ const routes = {
     roadMapDetail: '/road-map/:slug',
     blog: '/blogs',
     blogDetail: '/blogs/:slug',
-    message: '/messages',
-    setting: '/settings',
     profile: '/:username',
+    setting: { path: '/settings', personal: 'personal', security: 'security' },
+    message: '/messages',
+    post: { path: '/me/posts', drafts: 'drafts', published: 'published' },
     bookmark: '/bookmarks',
     notFound: '/not-found',
 };

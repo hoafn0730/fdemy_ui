@@ -83,12 +83,12 @@ function Header() {
         {
             title: 'Bookmarks',
             icon: <BookMarkIcon />,
-            to: '/bookmarks',
+            to: '/me/bookmarks',
         },
         {
-            title: 'Blogs',
+            title: 'Posts',
             icon: <FontAwesomeIcon icon={faPenToSquare} />,
-            to: '/blogs',
+            to: '/me/posts/drafts',
         },
         {
             title: 'Settings',

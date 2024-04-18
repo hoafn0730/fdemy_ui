@@ -8,7 +8,7 @@ import IndexModule from '../IndexModule';
 
 const cx = classnames.bind(styles);
 
-function CommonItem({ className, linkTo, title, image, ctaTitle, additional }) {
+function CommonItem({ children, className, linkTo, title, image, ctaTitle }) {
     return (
         <IndexModule className={cx('col', 'l-3', 'm-4', 'c-12')}>
             <div className={cx('wrapper', className)}>
@@ -19,7 +19,7 @@ function CommonItem({ className, linkTo, title, image, ctaTitle, additional }) {
                 <h3 className={cx('title')}>
                     <Link to={linkTo}>{title}</Link>
                 </h3>
-                {additional}
+                {children}
             </div>
         </IndexModule>
     );
