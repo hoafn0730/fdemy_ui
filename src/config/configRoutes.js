@@ -1,6 +1,6 @@
 const routes = {
     home: '/',
-    about: '/about',
+    search: '/search',
     detail: '/courses/:slug',
     watch: '/watch',
     roadMap: '/road-map',

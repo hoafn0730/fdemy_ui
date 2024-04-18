@@ -9,9 +9,11 @@ function Header({ title, titleBtn, to, onClick }) {
     return (
         <div className={cx('header')}>
             <h6>{title}</h6>
-            <Button text to={to} className={cx('btn-header')} onClick={onClick}>
-                {titleBtn}
-            </Button>
+            {titleBtn && (
+                <Button text to={to} className={cx('btn-header')} onClick={onClick}>
+                    {titleBtn}
+                </Button>
+            )}
         </div>
     );
 }

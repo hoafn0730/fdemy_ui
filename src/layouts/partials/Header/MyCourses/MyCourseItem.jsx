@@ -3,6 +3,7 @@ import classnames from 'classnames/bind';
 
 import styles from './MyCourses.module.scss';
 import Image from '~/components/Image';
+import { Link } from 'react-router-dom';
 
 const cx = classnames.bind(styles);
 
@@ -11,7 +12,7 @@ function MyCourseItem() {
 
     return (
         <div className={cx('course-item')}>
-            <a href="/" className={cx('course-link')}>
+            <Link to="/" className={cx('course-link')}>
                 <Image
                     src="https://files.fullstack.edu.vn/f8-prod/courses/13/13.png"
                     alt=""
@@ -28,7 +29,7 @@ function MyCourseItem() {
                         <div className={cx('VerticalProgressBar')} style={{ '--progress': '30%' }} />
                     </Tippy>
                 </div>
-            </a>
+            </Link>
         </div>
     );
 }

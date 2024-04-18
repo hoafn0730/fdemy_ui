@@ -8,7 +8,7 @@ import Blog from '~/pages/Blog';
 import BlogDetail from '~/pages/BlogDetail';
 import RoadMap from '~/pages/RoadMap';
 import RoadMapDetail from '~/pages/RoadMapDetail';
-import About from '~/pages/About';
+import Search from '~/pages/Search/Search';
 import Message from '~/pages/Message';
 import Profile from '~/pages/Profile';
 import Setting from '~/pages/Setting';
@@ -18,7 +18,7 @@ import NotFound from '~/pages/NotFound';
 
 const publicRoutes = [
     { path: config.routes.home, component: Home },
-    { path: config.routes.about, component: About },
+    { path: config.routes.search, component: Search, layout: HeaderOnly },
     { path: config.routes.detail, component: CourseDetail },
     { path: config.routes.watch, component: Watch, layout: null },
     { path: config.routes.roadMap, component: RoadMap },

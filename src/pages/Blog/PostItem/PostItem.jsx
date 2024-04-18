@@ -12,7 +12,7 @@ import { Link } from 'react-router-dom';
 const cx = classnames.bind(styles);
 
 function PostItem({}) {
-    const image = images.anh1;
+    const image = '';
     const video = 'dsfd';
 
     return (
@@ -56,7 +56,7 @@ function PostItem({}) {
                         #reactjs
                     </Link>
                 </div>
-                {(image || video) && <Presentation imageUrl={image} />}
+                {(image || video) && <Presentation imageUrl={image} videoUrl />}
             </div>
 
             <div className={cx('footer')}>

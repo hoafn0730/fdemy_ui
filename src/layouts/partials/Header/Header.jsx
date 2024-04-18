@@ -9,9 +9,10 @@ import { useMediaQuery } from 'react-responsive';
 
 import styles from './Header.module.scss';
 import Search from '../Search';
-import Menu from './Menu';
-import Inbox from './Inbox';
+import Category from './Category';
 import MyCourses from './MyCourses';
+import Inbox from './Inbox';
+import Menu from './Menu';
 import config from '~/config';
 import images from '~/assets/images';
 import Button from '~/components/Button';
@@ -65,7 +66,7 @@ const MENU_ITEMS = [
 
 function Header() {
     const [isLogin] = useState(true);
-    const [showPopper, setShowPopper] = useState({ inbox: false, myCourses: false, menu: false });
+    const [showPopper, setShowPopper] = useState({ category: false, inbox: false, myCourses: false, menu: false });
     const firstClickRef = useRef({ inbox: false, myCourses: false });
     const username = 'hoafn0730';
     const isTabletOrMobile = useMediaQuery({ query: '(min-width: 1224px)' });
@@ -126,16 +127,24 @@ function Header() {
             } else {
                 setShowPopper({ menu: false });
             }
+        } else if (id === 'category') {
+            firstClickRef.current.category = !firstClickRef.current.category;
+            if (firstClickRef.current.category) {
+                setShowPopper({ category: true });
+            } else {
+                setShowPopper({ category: false });
+            }
         }
     };
 
     const handleHidePopper = () => {
         firstClickRef.current = {
+            category: false,
             myCourses: false,
             inbox: false,
             menu: false,
         };
-        setShowPopper({ inbox: false, myCourses: false, menu: false });
+        setShowPopper({ category: false, myCourses: false, inbox: false, menu: false });
     };
 
     return (
@@ -150,7 +159,13 @@ function Header() {
                     {isTabletOrMobile && (
                         <>
                             {location.pathname === '/' ? (
-                                <Button to={'/about'}>Categories</Button>
+                                <Category isShow={showPopper.category} onHide={handleHidePopper}>
+                                    <Tippy delay={[0, 200]} disabled={showPopper.category} content="Categories">
+                                        <button id="category" className={cx('btn-action')} onClick={handleShowPopper}>
+                                            <span>Categories</span>
+                                        </button>
+                                    </Tippy>
+                                </Category>
                             ) : (
                                 <button
                                     className={cx('btn-back')}
