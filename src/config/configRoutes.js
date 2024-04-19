@@ -8,9 +8,19 @@ const routes = {
     blog: '/blogs',
     blogDetail: '/blogs/:slug',
     profile: '/:username',
-    setting: { path: '/settings', personal: 'personal', security: 'security' },
+    post: {
+        path: '/me/posts',
+        drafts: 'drafts',
+        published: 'published',
+    },
+    newPost: '/new-post',
+    setting: {
+        path: '/settings',
+        personal: 'personal',
+        security: 'security',
+    },
+
     message: '/messages',
-    post: { path: '/me/posts', drafts: 'drafts', published: 'published' },
     bookmark: '/bookmarks',
     notFound: '/not-found',
 };

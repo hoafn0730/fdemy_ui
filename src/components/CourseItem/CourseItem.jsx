@@ -1,8 +1,9 @@
+import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
+import { Link } from 'react-router-dom';
 
 import styles from './CourseItem.module.scss';
 import CommonItem from '../CommonItem';
-import { Link } from 'react-router-dom';
 import Image from '../Image';
 import Button from '../Button';
 
@@ -45,5 +46,16 @@ function CourseItem({ title, desc, linkTo, image, ctaTitle, oldPrice, mainPrice,
         </>
     );
 }
+
+CourseItem.propTypes = {
+    title: PropTypes.string.isRequired,
+    desc: PropTypes.string,
+    linkTo: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    ctaTitle: PropTypes.string,
+    oldPrice: PropTypes.string,
+    mainPrice: PropTypes.string,
+    isDetail: PropTypes.bool,
+};
 
 export default CourseItem;

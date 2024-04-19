@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
 
 import styles from './Box.module.scss';
@@ -16,5 +17,11 @@ function Box({ title, children, className }) {
         </div>
     );
 }
+
+Box.propTypes = {
+    title: PropTypes.string.isRequired,
+    children: PropTypes.node.isRequired,
+    className: PropTypes.string,
+};
 
 export default Box;

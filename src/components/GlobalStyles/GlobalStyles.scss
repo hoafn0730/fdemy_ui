@@ -6,6 +6,7 @@
     --black-color: #000;
     --text-color: #161823;
     --white-color: #fff;
+    --desc-color: #0000008a;
     --hover-color: #16182308;
 
     // default layout
@@ -133,4 +134,26 @@ body .slick-dots li button:before {
 body .slick-dots li.slick-active button:before {
     background-color: #9aa6af;
     width: 50px;
+}
+
+// Custom editor
+body .rc-md-editor {
+    border: none;
+}
+.rc-md-editor .editor-container > .section {
+    border-right: none;
+}
+
+body .rc-md-editor .editor-container .sec-html {
+    border-left: 1px solid #ebebeb;
+}
+
+body .rc-md-editor:not(.full) .rc-md-navigation {
+    padding-left: 0;
+    background-color: #fff;
+    border-bottom: none;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 66px;
+    z-index: 1;
 }

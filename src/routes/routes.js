@@ -15,6 +15,9 @@ import Setting from '~/pages/Setting';
 import Personal from '~/pages/Setting/Personal';
 import Security from '~/pages/Setting/Security';
 import NotFound from '~/pages/NotFound';
+import MyPosts from '~/pages/Post/MyPosts';
+import Post from '~/pages/Post';
+import NewPost from '~/pages/NewPost';
 
 const publicRoutes = [
     { path: config.routes.home, component: Home },
@@ -37,15 +40,16 @@ const publicRoutes = [
     },
     {
         path: config.routes.post.path,
-        component: Setting,
-        layout: HeaderOnly,
+        component: Post,
         children: [
-            { path: config.routes.post.drafts, component: Personal },
-            { path: config.routes.post.published, component: Security },
+            { path: config.routes.post.drafts, component: MyPosts },
+            { path: config.routes.post.published, component: MyPosts },
         ],
     },
+    { path: config.routes.newPost, component: NewPost, layout: HeaderOnly },
     { path: config.routes.message, component: Message },
     { path: config.routes.notFound, component: NotFound, layout: null },
+    { path: '*', component: NotFound, layout: null },
 ];
 
 export { publicRoutes };

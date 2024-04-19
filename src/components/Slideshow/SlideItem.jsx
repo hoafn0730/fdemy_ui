@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 
@@ -29,5 +30,14 @@ function SlideItem({ title, desc, ctaTitle, linkTo, image, styles }) {
         </div>
     );
 }
+
+SlideItem.propTypes = {
+    title: PropTypes.string.isRequired,
+    desc: PropTypes.string.isRequired,
+    ctaTitle: PropTypes.string.isRequired,
+    linkTo: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    styles: PropTypes.string,
+};
 
 export default SlideItem;

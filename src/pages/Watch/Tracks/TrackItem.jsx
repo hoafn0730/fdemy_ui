@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
 
 import styles from './Tracks.module.scss';
@@ -19,5 +20,11 @@ function TrackItem({ title, image, index }) {
         </div>
     );
 }
+
+TrackItem.propTypes = {
+    title: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    index: PropTypes.string.isRequired,
+};
 
 export default TrackItem;

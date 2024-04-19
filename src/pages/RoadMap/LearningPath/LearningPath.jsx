@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 
@@ -31,5 +32,12 @@ function LearningPath({ title, desc, slug, image }) {
         </div>
     );
 }
+
+LearningPath.propTypes = {
+    title: PropTypes.string.isRequired,
+    desc: PropTypes.string.isRequired,
+    slug: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+};
 
 export default LearningPath;

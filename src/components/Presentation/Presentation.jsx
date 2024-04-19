@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
 
 import styles from './Presentation.module.scss';
@@ -14,5 +15,10 @@ function Presentation({ imageUrl, videoUrl }) {
         </div>
     );
 }
+
+Presentation.propTypes = {
+    imageUrl: PropTypes.string,
+    videoUrl: PropTypes.string,
+};
 
 export default Presentation;

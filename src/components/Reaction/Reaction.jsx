@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
 
 import styles from './Reaction.module.scss';
@@ -28,4 +29,7 @@ function Reaction({ className }) {
     );
 }
 
+Reaction.propTypes = {
+    className: PropTypes.string,
+};
 export default Reaction;

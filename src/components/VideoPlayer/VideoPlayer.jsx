@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
@@ -8,7 +9,7 @@ import videos from '~/assets/videos';
 
 const cx = classnames.bind(styles);
 
-function VideoPlayer({ data }) {
+function VideoPlayer({ title, video, type }) {
     const [isPlay, setIsPlay] = useState(false);
     const [showButton, setShowButton] = useState(false);
     const videoRef = useRef();
@@ -51,7 +52,7 @@ function VideoPlayer({ data }) {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('player')} onClick={handlePlay} onDoubleClick={handleDblClick}>
-                {data?.type === 'youtube' ? (
+                {type && type === 'youtube' ? (
                     <iframe
                         className={cx('video-steam')}
                         ref={videoRef}
@@ -59,8 +60,8 @@ function VideoPlayer({ data }) {
                         allowFullScreen
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         referrerPolicy="strict-origin-when-cross-origin"
-                        title={data.title}
-                        src={`https://www.youtube.com/embed/${data.video}?autoplay=1&mute=0&controls=1&origin=https%3A%2F%2Ffullstack.edu.vn&playsinline=1&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&enablejsapi=1&widgetid=1`}
+                        title={title}
+                        src={`https://www.youtube.com/embed/${video}?autoplay=1&mute=0&controls=1&origin=https%3A%2F%2Ffullstack.edu.vn&playsinline=1&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&enablejsapi=1&widgetid=1`}
                         id="widget2"
                     />
                 ) : (
@@ -77,5 +78,11 @@ function VideoPlayer({ data }) {
         </div>
     );
 }
+
+VideoPlayer.propTypes = {
+    title: PropTypes.string.isRequired,
+    video: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+};
 
 export default VideoPlayer;

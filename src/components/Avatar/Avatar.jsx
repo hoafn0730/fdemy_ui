@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
 
 import styles from './Avatar.module.scss';
@@ -13,5 +14,11 @@ function Avatar({ src, alt, style }) {
         </div>
     );
 }
+
+Avatar.propTypes = {
+    src: PropTypes.string,
+    alt: PropTypes.string,
+    style: PropTypes.object,
+};
 
 export default Avatar;

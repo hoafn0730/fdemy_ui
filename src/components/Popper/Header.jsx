@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
 
 import styles from './Popper.module.scss';
@@ -17,5 +18,12 @@ function Header({ title, titleBtn, to, onClick }) {
         </div>
     );
 }
+
+Header.propTypes = {
+    title: PropTypes.string.isRequired,
+    titleBtn: PropTypes.string,
+    to: PropTypes.string,
+    onClick: PropTypes.string,
+};
 
 export default Header;

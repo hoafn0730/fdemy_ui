@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
 
 import styles from './Tracks.module.scss';
@@ -29,5 +30,9 @@ function Tracks({ onChangeShow }) {
         </div>
     );
 }
+
+Tracks.propTypes = {
+    onChangeShow: PropTypes.func.isRequired,
+};
 
 export default Tracks;

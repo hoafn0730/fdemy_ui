@@ -18,6 +18,7 @@ function Wrapper({ children, className, position, ...props }) {
 Wrapper.propTypes = {
     children: PropTypes.node.isRequired,
     className: PropTypes.string,
+    position: PropTypes.object,
 };
 
 export default Wrapper;

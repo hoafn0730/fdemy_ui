@@ -26,4 +26,16 @@
         object-fit: contain;
         height: fit-content;
     }
+
+    //
+    .MarkdownParser_wrapper__JYN63 code:not([class]) {
+        background-color: rgba(96, 125, 139, 0.2);
+        border-radius: 3px;
+        padding: 3px 4px;
+        white-space: pre-wrap !important;
+    }
+
+    ul li {
+        list-style: disc;
+    }
 }

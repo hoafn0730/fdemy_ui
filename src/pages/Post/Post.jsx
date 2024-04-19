@@ -9,16 +9,23 @@ import HeadingTabs from '~/components/HeadingTabs';
 const cx = classnames.bind(styles);
 
 function Post() {
+    const tabs = [
+        { title: 'Drafts', to: 'drafts' },
+        { title: 'Published', to: 'published' },
+    ];
+
     return (
         <div className={cx('wrapper')}>
             <IndexModule className={cx('grid')}>
                 <IndexModule className={cx('row')}>
-                    <Heading title="Bài viết của tôi" />
                     <IndexModule className={cx('col', 'l-8')}>
-                        <HeadingTabs />
+                        <Heading title="Bài viết của tôi" />
+                        <HeadingTabs tabs={tabs} />
                         <Outlet />
                     </IndexModule>
-                    <IndexModule className={cx('col', 'l-4')}></IndexModule>
+                    <IndexModule className={cx('col', 'l-4')}>
+                        <></>
+                    </IndexModule>
                 </IndexModule>
             </IndexModule>
         </div>

@@ -106,6 +106,9 @@ function Menu({ children, isShow, isLogin, items = [], onHide }) {
 Menu.propTypes = {
     children: PropTypes.node.isRequired,
     items: PropTypes.array.isRequired,
+    isShow: PropTypes.bool,
+    isLogin: PropTypes.bool,
+    onHide: PropTypes.func,
 };
 
 export default Menu;

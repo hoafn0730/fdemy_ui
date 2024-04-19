@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
 
 import styles from './LearningPathGroup.module.scss';
@@ -25,5 +26,11 @@ function LearningPathGroup({ title, desc, items }) {
         </div>
     );
 }
+
+LearningPathGroup.propTypes = {
+    title: PropTypes.string.isRequired,
+    desc: PropTypes.string.isRequired,
+    items: PropTypes.array.isRequired,
+};
 
 export default LearningPathGroup;

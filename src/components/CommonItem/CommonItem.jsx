@@ -1,8 +1,9 @@
+import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 
 import styles from './CommonItem.module.scss';
-// import Button from '../Button';
+import Button from '../Button';
 import Image from '../Image';
 import IndexModule from '../IndexModule';
 
@@ -24,5 +25,14 @@ function CommonItem({ children, className, linkTo, title, image, ctaTitle }) {
         </IndexModule>
     );
 }
+
+CommonItem.propTypes = {
+    title: PropTypes.string.isRequired,
+    className: PropTypes.string.isRequired,
+    linkTo: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    ctaTitle: PropTypes.string,
+    children: PropTypes.node,
+};
 
 export default CommonItem;
