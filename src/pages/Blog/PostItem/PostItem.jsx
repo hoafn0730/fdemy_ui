@@ -12,8 +12,8 @@ import { Link } from 'react-router-dom';
 const cx = classnames.bind(styles);
 
 function PostItem({}) {
-    const image = '';
-    const video = 'dsfd';
+    const image = images.anh1;
+    const video = '';
 
     return (
         <div className={cx('wrapper')}>
@@ -56,7 +56,7 @@ function PostItem({}) {
                         #reactjs
                     </Link>
                 </div>
-                {(image || video) && <Presentation imageUrl={image} videoUrl />}
+                {(image || video) && <Presentation imageUrl={image} videoUrl={video} />}
             </div>
 
             <div className={cx('footer')}>

@@ -16,6 +16,8 @@ function Button({
     outline,
     rounded,
     disabled,
+    fieldBtn,
+    saveFieldBtn,
     leftIcon,
     rightIcon,
     onClick,
@@ -51,6 +53,8 @@ function Button({
         outline,
         rounded,
         disabled,
+        fieldBtn,
+        saveFieldBtn,
     });
 
     return (
@@ -72,6 +76,8 @@ Button.propTypes = {
     outline: PropTypes.bool,
     rounded: PropTypes.bool,
     disabled: PropTypes.bool,
+    fieldBtn: PropTypes.bool,
+    saveFieldBtn: PropTypes.bool,
     leftIcon: PropTypes.node,
     rightIcon: PropTypes.node,
     onClick: PropTypes.func,

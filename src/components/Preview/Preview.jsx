@@ -26,12 +26,13 @@ function Preview() {
                             <div className={cx('closeBtn')} onClick={handleClose}>
                                 ×
                             </div>
-                            <VideoPlayer
-                                data={{
-                                    title: 'Xây Dựng UI Phần Header Dự Án Tiktok #1 | Thực Hành ReactJS Tại F8',
-                                    video: 'hFK4okw-XYs',
-                                }}
-                            />
+                            <div className={cx('content')}>
+                                <VideoPlayer
+                                    title="Xây Dựng UI Phần Header Dự Án Tiktok #1 | Thực Hành ReactJS Tại F8"
+                                    video="hFK4okw-XYs"
+                                    type="youtube"
+                                />
+                            </div>
                         </div>
                     </IndexModule>
                 </IndexModule>

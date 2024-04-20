@@ -11,7 +11,7 @@ function Presentation({ imageUrl, videoUrl }) {
     return (
         <div className={cx('wrapper')}>
             {imageUrl && <Image className={cx('img')} src={imageUrl} />}
-            {videoUrl && <VideoPlayer />}
+            {videoUrl && <VideoPlayer video="asds" />}
         </div>
     );
 }

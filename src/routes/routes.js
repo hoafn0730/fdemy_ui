@@ -12,8 +12,7 @@ import Search from '~/pages/Search/Search';
 import Message from '~/pages/Message';
 import Profile from '~/pages/Profile';
 import Setting from '~/pages/Setting';
-import Personal from '~/pages/Setting/Personal';
-import Security from '~/pages/Setting/Security';
+import SettingPage from '~/pages/Setting/SettingPage';
 import NotFound from '~/pages/NotFound';
 import MyPosts from '~/pages/Post/MyPosts';
 import Post from '~/pages/Post';
@@ -34,8 +33,8 @@ const publicRoutes = [
         component: Setting,
         layout: HeaderOnly,
         children: [
-            { path: config.routes.setting.personal, component: Personal },
-            { path: config.routes.setting.security, component: Security },
+            { path: config.routes.setting.personal, component: SettingPage },
+            { path: config.routes.setting.security, component: SettingPage },
         ],
     },
     {

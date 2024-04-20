@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
 
 import styles from './ContentEditable.module.scss';
@@ -20,10 +19,5 @@ function ContentEditable({ className, onChange }, ref) {
         />
     );
 }
-
-ContentEditable.propTypes = {
-    className: PropTypes.string,
-    onChange: PropTypes.string.isRequired,
-};
 
 export default forwardRef(ContentEditable);

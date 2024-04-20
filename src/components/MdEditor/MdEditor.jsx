@@ -24,8 +24,8 @@ function MdEditor({ value, onChange, style }) {
 
 MdEditor.propTypes = {
     value: PropTypes.string.isRequired,
-    onChange: PropTypes.string.isRequired,
-    style: PropTypes.string,
+    onChange: PropTypes.func.isRequired,
+    style: PropTypes.object,
 };
 
 export default MdEditor;

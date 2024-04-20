@@ -80,9 +80,9 @@ function VideoPlayer({ title, video, type }) {
 }
 
 VideoPlayer.propTypes = {
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
     video: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
+    type: PropTypes.string,
 };
 
 export default VideoPlayer;

@@ -40,8 +40,9 @@ function Search() {
                     <IndexModule className={cx('col', 'l-8', 'l-o-2')}>
                         <Heading title={3 + ' kết quả  “Frontend Development”'} />
                         <div className={cx('list-result')}>
-                            {data.map((item) => (
+                            {data.map((item, index) => (
                                 <CourseItem
+                                    key={index}
                                     title={item.title}
                                     desc={item.desc}
                                     linkTo={item.linkTo}

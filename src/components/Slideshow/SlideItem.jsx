@@ -37,7 +37,7 @@ SlideItem.propTypes = {
     ctaTitle: PropTypes.string.isRequired,
     linkTo: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
-    styles: PropTypes.string,
+    styles: PropTypes.object,
 };
 
 export default SlideItem;

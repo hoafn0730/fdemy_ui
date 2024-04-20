@@ -62,6 +62,32 @@
     cursor: default;
 }
 
+// btn field
+
+.fieldBtn {
+    color: rgba(0, 0, 0, 0.54);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    font-size: 1.4rem;
+    padding: 0 16px;
+    height: 37px;
+    line-height: 37px;
+    min-width: fit-content;
+
+    & + .fieldBtn {
+        margin-left: 8px;
+    }
+
+    &:hover {
+        border-color: rgba(0, 0, 0, 0.54);
+        color: rgba(0, 0, 0, 0.68);
+    }
+}
+
+.saveFieldBtn {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
 // Toggle button
 .switch {
     position: absolute;

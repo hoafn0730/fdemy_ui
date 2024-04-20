@@ -28,7 +28,7 @@
     }
 
     //
-    .MarkdownParser_wrapper__JYN63 code:not([class]) {
+    code:not([class]) {
         background-color: rgba(96, 125, 139, 0.2);
         border-radius: 3px;
         padding: 3px 4px;
@@ -37,5 +37,36 @@
 
     ul li {
         list-style: disc;
+    }
+
+    code[class*='language-'],
+    pre[class*='language-'] {
+        word-wrap: normal;
+        background: none;
+        color: #f8f8f2;
+        font-family: Consolas, Monaco, Andale Mono, Ubuntu Mono, monospace;
+        font-size: 1em;
+        -webkit-hyphens: none;
+        -ms-hyphens: none;
+        hyphens: none;
+        line-height: 1.5;
+        tab-size: 4;
+        text-align: left;
+        text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+        white-space: pre;
+        word-break: normal;
+        word-spacing: normal;
+    }
+
+    pre[class*='language-'] {
+        border-radius: 0.3em;
+        margin: 0.5em 0;
+        overflow: auto;
+        padding: 1em;
+    }
+
+    :not(pre) > code[class*='language-'],
+    pre[class*='language-'] {
+        background: #272822;
     }
 }

@@ -103,8 +103,8 @@ function RoadMapDetail() {
 
                 <IndexModule className={cx('row')}>
                     <IndexModule className={cx('col', 'l-8')}>
-                        {data.map((item) => (
-                            <LearningPathGroup title={item.title} desc={item.desc} items={item.courses} />
+                        {data.map((item, index) => (
+                            <LearningPathGroup key={index} title={item.title} desc={item.desc} items={item.courses} />
                         ))}
                     </IndexModule>
 

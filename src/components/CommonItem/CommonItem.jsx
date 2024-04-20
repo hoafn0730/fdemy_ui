@@ -28,7 +28,7 @@ function CommonItem({ children, className, linkTo, title, image, ctaTitle }) {
 
 CommonItem.propTypes = {
     title: PropTypes.string.isRequired,
-    className: PropTypes.string.isRequired,
+    className: PropTypes.string,
     linkTo: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
     ctaTitle: PropTypes.string,

@@ -93,7 +93,7 @@ function Header() {
         {
             title: 'Settings',
             icon: <SettingIcon />,
-            to: '/settings',
+            to: '/settings/personal',
         },
         ...MENU_ITEMS,
         {

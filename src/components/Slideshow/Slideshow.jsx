@@ -37,7 +37,7 @@ function Slideshow() {
                             linkTo={item.linkTo}
                             ctaTitle={item.ctaTitle}
                             image={item.image}
-                            styles={item.style}
+                            styles={{ ...item.style }}
                         />
                     );
                 })}
