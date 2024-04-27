@@ -12,7 +12,11 @@ function MyPosts() {
     return (
         <div className={cx('wrapper')}>
             {tab === 'drafts' ? (
-                <MyPostItem />
+                <>
+                    <MyPostItem />
+                    <MyPostItem />
+                    <MyPostItem />
+                </>
             ) : (
                 tab === 'published' && (
                     <div className={cx('noResult')}>

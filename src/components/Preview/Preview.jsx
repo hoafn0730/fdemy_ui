@@ -1,21 +1,32 @@
 import classnames from 'classnames/bind';
+import ReactDOM from 'react-dom';
+import { useEffect } from 'react';
 
 import styles from './Preview.module.scss';
 import IndexModule from '../IndexModule';
 import VideoPlayer from '../VideoPlayer';
-import { usePreview } from '~/contexts/previewContext';
-import { closePreview } from '~/store/action/previewAction';
+import usePreview from '~/hooks/usePreview';
+import { closePreview } from '~/store/actions/previewAction';
 
 const cx = classnames.bind(styles);
 
 function Preview() {
     const { dispatch } = usePreview();
+    const div = document.createElement('div');
+
+    useEffect(() => {
+        document.body.appendChild(div);
+
+        return () => {
+            document.body.removeChild(div);
+        };
+    }, []);
 
     const handleClose = () => {
         dispatch(closePreview());
     };
 
-    return (
+    return ReactDOM.createPortal(
         <div className={cx('wrapper')} onClick={handleClose}>
             <IndexModule className={cx('grid', 'wide')} style={{ maxWidth: '1100px' }}>
                 <IndexModule className={cx('row')}>
@@ -37,7 +48,8 @@ function Preview() {
                     </IndexModule>
                 </IndexModule>
             </IndexModule>
-        </div>
+        </div>,
+        div,
     );
 }
 

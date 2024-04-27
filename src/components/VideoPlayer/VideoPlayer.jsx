@@ -30,6 +30,9 @@ function VideoPlayer({ title, video, type }) {
         }, 1380);
     };
 
+    // https://www.youtube.com/embed/${video}?autoplay=1&mute=0&controls=1&origin=https%3A%2F%2Ffullstack.edu.vn&playsinline=1&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&enablejsapi=1&widgetid=1
+
+    //
     const handleDblClick = () => {
         const video = videoRef.current;
 
@@ -62,7 +65,6 @@ function VideoPlayer({ title, video, type }) {
                         referrerPolicy="strict-origin-when-cross-origin"
                         title={title}
                         src={`https://www.youtube.com/embed/${video}?autoplay=1&mute=0&controls=1&origin=https%3A%2F%2Ffullstack.edu.vn&playsinline=1&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&enablejsapi=1&widgetid=1`}
-                        id="widget2"
                     />
                 ) : (
                     <>

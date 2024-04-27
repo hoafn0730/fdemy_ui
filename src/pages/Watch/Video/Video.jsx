@@ -19,7 +19,7 @@ function Video() {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('video')}>
-                <VideoPlayer data={data} />
+                <VideoPlayer title={data.title} video={data.video} type={data.type} />
             </div>
             <div className={cx('content')}>
                 <Heading title="ReactJS là gì? Tại sao nên học ReactJS?" updatedAt="tháng 11 năm 2022" />

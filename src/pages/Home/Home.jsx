@@ -5,38 +5,68 @@ import IndexModule from '~/components/IndexModule';
 import Slideshow from '~/components/Slideshow';
 import ScrollList from '~/components/ScrollList';
 import CourseItem from '~/components/CourseItem';
+import * as courseService from '~/services/courseService';
+import { useEffect, useState } from 'react';
 
 const cx = classnames.bind(styles);
 
-const { listCourses } = require('~/data.json');
-
 function Home() {
+    const [courses, setCourses] = useState();
+
+    const fetchApi = () => {
+        courseService
+            .getCourses()
+            .then((res) => {
+                setCourses(res);
+            })
+            .catch((err) => console.log(err));
+    };
+
+    useEffect(() => {
+        fetchApi();
+    }, []);
+
     return (
         <IndexModule className={cx('grid', 'wide')}>
             <div className={cx('slideshow')}>
                 <Slideshow />
             </div>
             <div className={cx('wrapper')}>
-                {listCourses.map((item, index) => (
-                    <ScrollList
-                        key={index}
-                        title={item.title}
-                        subTitle={item.subTitle}
-                        render={() =>
-                            item.data.map(({ title, linkTo, image, ctaTitle, oldPrice, mainPrice, slug }, index) => (
-                                <CourseItem
-                                    key={index}
-                                    title={title}
-                                    linkTo={linkTo + '/' + slug}
-                                    image={image}
-                                    ctaTitle={ctaTitle}
-                                    oldPrice={oldPrice}
-                                    mainPrice={mainPrice}
-                                />
-                            ))
-                        }
-                    />
-                ))}
+                <ScrollList
+                    title={'Khóa học Pro'}
+                    render={() =>
+                        courses &&
+                        courses?.proCourses.map(({ title, image, ctaTitle, oldPrice, price, slug }, index) => (
+                            <CourseItem
+                                key={index}
+                                title={title}
+                                linkTo={'/courses/' + slug}
+                                image={image}
+                                ctaTitle={ctaTitle}
+                                oldPrice={oldPrice}
+                                mainPrice={price}
+                            />
+                        ))
+                    }
+                />
+                <ScrollList
+                    title={'Khóa học Free'}
+                    subTitle={'386.894+ người khác đã học'}
+                    render={() =>
+                        courses &&
+                        courses?.freeCourses.map(({ title, image, ctaTitle, oldPrice, mainPrice, slug }, index) => (
+                            <CourseItem
+                                key={index}
+                                title={title}
+                                linkTo={'/courses/' + slug}
+                                image={image}
+                                ctaTitle={ctaTitle}
+                                oldPrice={oldPrice}
+                                mainPrice={mainPrice}
+                            />
+                        ))
+                    }
+                />
             </div>
         </IndexModule>
     );

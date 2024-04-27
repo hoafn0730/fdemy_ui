@@ -1,23 +1,37 @@
 import classnames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBatteryFull, faCheck, faCirclePlay, faClock, faFilm, faGaugeHigh } from '@fortawesome/free-solid-svg-icons';
+import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 import styles from './CourseDetail.module.scss';
 import CurriculumOfCourse from './CurriculumOfCourse';
 import IndexModule from '~/components/IndexModule';
 import Button from '~/components/Button';
-import { usePreview } from '~/contexts/previewContext';
-import { openPreview } from '~/store/action/previewAction';
+import Preview from '~/components/Preview';
+import * as courseService from '~/services/courseService';
+import usePreview from '~/hooks/usePreview';
+import { openPreview } from '~/store/actions/previewAction';
 
 const cx = classnames.bind(styles);
 
 function CourseDetail() {
-    const { dispatch } = usePreview();
+    const [course, setCourse] = useState();
+    const { slug } = useParams();
+    const {
+        state: { isOpen },
+        dispatch,
+    } = usePreview();
 
-    const data = {
-        name: 'Lập Trình JavaScript Cơ Bản',
-        desc: ' Học Javascript cơ bản phù hợp cho người chưa từng học lập trình. Với hơn 100 bài học và có bài tập thực hành sau mỗi bài học.',
+    const fetchApi = () => {
+        courseService.getCourseBySlug(slug).then((res) => {
+            setCourse(res);
+        });
     };
+
+    useEffect(() => {
+        fetchApi();
+    }, []);
 
     const handleOpenPreview = () => {
         dispatch(openPreview());
@@ -27,8 +41,8 @@ function CourseDetail() {
         <IndexModule className={cx('grid', 'wide')}>
             <IndexModule className={cx('row', 'wrapper')}>
                 <IndexModule className={cx('col', 'l-8')}>
-                    <h1 className={cx('courseName')}>{data.name}</h1>
-                    <div className={cx('courseDesc')}>{data.desc}</div>
+                    <h1 className={cx('courseName')}>{course?.title}</h1>
+                    <div className={cx('courseDesc')}>{course?.description}</div>
                     <CurriculumOfCourse />
                     <div className={cx('topicList')}>
                         <h2 className={cx('topicHeading')}>Yêu cầu</h2>
@@ -75,7 +89,7 @@ function CourseDetail() {
                             <div
                                 className={cx('bg')}
                                 style={{
-                                    backgroundImage: "url('https://files.fullstack.edu.vn/f8-prod/courses/1.png')",
+                                    backgroundImage: `url('${course?.image}')`,
                                 }}
                             ></div>
 
@@ -109,6 +123,7 @@ function CourseDetail() {
                             </li>
                         </ul>
                     </div>
+                    {isOpen && <Preview />}
                 </IndexModule>
             </IndexModule>
         </IndexModule>

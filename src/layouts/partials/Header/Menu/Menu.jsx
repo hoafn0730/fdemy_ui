@@ -7,9 +7,9 @@ import styles from './Menu.module.scss';
 import Header from './Header';
 import MenuItem from './MenuItem';
 import PopperWrapper from '~/components/Popper';
-import { changeTheme } from '~/store/action/themeAction';
-import { useTheme } from '~/contexts/themeContext';
 import Image from '~/components/Image';
+import useTheme from '~/hooks/useTheme';
+import { changeTheme } from '~/store/actions/themeAction';
 
 const cx = classnames.bind(styles);
 

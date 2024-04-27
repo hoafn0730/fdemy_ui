@@ -14,7 +14,7 @@ function RoadMap() {
                 desc={`Để bắt đầu một cách thuận lợi, bạn nên tập trung vào một lộ trình học. Ví dụ: Để đi làm với vị trí
                     "Lập trình viên Front-end" bạn nên tập trung vào lộ trình "Front-end".`}
             />
-            <div className={cx('content')}>
+            <div className={cx('body')}>
                 <div className={cx('learningPath')}>
                     <LearningPath
                         title={'Lộ trình học Front-end'}

@@ -2,17 +2,17 @@ import classnames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark } from '@fortawesome/free-regular-svg-icons';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
 import styles from './PostItem.module.scss';
 import Reaction from '~/components/Reaction';
 import Presentation from '~/components/Presentation';
 import images from '~/assets/images';
-import { Link } from 'react-router-dom';
 
 const cx = classnames.bind(styles);
 
-function PostItem({}) {
-    const image = images.anh1;
+function PostItem() {
+    const image = 'https://files.fullstack.edu.vn/f8-prod/blog_posts/10041/66079a65c6abe.jpg';
     const video = '';
 
     return (

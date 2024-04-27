@@ -4,20 +4,15 @@ import { Fragment, useEffect } from 'react';
 import { DefaultLayout } from '~/layouts';
 import { publicRoutes } from '~/routes';
 import useLocalStorage from '~/hooks/useLocalStorage';
-import { changeTheme } from '~/store/action/themeAction';
-import { useTheme } from '~/contexts/themeContext';
-import { usePreview } from '~/contexts/previewContext';
-import Preview from '~/components/Preview';
 import NotFound from '~/pages/NotFound';
+import useTheme from '~/hooks/useTheme';
+import { changeTheme } from '~/store/actions/themeAction';
 
 function App() {
     const {
         state: { isDarkMode },
         dispatch,
     } = useTheme();
-    const {
-        state: { isOpen },
-    } = usePreview();
 
     const [theme, setTheme] = useLocalStorage('theme');
 
@@ -27,12 +22,10 @@ function App() {
         } else {
             setTheme('light');
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
         setTheme(isDarkMode ? 'dark' : 'light');
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isDarkMode]);
 
     return (
@@ -70,7 +63,6 @@ function App() {
 
                     <Route path={'*'} element={NotFound} />
                 </Routes>
-                {isOpen && <Preview />}
             </div>
         </Router>
     );

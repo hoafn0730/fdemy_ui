@@ -19,9 +19,9 @@ const routes = {
         personal: 'personal',
         security: 'security',
     },
-
+    checkout: '/checkout/:slug',
+    bookmark: { path: '/me/bookmarks', posts: 'posts' },
     message: '/messages',
-    bookmark: '/bookmarks',
     notFound: '/not-found',
 };
 

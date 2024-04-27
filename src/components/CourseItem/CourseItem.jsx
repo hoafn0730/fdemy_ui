@@ -22,7 +22,7 @@ function CourseItem({ title, desc, linkTo, image, ctaTitle, oldPrice, mainPrice,
                         </div>
                         <div className={cx('info')}>
                             <h2 className={cx('title')}>
-                                <Link>
+                                <Link to={linkTo}>
                                     {title}
                                     <span className={cx('free-title')}>Miễn phí</span>
                                 </Link>
@@ -38,8 +38,10 @@ function CourseItem({ title, desc, linkTo, image, ctaTitle, oldPrice, mainPrice,
             ) : (
                 <CommonItem title={title} linkTo={linkTo} image={image} ctaTitle={ctaTitle}>
                     <div className={cx('price')}>
-                        <span className={cx('old-price')}>{oldPrice}đ</span>
-                        <span className={cx('main-price')}>{mainPrice}đ</span>
+                        <>
+                            {oldPrice && <span className={cx('old-price')}>{oldPrice + 'đ'}</span>}
+                            <span className={cx('main-price')}>{mainPrice > 0 ? mainPrice + 'đ' : 'Miễn phí'}</span>
+                        </>
                     </div>
                 </CommonItem>
             )}
@@ -53,8 +55,8 @@ CourseItem.propTypes = {
     linkTo: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
     ctaTitle: PropTypes.string,
-    oldPrice: PropTypes.string,
-    mainPrice: PropTypes.string,
+    oldPrice: PropTypes.number,
+    mainPrice: PropTypes.number,
     isDetail: PropTypes.bool,
 };
 

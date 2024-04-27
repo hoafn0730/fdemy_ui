@@ -6,7 +6,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import GlobalStyles from '~/components/GlobalStyles';
-import Provider from '~/contexts/Provider';
+import Provider from '~/store/provider';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

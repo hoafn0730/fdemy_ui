@@ -3,7 +3,7 @@ import classnames from 'classnames/bind';
 
 import styles from './Menu.module.scss';
 import Button from '~/components/Button';
-import ToggleButton from '~/components/Button/ToggleButton';
+import ToggleButton from '~/components/ToggleButton';
 
 const cx = classnames.bind(styles);
 

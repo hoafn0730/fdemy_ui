@@ -24,7 +24,7 @@ function TrackItem({ title, image, index }) {
 TrackItem.propTypes = {
     title: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
-    index: PropTypes.string.isRequired,
+    index: PropTypes.number.isRequired,
 };
 
 export default TrackItem;

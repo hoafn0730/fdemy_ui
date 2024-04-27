@@ -17,6 +17,9 @@ import NotFound from '~/pages/NotFound';
 import MyPosts from '~/pages/Post/MyPosts';
 import Post from '~/pages/Post';
 import NewPost from '~/pages/NewPost';
+import Checkout from '~/pages/Checkout';
+import Bookmark from '~/pages/Bookmark';
+import MyBookmarks from '~/pages/Bookmark/MyBookmarks';
 
 const publicRoutes = [
     { path: config.routes.home, component: Home },
@@ -46,6 +49,17 @@ const publicRoutes = [
         ],
     },
     { path: config.routes.newPost, component: NewPost, layout: HeaderOnly },
+    { path: config.routes.checkout, component: Checkout },
+    {
+        path: config.routes.bookmark.path,
+        component: Bookmark,
+        children: [
+            {
+                path: config.routes.bookmark.posts,
+                component: MyBookmarks,
+            },
+        ],
+    },
     { path: config.routes.message, component: Message },
     { path: config.routes.notFound, component: NotFound, layout: null },
     { path: '*', component: NotFound, layout: null },

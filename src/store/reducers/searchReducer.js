@@ -1,4 +1,4 @@
-import { actions } from '~/store/action/searchAction';
+import { ADD_TODO_ITEM, REMOVE_TODO_ITEM, TOGGLE_COMPLETED } from '../constants';
 
 const initialState = {
     todoList: [],
@@ -7,26 +7,26 @@ const initialState = {
 
 const searchReducer = (state, action) => {
     switch (action.type) {
-        case actions.ADD_TODO_ITEM_REQUEST:
-            return {
-                ...state,
-                todoList: [...state.todoList],
-                isLoading: true,
-            };
-        case actions.ADD_TODO_ITEM:
+        // case ADD_TODO_ITEM_REQUEST:
+        //     return {
+        //         ...state,
+        //         todoList: [...state.todoList],
+        //         isLoading: true,
+        //     };
+        case ADD_TODO_ITEM:
             return {
                 ...state,
                 todoList: [...state.todoList, action.payload],
             };
 
-        case actions.REMOVE_TODO_ITEM: {
+        case REMOVE_TODO_ITEM: {
             const filteredTodoItem = state.todoList.filter((todoItem) => {
                 return todoItem.id !== action.payload.id;
             });
             return { ...state, todoList: filteredTodoItem };
         }
 
-        case actions.TOGGLE_COMPLETED: {
+        case TOGGLE_COMPLETED: {
             const updatedTodoList = state.todoList.map((todoItem) =>
                 todoItem.id === action.todoItemId ? { ...todoItem, completed: !todoItem.completed } : todoItem,
             );

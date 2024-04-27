@@ -83,13 +83,17 @@
 }
 
 .price {
-    margin-top: 6px;
+    margin-top: 4px;
 }
 
 .old-price {
     font-size: 1.4rem;
-    margin-right: 8px;
+
     text-decoration: line-through;
+
+    & + .main-price {
+        margin-left: 10px;
+    }
 }
 
 .main-price {

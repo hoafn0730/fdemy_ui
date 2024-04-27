@@ -1,18 +1,18 @@
-import { actions } from '~/store/action/previewAction';
+import { CLOSE_MODAL, OPEN_MODAL } from '../constants';
 
 const initialState = {
-    isOpen: false,
+    isOpen: true,
 };
 
-const previewReducer = (state, action) => {
+const modalReducer = (state, action) => {
     switch (action.type) {
-        case actions.OPEN_PREVIEW:
+        case OPEN_MODAL:
             return {
                 ...state,
                 isOpen: true,
             };
 
-        case actions.CLOSE_PREVIEW:
+        case CLOSE_MODAL:
             return {
                 ...state,
                 isOpen: false,
@@ -23,4 +23,4 @@ const previewReducer = (state, action) => {
     }
 };
 
-export { previewReducer, initialState };
+export { modalReducer, initialState };

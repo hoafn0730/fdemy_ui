@@ -1,11 +1,11 @@
 import classnames from 'classnames/bind';
+import { Outlet, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 import styles from './Post.module.scss';
 import IndexModule from '~/components/IndexModule';
-import { Outlet, useLocation } from 'react-router-dom';
 import Heading from '~/components/Heading';
 import HeadingTabs from '~/components/HeadingTabs';
-import { useEffect, useState } from 'react';
 
 const cx = classnames.bind(styles);
 

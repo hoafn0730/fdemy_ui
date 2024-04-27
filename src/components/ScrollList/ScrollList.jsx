@@ -14,7 +14,7 @@ function ScrollList({ title, subTitle, render }) {
                 <h2 className={cx('heading')}>{title}</h2>
             </div>
             <div className={cx('body')}>
-                <IndexModule className={cx('row')}>{render()}</IndexModule>
+                <IndexModule className={cx('row')}>{render() || <></>}</IndexModule>
             </div>
         </div>
     );

@@ -1,4 +1,4 @@
-import { actions } from '~/store/action/themeAction';
+import { CHANGE_THEME } from '../constants';
 
 const initialState = {
     isDarkMode: false,
@@ -6,7 +6,7 @@ const initialState = {
 
 const themeReducer = (state, action) => {
     switch (action.type) {
-        case actions.CHANGE_THEME: {
+        case CHANGE_THEME: {
             return {
                 ...state,
                 isDarkMode: action.isDarkMode,
