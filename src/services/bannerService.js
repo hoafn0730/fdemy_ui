@@ -1,13 +1,13 @@
-import axios from 'axios';
+import httpRequest from '~/utils/httpRequest';
 
 const getBanner = async (page) => {
-    return await axios
-        .get('http://localhost:5000/api/v1/banners', {
+    return await httpRequest
+        .get('/banners', {
             params: {
                 page: page,
             },
         })
-        .then((res) => res.data.data);
+        .then((res) => res.data);
 };
 
 export { getBanner };

@@ -60,6 +60,14 @@
             transform: scale(105%);
         }
     }
+
+    &:active {
+        opacity: 0.5;
+
+        .active-icon {
+            transform: scale(90%);
+        }
+    }
 }
 
 .icon,

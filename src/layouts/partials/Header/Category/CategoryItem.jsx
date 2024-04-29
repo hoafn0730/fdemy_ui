@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom';
 
 const cx = classnames.bind(styles);
 
-function CategoryItem() {
+function CategoryItem({ title, slug }) {
     return (
         <div className={cx('item')}>
-            <Link to="/" className={cx('link')}>
-                CategoryItem
+            <Link to={'/categories/' + slug} className={cx('link')}>
+                {title}
             </Link>
         </div>
     );

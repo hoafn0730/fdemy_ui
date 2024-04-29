@@ -2,38 +2,55 @@ import HeadlessTippy from '@tippyjs/react/headless';
 import Tippy from '@tippyjs/react';
 import classnames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
+import { faMagnifyingGlass, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useRef } from 'react';
 
 import styles from './Search.module.scss';
 import PopperWrapper from '~/components/Popper/Wrapper';
 import SearchItem from './SearchItem';
+import * as searchService from '~/services/searchService';
+import useDebounce from '~/hooks/useDebounce';
 
 const cx = classnames.bind(styles);
 
 function Search() {
     const [searchValue, setSearchValue] = useState('');
+    const [searchResult, setSearchResult] = useState([]);
     const [showResult, setShowResult] = useState(false);
+    const [loading, setLoading] = useState(false);
+
+    const debouncedValue = useDebounce(searchValue, 500);
+
+    const inputRef = useRef();
+
+    useEffect(() => {
+        if (!debouncedValue.trim()) {
+            setSearchResult([]);
+            return;
+        }
+
+        setLoading(true);
+
+        searchService
+            .search(encodeURIComponent(debouncedValue))
+            .then((res) => {
+                setSearchResult(res);
+                setLoading(false);
+            })
+            .catch(() => {
+                setSearchResult([]);
+                setLoading(false);
+            });
+    }, [debouncedValue]);
 
     const handleChange = (e) => {
-        const searchValue = e.target.value;
-
-        if (!searchValue.startsWith(' ')) {
-            setSearchValue(searchValue);
-
-            if (searchValue) {
-                setShowResult(true);
-            } else {
-                setShowResult(false);
-            }
-        }
+        setSearchValue(e.target.value);
     };
 
     const handleFocus = (e) => {
-        if (e.target.value) {
-            setShowResult(true);
-        }
+        setShowResult(true);
     };
 
     const handleHideResult = () => {
@@ -43,11 +60,12 @@ function Search() {
     const handleClearText = () => {
         setSearchValue('');
         setShowResult(false);
+        inputRef.current.focus();
     };
 
     return (
         <HeadlessTippy
-            visible={showResult}
+            visible={showResult && searchResult.length > 0}
             interactive={true}
             placement="bottom"
             render={(attrs) => {
@@ -65,11 +83,9 @@ function Search() {
                                     Xem thêm
                                 </Link>
                             </div>
-                            <SearchItem />
-                            <SearchItem />
-                            <SearchItem />
-                            <SearchItem />
-                            <SearchItem />
+                            {searchResult.map((result) => (
+                                <SearchItem title={result.title} to={'/courses/' + result.slug} image={result.image} />
+                            ))}
                         </div>
                     </PopperWrapper>
                 );
@@ -78,6 +94,7 @@ function Search() {
         >
             <div className={cx('search')}>
                 <input
+                    ref={inputRef}
                     value={searchValue}
                     type="text"
                     className={cx('search-input')}
@@ -86,11 +103,12 @@ function Search() {
                     onFocus={handleFocus}
                 />
 
-                {searchValue && (
+                {!!searchValue && !loading && (
                     <div className={cx('clearText')} onClick={handleClearText}>
                         &times;
                     </div>
                 )}
+                {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />}
 
                 <Tippy delay={[0, 200]} content="search" placement="right">
                     <button

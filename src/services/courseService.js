@@ -1,11 +1,15 @@
-import axios from 'axios';
+import httpRequest from '~/utils/httpRequest';
 
 const getCourses = async () => {
-    return await axios.get('http://localhost:5000/api/v1/combined-courses').then((res) => res.data.data);
+    return await httpRequest.get('/combined-courses').then((res) => res.data);
 };
 
 const getCourseBySlug = async (slug) => {
-    return await axios.get('http://localhost:5000/api/v1/courses/' + slug).then((res) => res.data.data);
+    return await httpRequest.get('/courses/' + slug).then((res) => res.data);
 };
 
-export { getCourses, getCourseBySlug };
+const getRegisteredCourses = async () => {
+    return await httpRequest.get('/courses/registered').then((res) => res.data);
+};
+
+export { getCourses, getCourseBySlug, getRegisteredCourses };

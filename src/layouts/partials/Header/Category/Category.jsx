@@ -1,15 +1,23 @@
 import PropTypes from 'prop-types';
 import HeadlessTippy from '@tippyjs/react/headless';
 import classnames from 'classnames/bind';
+import { useEffect, useState } from 'react';
 
 import styles from './Category.module.scss';
 import CategoryItem from './CategoryItem';
 import PopperWrapper from '~/components/Popper';
 import HeaderPopper from '~/components/Popper/Header';
+import * as categoryService from '~/services/categoryService';
 
 const cx = classnames.bind(styles);
 
 function Category({ children, isShow, onHide }) {
+    const [categories, setCategories] = useState();
+
+    useEffect(() => {
+        categoryService.getCategories().then((res) => setCategories(res));
+    }, []);
+
     return (
         <div>
             <HeadlessTippy
@@ -28,9 +36,14 @@ function Category({ children, isShow, onHide }) {
                         >
                             <HeaderPopper title={'Categories'} />
                             <div className={cx('content')}>
-                                <CategoryItem />
-                                <CategoryItem />
-                                <CategoryItem />
+                                {categories &&
+                                    categories.map((category) => (
+                                        <CategoryItem
+                                            key={category?.id}
+                                            title={category?.title}
+                                            slug={category?.slug}
+                                        />
+                                    ))}
                             </div>
                         </PopperWrapper>
                     );
