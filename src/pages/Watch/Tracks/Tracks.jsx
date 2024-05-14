@@ -6,7 +6,7 @@ import TrackItem from './TrackItem';
 
 const cx = classnames.bind(styles);
 
-function Tracks({ onChangeShow }) {
+function Tracks({ data, process, onChangeShow }) {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('container')} id="learn-playlist">
@@ -17,14 +17,21 @@ function Tracks({ onChangeShow }) {
                     </button>
                 </header>
                 <div className={cx('body')}>
-                    {[1, 2, 3, 4, 5, 6].map((i) => (
-                        <TrackItem
-                            key={i}
-                            title={'ReactJS là gì? Tại sao nên học ReactJS?'}
-                            image={'https://i.ytimg.com/vi/z2f7RHgvddc/hq720.jpg'}
-                            index={i}
-                        />
-                    ))}
+                    {data?.steps &&
+                        data.steps.map((item, index) => {
+                            const isCheckExist = process.includes(item.id);
+
+                            return (
+                                <TrackItem
+                                    key={index}
+                                    title={item.title}
+                                    uuid={item.uuid}
+                                    image={`https://img.youtube.com/vi/${item?.lesson?.video}/sddefault.jpg`}
+                                    index={index + 1}
+                                    isDisabled={!isCheckExist}
+                                />
+                            );
+                        })}
                 </div>
             </div>
         </div>

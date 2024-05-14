@@ -21,6 +21,7 @@
     p {
         margin: 6px 0;
     }
+
     img {
         max-width: 100%;
         object-fit: contain;
@@ -36,6 +37,7 @@
     }
 
     ul li {
+        margin-left: 20px;
         list-style: disc;
     }
 
@@ -69,4 +71,25 @@
     pre[class*='language-'] {
         background: #272822;
     }
+}
+.code-toolbar {
+    position: relative;
+}
+
+.toolbar {
+    // opacity: 0;
+    position: absolute;
+    right: 10px;
+    top: 8px;
+    transition: opacity 0.3s ease-in-out;
+    z-index: 10;
+}
+
+.copy-to-clipboard-button {
+    min-width: 50px;
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+    background-color: #f8f8f2;
+    cursor: pointer;
 }

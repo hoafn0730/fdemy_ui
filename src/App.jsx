@@ -9,6 +9,8 @@ import useTheme from '~/hooks/useTheme';
 import { changeTheme } from '~/store/actions/themeAction';
 
 function App() {
+    const currentUser = 1;
+
     const {
         state: { isDarkMode },
         dispatch,

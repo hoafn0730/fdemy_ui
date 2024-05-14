@@ -13,7 +13,7 @@ import {
 } from '~/components/Icons';
 import config from '~/config';
 import Menu from './Menu';
-import MenuItem from './Menu/MenuItem';
+import MenuItem from './MenuItem';
 
 const cx = classnames.bind(styles);
 

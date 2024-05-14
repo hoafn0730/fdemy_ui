@@ -55,13 +55,20 @@
     margin: 0 8px;
     display: flex;
     align-items: center;
+    cursor: pointer;
 
     &:hover {
         background-color: rgba(22, 24, 35, 0.05);
     }
 
     &.active {
-        // background-color: #ffcda9;
+        background-color: #ffcda9;
+    }
+
+    &.disabled {
+        background-color: #e7e7e7;
+        opacity: 0.6;
+        pointer-events: none;
     }
 }
 
@@ -69,7 +76,7 @@
     margin-right: 10px;
 }
 
-.link {
+.info {
     text-decoration: none;
     color: var(--black-color);
     display: flex;

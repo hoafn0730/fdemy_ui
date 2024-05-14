@@ -28,7 +28,7 @@ function Heading({ title, desc, updatedAt, className }) {
 }
 
 Heading.propTypes = {
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
     desc: PropTypes.string,
     updatedAt: PropTypes.string,
     className: PropTypes.string,

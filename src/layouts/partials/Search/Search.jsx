@@ -4,7 +4,7 @@ import classnames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useRef } from 'react';
 
 import styles from './Search.module.scss';
@@ -20,8 +20,9 @@ function Search() {
     const [searchResult, setSearchResult] = useState([]);
     const [showResult, setShowResult] = useState(false);
     const [loading, setLoading] = useState(false);
-
     const debouncedValue = useDebounce(searchValue, 500);
+
+    const navigate = useNavigate();
 
     const inputRef = useRef();
 
@@ -34,7 +35,7 @@ function Search() {
         setLoading(true);
 
         searchService
-            .search(encodeURIComponent(debouncedValue))
+            .search(encodeURIComponent(debouncedValue.trim()))
             .then((res) => {
                 setSearchResult(res);
                 setLoading(false);
@@ -79,12 +80,17 @@ function Search() {
 
                             <div className={cx('heading')}>
                                 <h5>KHÓA HỌC</h5>
-                                <Link to="/" className={cx('seeMore')}>
+                                <Link to={'/search?q=' + debouncedValue} className={cx('seeMore')}>
                                     Xem thêm
                                 </Link>
                             </div>
                             {searchResult.map((result) => (
-                                <SearchItem title={result.title} to={'/courses/' + result.slug} image={result.image} />
+                                <SearchItem
+                                    key={result.id}
+                                    title={result.title}
+                                    to={'/courses/' + result.slug}
+                                    image={result.image}
+                                />
                             ))}
                         </div>
                     </PopperWrapper>
@@ -114,7 +120,7 @@ function Search() {
                     <button
                         className={cx('btn-search')}
                         onClick={() => {
-                            alert('123');
+                            navigate('/search?q=' + debouncedValue);
                         }}
                     >
                         <FontAwesomeIcon icon={faMagnifyingGlass} />

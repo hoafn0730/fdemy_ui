@@ -16,7 +16,9 @@ function MdEditor({ value, onChange, style }) {
             placeholder="Nội dung viết ở đây"
             markdownClass={cx('editor')}
             htmlClass={cx('wrapper')}
-            renderHTML={(text) => <MarkdownParser content={text} />}
+            renderHTML={(text) => {
+                return <MarkdownParser content={text} />;
+            }}
             onChange={onChange}
         />
     );

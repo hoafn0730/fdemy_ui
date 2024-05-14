@@ -1,15 +1,16 @@
 import classnames from 'classnames/bind';
-
-import styles from './Header.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faCode } from '@fortawesome/free-solid-svg-icons';
 import { Link, useNavigate } from 'react-router-dom';
+
+import styles from './Header.module.scss';
 import config from '~/config';
 
 const cx = classnames.bind(styles);
 
-function Header() {
+function Header({ track, process }) {
     const navigate = useNavigate();
+    const userProcess = (process.length / track?.steps.length) * 100;
 
     return (
         <header className={cx('wrapper')}>
@@ -21,9 +22,13 @@ function Header() {
                 <strong>CodeLearn</strong>
             </Link>
             <div className={cx('actions')}>
-                <span className={cx('process')}>30%</span>
+                <div className={cx('process')}>
+                    <span>{userProcess}%</span>
+                </div>
                 <span className={cx('completed-msg')}>
-                    <strong>0/118 </strong>
+                    <strong>
+                        {process.length}/{track?.steps.length}{' '}
+                    </strong>
                     bài học
                 </span>
             </div>

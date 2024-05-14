@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import styles from './CourseItem.module.scss';
 import CommonItem from '../CommonItem';
@@ -10,6 +10,8 @@ import Button from '../Button';
 const cx = classnames.bind(styles);
 
 function CourseItem({ title, desc, linkTo, image, ctaTitle, oldPrice, mainPrice, isDetail }) {
+    const navigate = useNavigate();
+
     return (
         <>
             {isDetail ? (
@@ -29,7 +31,7 @@ function CourseItem({ title, desc, linkTo, image, ctaTitle, oldPrice, mainPrice,
                             </h2>
                             {mainPrice && <div className={cx('price')}>mainPrice</div>}
                             {desc && <p className={cx('desc')}>{desc}</p>}
-                            <Button primary rounded className={cx('detail-btn')}>
+                            <Button primary rounded className={cx('detail-btn')} onClick={() => navigate(linkTo)}>
                                 View Course
                             </Button>
                         </div>
@@ -39,7 +41,7 @@ function CourseItem({ title, desc, linkTo, image, ctaTitle, oldPrice, mainPrice,
                 <CommonItem title={title} linkTo={linkTo} image={image} ctaTitle={ctaTitle}>
                     <div className={cx('price')}>
                         <>
-                            {oldPrice && <span className={cx('old-price')}>{oldPrice + 'đ'}</span>}
+                            {!!oldPrice && <span className={cx('old-price')}>{oldPrice + 'đ'}</span>}
                             <span className={cx('main-price')}>{mainPrice > 0 ? mainPrice + 'đ' : 'Miễn phí'}</span>
                         </>
                     </div>

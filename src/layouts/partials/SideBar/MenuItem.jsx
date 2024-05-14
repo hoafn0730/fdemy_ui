@@ -1,7 +1,7 @@
 import classnames from 'classnames/bind';
 import { NavLink } from 'react-router-dom';
 
-import styles from '../SideBar.module.scss';
+import styles from './SideBar.module.scss';
 
 const cx = classnames.bind(styles);
 

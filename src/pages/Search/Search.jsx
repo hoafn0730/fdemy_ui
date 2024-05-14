@@ -1,57 +1,45 @@
 import classnames from 'classnames/bind';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 import styles from './Search.module.scss';
 import Heading from '~/components/Heading';
 import IndexModule from '~/components/IndexModule';
 import CourseItem from '~/components/CourseItem';
 import Pagination from '~/components/Pagination';
+import { search } from '~/services/searchService';
 
 const cx = classnames.bind(styles);
 
 function Search() {
-    const data = [
-        {
-            title: 'Xây Dựng Website với ReactJS',
-            desc: `Để có cái nhìn tổng quan về ngành IT - Lập trình web các bạn nên xem các videos tại khóa
-            này trước nhé.`,
-            image: 'https://files.fullstack.edu.vn/f8-prod/courses/7.png',
-            linkTo: '/',
-        },
-        {
-            title: 'Xây Dựng Website với ReactJS',
-            desc: `Để có cái nhìn tổng quan về ngành IT - Lập trình web các bạn nên xem các videos tại khóa
-            này trước nhé.`,
-            image: 'https://files.fullstack.edu.vn/f8-prod/courses/7.png',
-            linkTo: '/',
-        },
-        {
-            title: 'Xây Dựng Website với ReactJS',
-            desc: `Để có cái nhìn tổng quan về ngành IT - Lập trình web các bạn nên xem các videos tại khóa
-            này trước nhé.`,
-            image: 'https://files.fullstack.edu.vn/f8-prod/courses/7.png',
-            linkTo: '/',
-        },
-    ];
+    const [searchResult, setSearchResult] = useState({});
+    const [searchParams] = useSearchParams();
+    const query = searchParams.get('q');
+    const page = searchParams.has('page') ? searchParams.get('page') : 1;
+
+    useEffect(() => {
+        search(query, 'more', page).then((res) => setSearchResult(res));
+    }, [page]);
 
     return (
         <div className={cx('wrapper')}>
             <IndexModule className={cx('grid')}>
                 <IndexModule className={cx('row')}>
                     <IndexModule className={cx('col', 'l-8', 'l-o-2')}>
-                        <Heading title={3 + ' kết quả  “Frontend Development”'} />
+                        <Heading title={(searchResult?.meta?.count ?? 0) + ` kết quả  “${query}”`} />
                         <div className={cx('list-result')}>
-                            {data.map((item, index) => (
+                            {searchResult?.data?.map((item, index) => (
                                 <CourseItem
                                     key={index}
                                     title={item.title}
                                     desc={item.desc}
-                                    linkTo={item.linkTo}
+                                    linkTo={`/courses/${item.slug}`}
                                     image={item.image}
                                     isDetail
                                 />
                             ))}
 
-                            <Pagination />
+                            <Pagination total={searchResult?.meta?.count} />
                         </div>
                     </IndexModule>
                 </IndexModule>

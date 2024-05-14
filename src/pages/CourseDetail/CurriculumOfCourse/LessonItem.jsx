@@ -6,14 +6,14 @@ import { faCirclePlay } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classnames.bind(styles);
 
-function LessonItem() {
+function LessonItem({ title, duration, index }) {
     return (
         <div className={cx('lessonItem')}>
             <span className={cx('lessonName')}>
                 <FontAwesomeIcon className={cx('icon')} icon={faCirclePlay} />
-                1. Lời khuyên trước khóa học
+                {index + '. ' + title}
             </span>
-            <span className={cx('duration')}>04:20</span>
+            <span className={cx('duration')}>{duration}</span>
         </div>
     );
 }

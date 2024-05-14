@@ -1,7 +1,7 @@
 import classnames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBatteryFull, faCheck, faCirclePlay, faClock, faFilm, faGaugeHigh } from '@fortawesome/free-solid-svg-icons';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 import styles from './CourseDetail.module.scss';
@@ -17,24 +17,38 @@ const cx = classnames.bind(styles);
 
 function CourseDetail() {
     const [course, setCourse] = useState();
+    const [isRegistered, setIsRegistered] = useState(false);
     const { slug } = useParams();
     const {
         state: { isOpen },
         dispatch,
     } = usePreview();
-
-    const fetchApi = () => {
-        courseService.getCourseBySlug(slug).then((res) => {
-            setCourse(res);
-        });
-    };
+    const navigate = useNavigate();
 
     useEffect(() => {
-        fetchApi();
+        courseService.getCourseBySlug(slug).then((res) => {
+            setCourse(res.course);
+            setIsRegistered(res.isRegistered);
+        });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleOpenPreview = () => {
         dispatch(openPreview());
+    };
+
+    const handleClickLearnNow = () => {
+        if (isRegistered) {
+            navigate('/watch?course=' + course?.slug);
+        } else {
+            if (course.price === 0) {
+                navigate('/watch?course=' + course?.slug);
+
+                // todo: them dk khoa hoc
+            } else {
+                navigate('/checkout/' + course?.slug);
+            }
+        }
     };
 
     return (
@@ -43,7 +57,8 @@ function CourseDetail() {
                 <IndexModule className={cx('col', 'l-8')}>
                     <h1 className={cx('courseName')}>{course?.title}</h1>
                     <div className={cx('courseDesc')}>{course?.description}</div>
-                    <CurriculumOfCourse />
+                    <CurriculumOfCourse track={course?.track} />
+
                     <div className={cx('topicList')}>
                         <h2 className={cx('topicHeading')}>Yêu cầu</h2>
                         <IndexModule className={cx('row')}>
@@ -96,9 +111,9 @@ function CourseDetail() {
                             <FontAwesomeIcon className={cx('icon')} icon={faCirclePlay} onClick={handleOpenPreview} />
                             <p>Xem giới thiệu khóa học</p>
                         </div>
-                        <h5>Miễn phí</h5>
-                        <Button to={'/watch'} primary className={cx('learnNow')}>
-                            Đăng ký học
+                        <h5>{course?.price > 0 ? course.price + ' d' : 'Miễn phí'}</h5>
+                        <Button primary className={cx('learnNow')} onClick={handleClickLearnNow}>
+                            {isRegistered ? 'Vào học' : 'Đăng ký học'}
                         </Button>
                         <ul>
                             <li>
@@ -108,7 +123,7 @@ function CourseDetail() {
                             <li>
                                 <FontAwesomeIcon icon={faFilm} />
                                 <span>
-                                    Tổng số <strong>205</strong> bài học
+                                    Tổng số <strong>{course?.track?.steps.length}</strong> bài học
                                 </span>
                             </li>
                             <li>
@@ -123,7 +138,7 @@ function CourseDetail() {
                             </li>
                         </ul>
                     </div>
-                    {isOpen && <Preview />}
+                    {isOpen && <Preview title={course.title} video={course.video} />}
                 </IndexModule>
             </IndexModule>
         </IndexModule>

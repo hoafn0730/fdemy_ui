@@ -7,7 +7,7 @@ import Button from '~/components/Button';
 
 const cx = classnames.bind(styles);
 
-function CurriculumOfCourse() {
+function CurriculumOfCourse({ track = {} }) {
     const [isSeeMore, setIsSeeMore] = useState(false);
     const handleSeeMore = () => {
         setIsSeeMore((prev) => !prev);
@@ -23,17 +23,21 @@ function CurriculumOfCourse() {
                         show: isSeeMore,
                     })}
                 >
-                    {[1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((i, index) => (
-                        <div key={index} className={cx('panel')}>
-                            <div className={cx('panelBody')}>
-                                <LessonItem />
+                    {track?.steps &&
+                        track.steps.length > 0 &&
+                        track.steps.map((step, index) => (
+                            <div key={index} className={cx('panel')}>
+                                <div className={cx('panelBody')}>
+                                    <LessonItem title={step.title} index={index + 1} />
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
                 </div>
-                <Button className={cx('seeMore')} onClick={handleSeeMore}>
-                    {isSeeMore ? 'See less' : 'See more'}
-                </Button>
+                {track?.steps && track.steps.length > 5 && (
+                    <Button className={cx('seeMore')} onClick={handleSeeMore}>
+                        {isSeeMore ? 'See less' : 'See more'}
+                    </Button>
+                )}
             </div>
         </div>
     );
