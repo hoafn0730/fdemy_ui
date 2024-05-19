@@ -24,6 +24,7 @@
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    cursor: pointer;
 
     + .answer {
         margin-top: 16px;
@@ -31,6 +32,16 @@
 
     &.selected {
         border-color: #0093fc;
+    }
+
+    &.error {
+        background-color: #ffeaea;
+        border-color: #cc5140;
+    }
+
+    &.success {
+        background-color: #f0ffed;
+        border-color: #48bd79;
     }
 }
 

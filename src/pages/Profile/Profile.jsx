@@ -8,6 +8,7 @@ import IndexModule from '~/components/IndexModule';
 import images from '~/assets/images';
 import Avatar from '~/components/Avatar';
 import Box from '~/components/Box';
+import { useEffect } from 'react';
 
 const cx = classnames.bind(styles);
 
@@ -15,9 +16,11 @@ function Profile() {
     const { username } = useParams();
     const navigate = useNavigate();
 
-    if (!username.startsWith('@')) {
-        navigate('/not-found');
-    }
+    useEffect(() => {
+        if (!username.startsWith('@')) {
+            navigate('/not-found');
+        }
+    }, []);
 
     return (
         <div className={cx('wrapper')}>

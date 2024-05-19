@@ -25,12 +25,10 @@ const publicRoutes = [
     { path: config.routes.home, component: Home },
     { path: config.routes.search, component: Search, layout: HeaderOnly },
     { path: config.routes.detail, component: CourseDetail },
-    { path: config.routes.watch, component: Watch, layout: null },
     { path: config.routes.roadMap, component: RoadMap },
     { path: config.routes.roadMapDetail, component: RoadMapDetail },
     { path: config.routes.blog, component: Blog },
     { path: config.routes.blogDetail, component: BlogDetail },
-    { path: config.routes.profile, component: Profile, layout: HeaderOnly },
     {
         path: config.routes.setting.path,
         component: Setting,
@@ -40,16 +38,12 @@ const publicRoutes = [
             { path: config.routes.setting.security, component: SettingPage },
         ],
     },
-    {
-        path: config.routes.post.path,
-        component: Post,
-        children: [
-            { path: config.routes.post.drafts, component: MyPosts },
-            { path: config.routes.post.published, component: MyPosts },
-        ],
-    },
-    { path: config.routes.newPost, component: NewPost, layout: HeaderOnly },
-    { path: config.routes.checkout, component: Checkout },
+    { path: config.routes.notFound, component: NotFound, layout: null },
+    { path: '*', component: NotFound, layout: null },
+];
+
+const privateRoutes = [
+    { path: config.routes.profile, component: Profile, layout: HeaderOnly },
     {
         path: config.routes.bookmark.path,
         component: Bookmark,
@@ -60,9 +54,18 @@ const publicRoutes = [
             },
         ],
     },
+    { path: config.routes.watch, component: Watch, layout: null },
     { path: config.routes.message, component: Message },
-    { path: config.routes.notFound, component: NotFound, layout: null },
-    { path: '*', component: NotFound, layout: null },
+    { path: config.routes.newPost, component: NewPost, layout: HeaderOnly },
+    { path: config.routes.checkout, component: Checkout },
+    {
+        path: config.routes.post.path,
+        component: Post,
+        children: [
+            { path: config.routes.post.drafts, component: MyPosts },
+            { path: config.routes.post.published, component: MyPosts },
+        ],
+    },
 ];
 
-export { publicRoutes };
+export { publicRoutes, privateRoutes };

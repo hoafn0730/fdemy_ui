@@ -32,7 +32,7 @@ function MyCourses({ children, isShow, onHide }) {
                     return (
                         <PopperWrapper
                             className={cx('wrapper')}
-                            position={{ top: '-16px', right: '150px' }}
+                            position={{ top: '-16px', right: '154px' }}
                             tabIndex={-1}
                             {...attrs}
                         >

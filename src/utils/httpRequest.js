@@ -2,11 +2,22 @@ import axios from 'axios';
 
 const httpRequest = axios.create({
     baseURL: process.env.REACT_APP_BACKEND_URL,
+    withCredentials: true,
 });
+
+let store;
+export const injectStore = (_store) => {
+    store = _store;
+};
 
 httpRequest.interceptors.request.use(
     function (config) {
         // Do something before request is sent
+        const headerToken = store?.userInfo?.accessToken ?? '';
+        if (headerToken) {
+            config.headers.Authorization = `Bearer ${headerToken}`;
+        }
+
         return config;
     },
     function (error) {

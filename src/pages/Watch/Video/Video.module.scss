@@ -9,6 +9,14 @@
     }
 
     .content {
+        position: relative;
         min-height: 300px;
     }
+}
+
+.openQuizBtn {
+    color: var(--primary-color);
+    position: absolute;
+    right: 0;
+    top: 0;
 }

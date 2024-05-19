@@ -7,12 +7,10 @@ import { Link } from 'react-router-dom';
 import styles from './PostItem.module.scss';
 import Reaction from '~/components/Reaction';
 import Presentation from '~/components/Presentation';
-import images from '~/assets/images';
 
 const cx = classnames.bind(styles);
 
-function PostItem() {
-    const image = 'https://files.fullstack.edu.vn/f8-prod/blog_posts/10041/66079a65c6abe.jpg';
+function PostItem({ title, description, slug, image }) {
     const video = '';
 
     return (
@@ -44,14 +42,10 @@ function PostItem() {
 
             <div className={cx('body')}>
                 <div className={cx('info')}>
-                    <Link to="/blogs/abc">
-                        <h3 className={cx('title')}>Hướng dẫn chi tiết cách sử dụng Dev Mode trong khóa Pro</h3>
+                    <Link to={'/blogs/' + slug}>
+                        <h3 className={cx('title')}>{title}</h3>
                     </Link>
-                    <p className={cx('description')}>
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tenetur, eveniet iusto delectus
-                        repudiandae quos incidunt iste alias dicta officiis ut, earum odit dolores nobis? Tenetur nihil
-                        voluptatum fuga dolore architecto.
-                    </p>
+                    <p className={cx('description')}>{description}</p>
                     <Link to="/" className={cx('hashtag')}>
                         #reactjs
                     </Link>

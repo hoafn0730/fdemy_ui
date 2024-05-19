@@ -8,6 +8,7 @@ import styles from './Watch.module.scss';
 import Header from './Header';
 import Video from './Video';
 import Tracks from './Tracks';
+import Quiz from './Quiz';
 import ActionBar from '~/components/ActionBar';
 import Button from '~/components/Button';
 import Modal from '~/components/Modal';
@@ -15,13 +16,11 @@ import Comment from '~/components/Comment';
 import useModal from '~/hooks/useModal';
 import { openModal } from '~/store/actions/modalAction';
 import * as watchService from '~/services/watchService';
-import Quiz from './Quiz';
 
 const cx = classnames.bind(styles);
 
 function Watch() {
     const [track, setTrack] = useState();
-    const [step, setStep] = useState();
     const [process, setProcess] = useState([]);
     const [lesson, setLesson] = useState({});
     const [nextStep, setNextStep] = useState();
@@ -34,18 +33,12 @@ function Watch() {
     const { dispatch } = useModal();
 
     useEffect(() => {
-        if (step?.lessonId) {
-            setIsQuiz(true);
-        }
-    }, []);
-
-    useEffect(() => {
         (async () => {
             const { data } = await watchService.getTracks(searchParams.get('course'));
             setTrack(data.track);
             setProcess(data.userProcess);
 
-            if (data.userProcess.length < 1) {
+            if (data.userProcess.length < 1 && data.track.steps.length > 0) {
                 await watchService.saveUserProcess(data.track.steps[0].uuid);
             }
 
@@ -59,10 +52,12 @@ function Watch() {
                         return params;
                     });
                 } else {
-                    setSearchParams((params) => {
-                        params.set('id', data.track.steps[0].uuid);
-                        return params;
-                    });
+                    if (data.track.steps.length > 0) {
+                        setSearchParams((params) => {
+                            params.set('id', data.track.steps[0].uuid);
+                            return params;
+                        });
+                    }
                 }
             }
         })();
@@ -73,7 +68,7 @@ function Watch() {
         (async () => {
             if (searchParams.has('id')) {
                 const res = await watchService.getStep(searchParams.get('id'));
-                setStep(res.data.step);
+                // setStep(res.data.step);
                 setLesson(res.data.step.lesson);
                 setNextStep(res.data.nextStep);
                 setPrevStep(res.data.prevStep);
@@ -83,6 +78,7 @@ function Watch() {
                     setProcess((prev) => [...prev, res.data.step.id]);
                 }
             }
+            setIsQuiz(false);
         })();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchParams]);
@@ -121,20 +117,33 @@ function Watch() {
         }, 1000);
     };
 
+    const handleOpenQuiz = () => {
+        if (lesson?.quizzes.length > 0) {
+            setIsQuiz(true);
+        }
+    };
+
+    const handleCloseQuiz = () => {
+        setIsQuiz(false);
+    };
+
     return (
         <div className={cx('wrapper')}>
-            <Header track={track} process={process} />
+            <Header track={track} process={process} isQuiz={isQuiz} onCloseQuiz={handleCloseQuiz} />
             <div className={cx('content')}>
-                {!isQuiz && (
+                {isQuiz && lesson?.quizzes.length > 0 ? (
+                    <Quiz data={lesson?.quizzes} onClose={handleCloseQuiz} />
+                ) : (
                     <Video
                         title={lesson?.title}
                         video={lesson?.video}
                         type={lesson?.videoType}
                         content={lesson?.content}
+                        hasQuiz={lesson?.quizzes && lesson?.quizzes.length > 0}
+                        onOpenQuiz={handleOpenQuiz}
                         onStateChange={checkElapsedTime}
                     />
                 )}
-                {isQuiz && <Quiz />}
 
                 {isShowTracks && <Tracks data={track} process={process} onChangeShow={handleShowTracks} />}
             </div>

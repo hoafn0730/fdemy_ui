@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import HeadlessTippy from '@tippyjs/react/headless';
 import classnames from 'classnames/bind';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import styles from './Menu.module.scss';
 import Header from './Header';
@@ -10,6 +10,8 @@ import PopperWrapper from '~/components/Popper';
 import Image from '~/components/Image';
 import useTheme from '~/hooks/useTheme';
 import { changeTheme } from '~/store/actions/themeAction';
+import useAccount from '~/hooks/useAccount';
+import { doLogout } from '~/store/actions/accountAction';
 
 const cx = classnames.bind(styles);
 
@@ -20,6 +22,11 @@ function Menu({ children, isShow, isLogin, items = [], onHide }) {
         state: { isDarkMode },
         dispatch,
     } = useTheme();
+    const account = useAccount();
+
+    useEffect(() => {
+        setHistory([{ data: items }]);
+    }, [items]);
 
     const renderItems = () => {
         return current.data.map((item, index) => {
@@ -52,6 +59,11 @@ function Menu({ children, isShow, isLogin, items = [], onHide }) {
             }
             case 'language': {
                 return console.log(menuItem);
+            }
+            case 'logout': {
+                doLogout({ ...account });
+                window.location.href = '/';
+                return;
             }
             default:
         }

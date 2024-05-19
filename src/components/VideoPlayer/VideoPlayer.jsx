@@ -55,6 +55,7 @@ function VideoPlayer({ title, video, type, onStateChange }) {
             <div className={cx('player')} onClick={handlePlay} onDoubleClick={handleDblClick}>
                 {type && type === 'youtube' ? (
                     <YouTube
+                        id="embed-youtube"
                         title={title}
                         videoId={video}
                         className={cx('video-steam')}

@@ -6,12 +6,18 @@ import styles from './DefaultLayout.module.scss';
 import Header from '../partials/Header';
 import SideBar from '../partials/SideBar';
 import Footer from '../partials/Footer';
+import useOffline from '~/hooks/useOffline';
+import NoInternet from '~/pages/NoInternet';
 
 const cx = classnames.bind(styles);
 
 function DefaultLayout({ children }) {
     const isTabletOrMobile = useMediaQuery({ query: '(min-width: 1224px)' });
-    return (
+    const isOffline = useOffline();
+
+    return isOffline ? (
+        <NoInternet />
+    ) : (
         <div className={cx('wrapper')}>
             <Header />
             <main className={cx('container')}>

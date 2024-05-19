@@ -8,13 +8,22 @@ import config from '~/config';
 
 const cx = classnames.bind(styles);
 
-function Header({ track, process }) {
+function Header({ track, process, isQuiz, onCloseQuiz }) {
     const navigate = useNavigate();
     const userProcess = (process.length / track?.steps.length) * 100;
 
     return (
         <header className={cx('wrapper')}>
-            <div className={cx('btn-back')} onClick={() => navigate(-1)}>
+            <div
+                className={cx('btn-back')}
+                onClick={() => {
+                    if (isQuiz) {
+                        onCloseQuiz();
+                    } else {
+                        navigate('/');
+                    }
+                }}
+            >
                 <FontAwesomeIcon className={cx('icon')} icon={faAngleLeft} />
             </div>
             <Link to={config.routes.home} className={cx('logo')}>

@@ -23,7 +23,7 @@ function Inbox({ children, isShow, onHide }) {
                     return (
                         <PopperWrapper
                             className={cx('wrapper')}
-                            position={{ top: '-16px', right: '80px' }}
+                            position={{ top: '-16px', right: '68px' }}
                             tabIndex={-1}
                             {...attrs}
                         >

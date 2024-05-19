@@ -51,7 +51,7 @@
     }
 }
 
-.btn-action {
+.action-btn {
     font-size: 2rem;
     padding: 8px;
     margin-left: 6px;
@@ -71,6 +71,30 @@
     span.active {
         font-weight: 700;
     }
+
+    &.newPostBtn {
+        min-width: auto;
+        width: 30px;
+        height: 30px;
+        border: 2px solid #000;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s linear;
+
+        &:hover {
+            svg {
+                transform: scale(108%);
+            }
+        }
+    }
+}
+
+.login-btn {
+    font-size: 1.6rem;
+    font-weight: 600;
+    padding: 9px 12px;
 }
 
 .btn-back {

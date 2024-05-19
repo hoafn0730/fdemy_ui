@@ -3,10 +3,18 @@ import classnames from 'classnames/bind';
 import styles from './RoadMap.module.scss';
 import LearningPath from './LearningPath';
 import Heading from '~/components/Heading';
+import { useEffect, useState } from 'react';
+import * as categoryService from '~/services/categoryService';
 
 const cx = classnames.bind(styles);
 
 function RoadMap() {
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        categoryService.getCategories().then((res) => setCategories(res));
+    }, []);
+
     return (
         <div className={cx('wrapper')}>
             <Heading
@@ -16,24 +24,15 @@ function RoadMap() {
             />
             <div className={cx('body')}>
                 <div className={cx('learningPath')}>
-                    <LearningPath
-                        title={'Lộ trình học Front-end'}
-                        slug={'lo-trinh-hoc-front-end'}
-                        desc={`Lập trình viên Front-end là người xây dựng ra giao diện websites. Trong phần này F8 sẽ chia sẻ cho bạn lộ trình để trở thành lập trình viên Front-end nhé.`}
-                        image={'https://files.fullstack.edu.vn/f8-prod/learning-paths/2/63b4642136f3e.png'}
-                    />
-                    <LearningPath
-                        title={'Lộ trình học Front-end'}
-                        slug={'lo-trinh-hoc-front-end'}
-                        desc={`Lập trình viên Front-end là người xây dựng ra giao diện websites. Trong phần này F8 sẽ chia sẻ cho bạn lộ trình để trở thành lập trình viên Front-end nhé.`}
-                        image={'https://files.fullstack.edu.vn/f8-prod/learning-paths/2/63b4642136f3e.png'}
-                    />
-                    <LearningPath
-                        title={'Lộ trình học Front-end'}
-                        slug={'lo-trinh-hoc-front-end'}
-                        desc={`Lập trình viên Front-end là người xây dựng ra giao diện websites. Trong phần này F8 sẽ chia sẻ cho bạn lộ trình để trở thành lập trình viên Front-end nhé.`}
-                        image={'https://files.fullstack.edu.vn/f8-prod/learning-paths/2/63b4642136f3e.png'}
-                    />
+                    {categories.map((category) => (
+                        <LearningPath
+                            key={category.id}
+                            title={category.title}
+                            slug={category.slug}
+                            desc={category.description}
+                            image={category.image}
+                        />
+                    ))}
                 </div>
             </div>
         </div>

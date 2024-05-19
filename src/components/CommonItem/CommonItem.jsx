@@ -11,7 +11,7 @@ const cx = classnames.bind(styles);
 
 function CommonItem({ children, className, linkTo, title, image, ctaTitle }) {
     return (
-        <IndexModule className={cx('col', 'l-3', 'm-4', 'c-12')}>
+        <IndexModule className={cx('col', 'l-3', 'm-6', 'c-12')}>
             <div className={cx('wrapper', className)}>
                 <Link className={cx('link')} to={linkTo}>
                     {/* <Button rounded outline>{ctaTitle}</Button> */}

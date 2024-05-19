@@ -1,14 +1,21 @@
 import classnames from 'classnames/bind';
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 import styles from './Blog.module.scss';
 import PostItem from './PostItem';
 import IndexModule from '~/components/IndexModule';
 import Heading from '~/components/Heading';
+import { getBlogs } from '~/services/blogService';
 
 const cx = classnames.bind(styles);
 
 function Blog() {
+    const [blogs, setBlogs] = useState([]);
+
+    useEffect(() => {
+        getBlogs().then((res) => setBlogs(res.data));
+    }, []);
     return (
         <div className={cx('wrapper')}>
             <Heading className={cx('heading')} title="Bài viết nổi bật" />
@@ -17,8 +24,14 @@ function Blog() {
                     <IndexModule className={cx('col', 'l-9')}>
                         <div className={cx('body')}>
                             <div className={cx('list')}>
-                                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
-                                    <PostItem key={item} />
+                                {blogs.map((item) => (
+                                    <PostItem
+                                        key={item.id}
+                                        title={item.title}
+                                        description={item.description}
+                                        slug={item.slug}
+                                        image={item.image}
+                                    />
                                 ))}
                             </div>
                         </div>

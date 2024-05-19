@@ -1,4 +1,5 @@
 import classnames from 'classnames/bind';
+import { useEffect, useState } from 'react';
 
 import styles from './Home.module.scss';
 import IndexModule from '~/components/IndexModule';
@@ -6,7 +7,6 @@ import Slideshow from '~/components/Slideshow';
 import ScrollList from '~/components/ScrollList';
 import CourseItem from '~/components/CourseItem';
 import * as courseService from '~/services/courseService';
-import { useEffect, useState } from 'react';
 
 const cx = classnames.bind(styles);
 

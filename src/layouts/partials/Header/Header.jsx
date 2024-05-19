@@ -4,7 +4,14 @@ import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleLeft, faBars, faCode, faEllipsisVertical, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import {
+    faAngleLeft,
+    faBars,
+    faCode,
+    faEllipsisVertical,
+    faPenToSquare,
+    faPlus,
+} from '@fortawesome/free-solid-svg-icons';
 import { useMediaQuery } from 'react-responsive';
 
 import styles from './Header.module.scss';
@@ -28,6 +35,9 @@ import {
     SettingIcon,
     UserIcon,
 } from '~/components/Icons';
+import useAccount from '~/hooks/useAccount';
+import useAuthModal from '~/hooks/useAuthModal';
+import { openAuthModal } from '~/store/actions/authModalAction';
 
 const cx = classnames.bind(styles);
 
@@ -65,10 +75,12 @@ const MENU_ITEMS = [
 ];
 
 function Header() {
-    const [isLogin] = useState(true);
+    const {
+        state: { isLogin, userInfo },
+    } = useAccount();
+    const modal = useAuthModal();
     const [showPopper, setShowPopper] = useState({ category: false, inbox: false, myCourses: false, menu: false });
     const firstClickRef = useRef({ inbox: false, myCourses: false });
-    const username = 'hoafn0730';
     const isTabletOrMobile = useMediaQuery({ query: '(min-width: 1224px)' });
     const isMobile = useMediaQuery({ query: '(min-width: 630px)' });
     const navigate = useNavigate();
@@ -78,7 +90,7 @@ function Header() {
         {
             title: 'Profile',
             icon: <UserIcon />,
-            to: '/@' + username,
+            to: '/@' + userInfo.username,
         },
         {
             title: 'Bookmarks',
@@ -97,6 +109,7 @@ function Header() {
         },
         ...MENU_ITEMS,
         {
+            type: 'logout',
             title: 'Log out',
             icon: <LogoutIcon />,
             separate: true,
@@ -147,6 +160,10 @@ function Header() {
         setShowPopper({ category: false, myCourses: false, inbox: false, menu: false });
     };
 
+    const handleClickLogin = () => {
+        modal.dispatch(openAuthModal());
+    };
+
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
@@ -161,7 +178,7 @@ function Header() {
                             {location.pathname === '/' ? (
                                 <Category isShow={showPopper.category} onHide={handleHidePopper}>
                                     <Tippy delay={[0, 200]} disabled={showPopper.category} content="Categories">
-                                        <button id="category" className={cx('btn-action')} onClick={handleShowPopper}>
+                                        <button id="category" className={cx('action-btn')} onClick={handleShowPopper}>
                                             <span>Categories</span>
                                         </button>
                                     </Tippy>
@@ -197,16 +214,24 @@ function Header() {
                             {isTabletOrMobile && (
                                 <MyCourses isShow={showPopper.myCourses} onHide={handleHidePopper}>
                                     <Tippy delay={[0, 200]} disabled={showPopper.myCourses} content="My Courses">
-                                        <button id="my-courses" className={cx('btn-action')} onClick={handleShowPopper}>
+                                        <button id="my-courses" className={cx('action-btn')} onClick={handleShowPopper}>
                                             <span>My Courses</span>
                                         </button>
                                     </Tippy>
                                 </MyCourses>
                             )}
 
+                            <Tippy offset={[0, 14]} delay={[0, 200]} content="New post">
+                                <div>
+                                    <Button to={'/new-post'} className={cx('action-btn', 'newPostBtn')}>
+                                        <FontAwesomeIcon icon={faPlus} />
+                                    </Button>
+                                </div>
+                            </Tippy>
+
                             <Inbox isShow={showPopper.inbox} onHide={handleHidePopper}>
                                 <Tippy offset={[0, 3]} delay={[0, 200]} disabled={showPopper.inbox} content="Inbox">
-                                    <button id="inbox" className={cx('btn-action')} onClick={handleShowPopper}>
+                                    <button id="inbox" className={cx('action-btn')} onClick={handleShowPopper}>
                                         {showPopper.inbox ? <InboxActiveIcon /> : <InboxIcon />}
                                     </button>
                                 </Tippy>
@@ -214,7 +239,9 @@ function Header() {
                         </>
                     ) : (
                         <>
-                            <Button to={'/login'}>Login</Button>
+                            <Button primary rounded className={cx('login-btn')} onClick={handleClickLogin}>
+                                Login
+                            </Button>
                         </>
                     )}
 
@@ -226,17 +253,17 @@ function Header() {
                             onHide={handleHidePopper}
                         >
                             {isLogin ? (
-                                <button id="menu" className={cx('btn-action')} onClick={handleShowPopper}>
+                                <button id="menu" className={cx('action-btn')} onClick={handleShowPopper}>
                                     <Image className={cx('avatar')} src={images.avatar} alt="avatar" />
                                 </button>
                             ) : (
-                                <button id="menu" className={cx('btn-action')} onClick={handleShowPopper}>
+                                <button id="menu" className={cx('action-btn')} onClick={handleShowPopper}>
                                     <FontAwesomeIcon icon={faEllipsisVertical} />
                                 </button>
                             )}
                         </Menu>
                     ) : (
-                        <button className={cx('btn-action')}>
+                        <button className={cx('action-btn')}>
                             <FontAwesomeIcon icon={faBars} />
                         </button>
                     )}

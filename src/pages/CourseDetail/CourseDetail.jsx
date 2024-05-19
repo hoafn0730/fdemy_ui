@@ -6,12 +6,16 @@ import { useEffect, useState } from 'react';
 
 import styles from './CourseDetail.module.scss';
 import CurriculumOfCourse from './CurriculumOfCourse';
-import IndexModule from '~/components/IndexModule';
 import Button from '~/components/Button';
+import IndexModule from '~/components/IndexModule';
 import Preview from '~/components/Preview';
-import * as courseService from '~/services/courseService';
 import usePreview from '~/hooks/usePreview';
 import { openPreview } from '~/store/actions/previewAction';
+import * as courseService from '~/services/courseService';
+import * as registerService from '~/services/registerService';
+import useAccount from '~/hooks/useAccount';
+import useAuthModal from '~/hooks/useAuthModal';
+import { openAuthModal } from '~/store/actions/authModalAction';
 
 const cx = classnames.bind(styles);
 
@@ -19,10 +23,14 @@ function CourseDetail() {
     const [course, setCourse] = useState();
     const [isRegistered, setIsRegistered] = useState(false);
     const { slug } = useParams();
+
     const {
         state: { isOpen },
         dispatch,
     } = usePreview();
+    const account = useAccount();
+    const modal = useAuthModal();
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -42,9 +50,18 @@ function CourseDetail() {
             navigate('/watch?course=' + course?.slug);
         } else {
             if (course.price === 0) {
-                navigate('/watch?course=' + course?.slug);
-
-                // todo: them dk khoa hoc
+                if (account.state.userInfo.accessToken) {
+                    registerService
+                        .registerCourse({
+                            courseId: course.id,
+                            userId: 1,
+                        })
+                        .then((res) => {
+                            navigate('/watch?course=' + course?.slug);
+                        });
+                } else {
+                    modal.dispatch(openAuthModal());
+                }
             } else {
                 navigate('/checkout/' + course?.slug);
             }
@@ -54,7 +71,7 @@ function CourseDetail() {
     return (
         <IndexModule className={cx('grid', 'wide')}>
             <IndexModule className={cx('row', 'wrapper')}>
-                <IndexModule className={cx('col', 'l-8')}>
+                <IndexModule className={cx('col', 'l-8', 'm-12', 'c-12')}>
                     <h1 className={cx('courseName')}>{course?.title}</h1>
                     <div className={cx('courseDesc')}>{course?.description}</div>
                     <CurriculumOfCourse track={course?.track} />
@@ -98,7 +115,7 @@ function CourseDetail() {
                     </div>
                 </IndexModule>
 
-                <IndexModule className={cx('col', 'l-4')}>
+                <IndexModule className={cx('col', 'l-4', 'm-10', 'c-12')}>
                     <div className={cx('purchaseBadge')}>
                         <div className={cx('preview')}>
                             <div

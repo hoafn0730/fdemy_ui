@@ -20,8 +20,8 @@ function MyCourseItem({ title, image, to, process, createdAt }) {
                         Học cách đây <span>{moment(createdAt).format('YYYY-MM-DD HH:mm:ss').toString()}</span> trước
                     </p>
 
-                    <Tippy delay={[0, 200]} content={process + '%'} placement="bottom">
-                        <div className={cx('VerticalProgressBar')} style={{ '--progress': `${process}%` }} />
+                    <Tippy delay={[0, 200]} content={process ?? 0 + '%'} placement="bottom">
+                        <div className={cx('VerticalProgressBar')} style={{ '--progress': `${process ?? 0}%` }} />
                     </Tippy>
                 </div>
             </Link>
