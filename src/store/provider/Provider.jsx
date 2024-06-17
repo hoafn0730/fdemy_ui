@@ -5,6 +5,7 @@ import PreviewProvider from './PreviewProvider';
 import ModalProvider from './ModalProvider';
 import AccountProvider from './AccountProvider';
 import AuthModalProvider from './AuthModalProvider';
+import NotificationProvider from './NotificationProvider';
 
 function Provider({ children }) {
     return (
@@ -12,7 +13,9 @@ function Provider({ children }) {
             <PreviewProvider>
                 <ModalProvider>
                     <AccountProvider>
-                        <AuthModalProvider>{children}</AuthModalProvider>
+                        <NotificationProvider>
+                            <AuthModalProvider>{children}</AuthModalProvider>
+                        </NotificationProvider>
                     </AccountProvider>
                 </ModalProvider>
             </PreviewProvider>

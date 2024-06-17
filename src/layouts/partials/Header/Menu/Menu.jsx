@@ -12,6 +12,7 @@ import useTheme from '~/hooks/useTheme';
 import { changeTheme } from '~/store/actions/themeAction';
 import useAccount from '~/hooks/useAccount';
 import { doLogout } from '~/store/actions/accountAction';
+import useLocalStorage from '~/hooks/useLocalStorage';
 
 const cx = classnames.bind(styles);
 
@@ -23,6 +24,7 @@ function Menu({ children, isShow, isLogin, items = [], onHide }) {
         dispatch,
     } = useTheme();
     const account = useAccount();
+    const [, setAuth] = useLocalStorage('auth', null);
 
     useEffect(() => {
         setHistory([{ data: items }]);
@@ -63,6 +65,7 @@ function Menu({ children, isShow, isLogin, items = [], onHide }) {
             case 'logout': {
                 doLogout({ ...account });
                 window.location.href = '/';
+                setAuth(null);
                 return;
             }
             default:

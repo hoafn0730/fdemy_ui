@@ -7,11 +7,17 @@ import Button from '~/components/Button';
 
 const cx = classnames.bind(styles);
 
-function Card({ title, name, isChecked, onChange }) {
+function Card({ title, info, name, isChecked, onChange }) {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('info')}>
-                <input checked={isChecked} className={cx('check')} name={name} type="radio" onChange={onChange} />
+                <input
+                    defaultChecked={isChecked}
+                    className={cx('check')}
+                    name={name}
+                    type="radio"
+                    onChange={(e) => onChange(e, info)}
+                />
                 <FontAwesomeIcon className={cx('icon')} icon={faCreditCard} />
                 <span className={cx('title')}>{title}</span>
             </div>

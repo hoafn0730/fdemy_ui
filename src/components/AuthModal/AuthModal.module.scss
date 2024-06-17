@@ -50,6 +50,12 @@
     z-index: 1;
 }
 
+.iframe {
+    border: none;
+    height: 100%;
+    width: 100%;
+}
+
 @keyframes inline {
     0% {
         opacity: 0;

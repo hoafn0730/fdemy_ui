@@ -72,7 +72,7 @@ function Login() {
                                 <FormControl
                                     value={formValue.email}
                                     name={'email'}
-                                    type={'email'}
+                                    type={'text'}
                                     placeholder={'Email address'}
                                     invalid={isError}
                                     onFocus={handleFocusInput}
@@ -86,7 +86,7 @@ function Login() {
                                     type={'password'}
                                     placeholder={'Password'}
                                     invalid={isError}
-                                    onFocus={handleFocusInput}
+                                    // onFocus={handleFocusInput}
                                     onChange={handleChangeFormValue}
                                 />
                             </FormGroup>

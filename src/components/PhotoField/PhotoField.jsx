@@ -6,13 +6,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useRef, useState } from 'react';
 import Button from '../Button';
+import { updateProfile } from '~/services/authService';
 
 const cx = classnames.bind(styles);
 
 function PhotoField({ label, name, value, desc }) {
-    const [photo, setPhoto] = useState();
     const [isEdit, setIsEdit] = useState(false);
+    const [photo, setPhoto] = useState(value);
     const inputRef = useRef();
+
+    const handleChangePhoto = (e) => {
+        const file = e.target.files[0];
+        file.preview = URL.createObjectURL(file);
+        setPhoto(file);
+    };
 
     useEffect(() => {
         return () => {
@@ -25,17 +32,12 @@ function PhotoField({ label, name, value, desc }) {
         isEdit && inputRef.current.click();
     };
 
-    const handleChangePhoto = (e) => {
-        const file = e.target.files[0];
-        file.preview = URL.createObjectURL(file);
-        setPhoto(file);
-    };
-
     const handleEdit = () => {
         setIsEdit(true);
     };
 
     const handleSave = () => {
+        updateProfile({ avatar: photo }).catch((err) => console.log(err));
         setIsEdit(false);
     };
 

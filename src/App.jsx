@@ -1,5 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Fragment, useEffect } from 'react';
+import io from 'socket.io-client';
+import { toast } from 'react-toastify';
 
 import { DefaultLayout } from '~/layouts';
 import { privateRoutes, publicRoutes } from '~/routes';
@@ -10,15 +12,19 @@ import Login from '~/pages/Login';
 import useLocalStorage from '~/hooks/useLocalStorage';
 import useTheme from '~/hooks/useTheme';
 import useAccount from '~/hooks/useAccount';
-import { changeTheme } from '~/store/actions/themeAction';
 import useAuthModal from '~/hooks/useAuthModal';
+import { changeTheme } from '~/store/actions/themeAction';
 import { doGetAccount } from '~/store/actions/accountAction';
+import { addNewNotification } from './store/actions/notificationAction';
+import useNotification from './hooks/useNotification';
+
+const socket = io('http://localhost:5000');
 
 function App() {
     const [theme, setTheme] = useLocalStorage('theme');
     const account = useAccount();
     const modal = useAuthModal();
-
+    const { dispatch: dispatchNotify } = useNotification();
     const {
         state: { isDarkMode },
         dispatch,
@@ -30,14 +36,33 @@ function App() {
         } else {
             setTheme('light');
         }
+
         if (!account?.state?.userInfo?.accessToken) {
             doGetAccount({ ...account });
         }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
         setTheme(isDarkMode ? 'dark' : 'light');
-    }, [isDarkMode]);
+    }, [isDarkMode, setTheme]);
+
+    useEffect(() => {
+        socket.on('notification', (data) => {
+            toast.success(data.message, {
+                position: 'top-right',
+                autoClose: 5000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                theme: 'light',
+            });
+            dispatchNotify(addNewNotification(data));
+        });
+    }, [dispatchNotify]);
 
     return (
         <Router>

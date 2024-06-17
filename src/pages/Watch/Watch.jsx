@@ -2,7 +2,7 @@ import classnames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComments } from '@fortawesome/free-regular-svg-icons';
-import { useSearchParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 
 import styles from './Watch.module.scss';
 import Header from './Header';
@@ -29,12 +29,13 @@ function Watch() {
     const [isQuiz, setIsQuiz] = useState(false);
     const [isShowTracks, setIsShowTracks] = useState(true);
     const [isShowComments, setIsShowComments] = useState(false);
-    const [searchParams, setSearchParams] = useSearchParams();
     const { dispatch } = useModal();
+    const [searchParams, setSearchParams] = useSearchParams();
+    const { slug } = useParams();
 
     useEffect(() => {
         (async () => {
-            const { data } = await watchService.getTracks(searchParams.get('course'));
+            const { data } = await watchService.getTracks(slug);
             setTrack(data.track);
             setProcess(data.userProcess);
 
@@ -68,7 +69,6 @@ function Watch() {
         (async () => {
             if (searchParams.has('id')) {
                 const res = await watchService.getStep(searchParams.get('id'));
-                // setStep(res.data.step);
                 setLesson(res.data.step.lesson);
                 setNextStep(res.data.nextStep);
                 setPrevStep(res.data.prevStep);

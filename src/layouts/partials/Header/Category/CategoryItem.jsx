@@ -8,7 +8,7 @@ const cx = classnames.bind(styles);
 function CategoryItem({ title, slug }) {
     return (
         <div className={cx('item')}>
-            <Link to={'/categories/' + slug} className={cx('link')}>
+            <Link to={'/road-map/' + slug} className={cx('link')}>
                 {title}
             </Link>
         </div>

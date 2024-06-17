@@ -12,6 +12,7 @@
         "@testing-library/user-event": "^13.5.0",
         "@tippyjs/react": "^4.2.6",
         "axios": "^1.6.8",
+        "axios-retry": "^4.2.0",
         "classnames": "^2.5.1",
         "clipboard": "^2.0.11",
         "highlight.js": "^11.9.0",
@@ -33,6 +34,7 @@
         "react-youtube": "^10.1.0",
         "sass": "^1.71.1",
         "slick-carousel": "^1.8.1",
+        "socket.io-client": "^4.7.5",
         "web-vitals": "^2.1.4"
     },
     "devDependencies": {

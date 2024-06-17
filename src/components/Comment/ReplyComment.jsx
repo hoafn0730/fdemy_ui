@@ -5,13 +5,10 @@ import CommentItem from './CommentItem';
 
 const cx = classnames.bind(styles);
 
-function ReplyComment() {
+function ReplyComment({ item }) {
     return (
         <div className={cx('replyWrap')}>
-            <CommentItem />
-            <CommentItem />
-            <CommentItem />
-            <CommentItem />
+            <CommentItem item={item} />
         </div>
     );
 }

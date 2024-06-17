@@ -2,7 +2,7 @@ const routes = {
     home: '/',
     search: '/search',
     detail: '/courses/:slug',
-    watch: '/watch',
+    watch: '/watch/:slug',
     roadMap: '/road-map',
     roadMapDetail: '/road-map/:slug',
     blog: '/blogs',

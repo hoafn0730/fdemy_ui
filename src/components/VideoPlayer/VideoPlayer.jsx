@@ -5,7 +5,6 @@ import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
 import { memo, useRef, useState } from 'react';
 
 import styles from './VideoPlayer.module.scss';
-import videos from '~/assets/videos';
 import YouTube from 'react-youtube';
 
 const cx = classnames.bind(styles);
@@ -17,7 +16,7 @@ function VideoPlayer({ title, video, type, onStateChange }) {
 
     const handlePlay = () => {
         const video = videoRef.current;
-        if (video.paused) {
+        if (video && video.paused) {
             video.play();
             setIsPlay(true);
         } else {
@@ -71,7 +70,7 @@ function VideoPlayer({ title, video, type, onStateChange }) {
                     <>
                         {video && (
                             <>
-                                <video className={cx('video-steam')} src={videos.giaNhu} ref={videoRef}></video>
+                                <video className={cx('video-steam')} src={video} ref={videoRef}></video>
                                 {showButton && (
                                     <div className={cx('shadow')}>
                                         {isPlay ? (

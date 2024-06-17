@@ -60,7 +60,7 @@ function NewPost() {
     return (
         <IndexModule className={cx('grid')}>
             <IndexModule className={cx('row')}>
-                <IndexModule className={cx('col', 'l-12')}>
+                <IndexModule className={cx('col', 'l-12', 'm-12', 'c-12')}>
                     <div className={cx('wrapper')}>
                         <Button primary rounded className={cx('btn')} onClick={handlePublishPost}>
                             Publish

@@ -6,6 +6,7 @@ import styles from './CourseItem.module.scss';
 import CommonItem from '../CommonItem';
 import Image from '../Image';
 import Button from '../Button';
+import formatPrice from '~/utils/formatPrice';
 
 const cx = classnames.bind(styles);
 
@@ -41,8 +42,10 @@ function CourseItem({ title, desc, linkTo, image, ctaTitle, oldPrice, mainPrice,
                 <CommonItem title={title} linkTo={linkTo} image={image} ctaTitle={ctaTitle}>
                     <div className={cx('price')}>
                         <>
-                            {!!oldPrice && <span className={cx('old-price')}>{oldPrice + 'đ'}</span>}
-                            <span className={cx('main-price')}>{mainPrice > 0 ? mainPrice + 'đ' : 'Miễn phí'}</span>
+                            {!!oldPrice && <span className={cx('old-price')}>{formatPrice(oldPrice)}</span>}
+                            <span className={cx('main-price')}>
+                                {mainPrice > 0 ? formatPrice(mainPrice) : 'Miễn phí'}
+                            </span>
                         </>
                     </div>
                 </CommonItem>

@@ -1,33 +1,52 @@
 import classnames from 'classnames/bind';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 import styles from './CommentBox.module.scss';
 import Avatar from '../Avatar';
 import Button from '../Button';
+import useAccount from '~/hooks/useAccount';
 
 const cx = classnames.bind(styles);
 
-function CommentBox() {
+function CommentBox({ value, className, style, onChange }) {
+    const [showAction, setShowAction] = useState(false);
+    const {
+        state: { userInfo },
+    } = useAccount();
+
     return (
-        <div className={cx('wrapper')}>
+        <div
+            className={cx('wrapper', {
+                [className]: className,
+            })}
+            style={style}
+        >
             <div className={cx('avatarWrap')}>
-                <Link to={'/'}>
-                    <Avatar
-                        src="https://yt3.ggpht.com/JQxY7Ce5g2q_X2z3qy_2D53luYb_5JuE4SRBxb8PpG2fk8qmTfYasZLQpzjoSwye-KzuOxKhREA=s88-c-k-c0x00ffffff-no-rj"
-                        style={{ '--font-size': '0.4rem' }}
-                    />
+                <Link to={'/@' + userInfo.username}>
+                    <Avatar src={userInfo.avatar} style={{ '--font-size': '0.4rem' }} />
                 </Link>
             </div>
             <div className={cx('commentContent')}>
-                <input className={cx('input')} type="text" placeholder="Bạn có thắc mắc gì trong bài học này?" />
-                <div className={cx('actions')}>
-                    <Button outline rounded className={cx('btn')}>
-                        Hủy
-                    </Button>
-                    <Button primary rounded className={cx('btn', 'ok')}>
-                        Bình luận
-                    </Button>
-                </div>
+                <input
+                    value={value}
+                    className={cx('input')}
+                    type="text"
+                    placeholder="Bạn có thắc mắc gì trong bài học này?"
+                    onFocus={() => setShowAction(true)}
+                    onBlur={() => setShowAction(false)}
+                    onChange={onChange}
+                />
+                {showAction && (
+                    <div className={cx('actions')}>
+                        <Button outline rounded className={cx('btn')} onClick={() => setShowAction(false)}>
+                            Hủy
+                        </Button>
+                        <Button primary rounded className={cx('btn', 'ok')}>
+                            Bình luận
+                        </Button>
+                    </div>
+                )}
             </div>
         </div>
     );

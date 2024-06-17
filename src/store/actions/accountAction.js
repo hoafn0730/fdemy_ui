@@ -39,7 +39,11 @@ const doGetAccount = ({ dispatch }) => {
     authService
         .getCurrentUser()
         .then((res) => {
-            dispatch({ type: USER_LOGIN_SUCCESS, payload: res.data });
+            if (res.code === 0) {
+                dispatch({ type: USER_LOGIN_SUCCESS, payload: res.data });
+            } else {
+                dispatch({ type: USER_LOGIN_FAILED });
+            }
         })
         .catch((err) => {
             dispatch({ type: USER_LOGIN_FAILED });

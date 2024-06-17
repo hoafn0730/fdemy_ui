@@ -14,4 +14,12 @@ const getCurrentUser = async () => {
     return httpRequest.get('/auth/current-user');
 };
 
-export { login, logout, getCurrentUser };
+const updateProfile = async (data) => {
+    return httpRequest.patch('/auth/update-profile', data, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+    });
+};
+
+export { login, logout, getCurrentUser, updateProfile };

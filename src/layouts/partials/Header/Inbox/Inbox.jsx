@@ -7,10 +7,15 @@ import InboxItem from './InboxItem';
 import PopperWrapper from '~/components/Popper';
 import HeaderPopper from '~/components/Popper/Header';
 import Button from '~/components/Button';
+import useNotification from '~/hooks/useNotification';
 
 const cx = classnames.bind(styles);
 
 function Inbox({ children, isShow, onHide }) {
+    const {
+        state: { items },
+    } = useNotification();
+
     return (
         <div>
             <HeadlessTippy
@@ -29,16 +34,16 @@ function Inbox({ children, isShow, onHide }) {
                         >
                             <HeaderPopper title={'Notifications'} titleBtn={'Mark as read'} />
                             <div className={cx('content')}>
-                                <InboxItem
-                                    data={{
-                                        noSeen: true,
-                                    }}
-                                />
-                                <InboxItem />
-                                <InboxItem />
-                                <InboxItem />
-                                <InboxItem />
-                                <InboxItem />
+                                {items.length > 0 &&
+                                    items.map((item, index) => (
+                                        <InboxItem
+                                            key={index}
+                                            data={{
+                                                message: item.message,
+                                                noSeen: true,
+                                            }}
+                                        />
+                                    ))}
                                 <InboxItem />
                             </div>
                             <Button to={'/notifications'} className={cx('seeAll')}>

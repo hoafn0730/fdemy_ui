@@ -23,7 +23,6 @@ function Search() {
     const debouncedValue = useDebounce(searchValue, 500);
 
     const navigate = useNavigate();
-
     const inputRef = useRef();
 
     useEffect(() => {

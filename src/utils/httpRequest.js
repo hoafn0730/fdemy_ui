@@ -1,8 +1,19 @@
 import axios from 'axios';
+import axiosRetry from 'axios-retry';
 
 const httpRequest = axios.create({
     baseURL: process.env.REACT_APP_BACKEND_URL,
     withCredentials: true,
+});
+
+axiosRetry(httpRequest, {
+    retries: 3,
+    retryCondition: (error) => {
+        return error?.response?.status === 400 || error?.response?.status === 405;
+    },
+    retryDelay: (retryCount, error) => {
+        return retryCount * 100;
+    },
 });
 
 let store;
@@ -34,6 +45,14 @@ httpRequest.interceptors.response.use(
         return response.data;
     },
     function (error) {
+        // if (error.response.status === 405) {
+        //     console.log('🚀 ~ error:', error);
+        // }
+        // Do something with response error
+        if (error?.response?.data) {
+            return error.response.data;
+        }
+
         // Any status codes that falls outside the range of 2xx cause this function to trigger
         // Do something with response error
         return Promise.reject(error);

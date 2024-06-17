@@ -18,7 +18,11 @@ function InboxItem({ data = {} }) {
             />
             <div className={cx('message')}>
                 <div>
-                    Bài học<strong> Giới thiệu khóa học Sass </strong> mới được thêm vào.
+                    {data.message || (
+                        <>
+                            Bài học<strong> Giới thiệu khóa học Sass </strong> mới được thêm vào.
+                        </>
+                    )}
                 </div>
                 <span className={cx('createdAt')}>12/10/2023</span>
             </div>

@@ -27,7 +27,8 @@ function AuthModal({ children }) {
                 <button className={cx('close')} onClick={handleCloseAuthModal}>
                     <span>×</span>
                 </button>
-                <div className={cx('')}>{children}</div>
+                <div className={cx('iframe')}>{children}</div>
+                {/* <iframe src="http://localhost:5173/login" className={cx('iframe')} frameborder="0"></iframe> */}
             </div>
         </div>
     );

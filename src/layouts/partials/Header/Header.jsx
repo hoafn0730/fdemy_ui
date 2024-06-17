@@ -4,6 +4,7 @@ import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useMediaQuery } from 'react-responsive';
 import {
     faAngleLeft,
     faBars,
@@ -12,7 +13,6 @@ import {
     faPenToSquare,
     faPlus,
 } from '@fortawesome/free-solid-svg-icons';
-import { useMediaQuery } from 'react-responsive';
 
 import styles from './Header.module.scss';
 import Search from '../Search';
@@ -21,7 +21,6 @@ import MyCourses from './MyCourses';
 import Inbox from './Inbox';
 import Menu from './Menu';
 import config from '~/config';
-import images from '~/assets/images';
 import Button from '~/components/Button';
 import Image from '~/components/Image';
 import {
@@ -35,9 +34,10 @@ import {
     SettingIcon,
     UserIcon,
 } from '~/components/Icons';
-import useAccount from '~/hooks/useAccount';
 import useAuthModal from '~/hooks/useAuthModal';
 import { openAuthModal } from '~/store/actions/authModalAction';
+import useLocalStorage from '~/hooks/useLocalStorage';
+import useNotification from '~/hooks/useNotification';
 
 const cx = classnames.bind(styles);
 
@@ -75,22 +75,30 @@ const MENU_ITEMS = [
 ];
 
 function Header() {
-    const {
-        state: { isLogin, userInfo },
-    } = useAccount();
     const modal = useAuthModal();
-    const [showPopper, setShowPopper] = useState({ category: false, inbox: false, myCourses: false, menu: false });
+    const [showPopper, setShowPopper] = useState({
+        category: false,
+        inbox: false,
+        myCourses: false,
+        menu: false,
+    });
+    const {
+        state: { items },
+    } = useNotification();
+    const [auth] = useLocalStorage('auth', null);
     const firstClickRef = useRef({ inbox: false, myCourses: false });
-    const isTabletOrMobile = useMediaQuery({ query: '(min-width: 1224px)' });
-    const isMobile = useMediaQuery({ query: '(min-width: 630px)' });
     const navigate = useNavigate();
     const location = useLocation();
+    const isTabletOrMobile = useMediaQuery({ query: '(min-width: 900px)' });
+    const isMobile = useMediaQuery({ query: '(min-width: 630px)' });
+
+    const { userInfo, isLogin } = auth ? JSON.parse(auth) : { userInfo: {}, isLogin: false };
 
     const userMenu = [
         {
             title: 'Profile',
             icon: <UserIcon />,
-            to: '/@' + userInfo.username,
+            to: '/@' + userInfo?.username,
         },
         {
             title: 'Bookmarks',
@@ -233,6 +241,7 @@ function Header() {
                                 <Tippy offset={[0, 3]} delay={[0, 200]} disabled={showPopper.inbox} content="Inbox">
                                     <button id="inbox" className={cx('action-btn')} onClick={handleShowPopper}>
                                         {showPopper.inbox ? <InboxActiveIcon /> : <InboxIcon />}
+                                        {items.length > 0 && <span className={cx('number')}>{items.length}</span>}
                                     </button>
                                 </Tippy>
                             </Inbox>
@@ -254,7 +263,7 @@ function Header() {
                         >
                             {isLogin ? (
                                 <button id="menu" className={cx('action-btn')} onClick={handleShowPopper}>
-                                    <Image className={cx('avatar')} src={images.avatar} alt="avatar" />
+                                    <Image className={cx('avatar')} src={userInfo?.avatar} alt="avatar" />
                                 </button>
                             ) : (
                                 <button id="menu" className={cx('action-btn')} onClick={handleShowPopper}>

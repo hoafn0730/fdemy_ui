@@ -10,9 +10,13 @@ function PrivateRoute({ children }) {
     const { dispatch } = useAuthModal();
 
     useEffect(() => {
-        if (!isLogin) {
-            dispatch(openAuthModal());
-        }
+        const timeOut = setTimeout(() => {
+            if (!isLogin) {
+                dispatch(openAuthModal());
+            }
+        }, 3000);
+        return () => clearTimeout(timeOut);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return isLogin ? children : <div></div>;

@@ -59,6 +59,7 @@
     background-color: transparent;
     cursor: pointer;
     user-select: none;
+    position: relative;
 
     svg {
         min-width: 30px;
@@ -72,6 +73,18 @@
         font-weight: 700;
     }
 
+    span.number {
+        position: absolute;
+        bottom: 14px;
+        left: 54%;
+        font-size: 1.2rem;
+        padding: 1px 5px;
+        border-radius: 10px;
+        opacity: 0.9;
+        color: var(--white-color);
+        background-color: var(--primary-color);
+    }
+
     &.newPostBtn {
         min-width: auto;
         width: 30px;
@@ -82,6 +95,7 @@
         align-items: center;
         justify-content: center;
         transition: all 0.2s linear;
+        padding: 0;
 
         &:hover {
             svg {

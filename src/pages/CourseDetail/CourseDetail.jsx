@@ -16,21 +16,21 @@ import * as registerService from '~/services/registerService';
 import useAccount from '~/hooks/useAccount';
 import useAuthModal from '~/hooks/useAuthModal';
 import { openAuthModal } from '~/store/actions/authModalAction';
+import formatPrice from '~/utils/formatPrice';
 
 const cx = classnames.bind(styles);
 
 function CourseDetail() {
     const [course, setCourse] = useState();
     const [isRegistered, setIsRegistered] = useState(false);
-    const { slug } = useParams();
-
     const {
         state: { isOpen },
         dispatch,
     } = usePreview();
     const account = useAccount();
+    console.log('🚀 ~ CourseDetail ~ account:', account);
     const modal = useAuthModal();
-
+    const { slug } = useParams();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -47,17 +47,17 @@ function CourseDetail() {
 
     const handleClickLearnNow = () => {
         if (isRegistered) {
-            navigate('/watch?course=' + course?.slug);
+            navigate('/watch/' + course?.slug);
         } else {
             if (course.price === 0) {
-                if (account.state.userInfo.accessToken) {
+                if (account.state.isLogin) {
                     registerService
                         .registerCourse({
                             courseId: course.id,
                             userId: 1,
                         })
                         .then((res) => {
-                            navigate('/watch?course=' + course?.slug);
+                            navigate('/watch/' + course?.slug);
                         });
                 } else {
                     modal.dispatch(openAuthModal());
@@ -128,7 +128,7 @@ function CourseDetail() {
                             <FontAwesomeIcon className={cx('icon')} icon={faCirclePlay} onClick={handleOpenPreview} />
                             <p>Xem giới thiệu khóa học</p>
                         </div>
-                        <h5>{course?.price > 0 ? course.price + ' d' : 'Miễn phí'}</h5>
+                        <h5>{course?.price > 0 ? formatPrice(course.price) : 'Miễn phí'}</h5>
                         <Button primary className={cx('learnNow')} onClick={handleClickLearnNow}>
                             {isRegistered ? 'Vào học' : 'Đăng ký học'}
                         </Button>

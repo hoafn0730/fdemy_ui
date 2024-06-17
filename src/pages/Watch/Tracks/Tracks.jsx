@@ -26,7 +26,11 @@ function Tracks({ data, process, onChangeShow }) {
                                     key={index}
                                     title={item.title}
                                     uuid={item.uuid}
-                                    image={`https://img.youtube.com/vi/${item?.lesson?.video}/sddefault.jpg`}
+                                    image={
+                                        item?.lesson?.videoType === 'youtube'
+                                            ? `https://img.youtube.com/vi/${item?.lesson?.video}/sddefault.jpg`
+                                            : item?.lesson?.image
+                                    }
                                     index={index + 1}
                                     isDisabled={!isCheckExist}
                                 />
