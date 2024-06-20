@@ -1,10 +1,10 @@
-import { ADD_NEW_NOTIFICATION } from '../constants';
+import { ADD_NEW_NOTIFICATION } from '../types';
 
-const initialState = {
+const INITIAL_STATE = {
     items: [],
 };
 
-const notificationReducer = (state, action) => {
+const notificationReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case ADD_NEW_NOTIFICATION: {
             return {
@@ -18,4 +18,4 @@ const notificationReducer = (state, action) => {
     }
 };
 
-export { initialState, notificationReducer };
+export default notificationReducer;

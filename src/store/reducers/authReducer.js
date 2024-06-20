@@ -1,23 +1,18 @@
-import { USER_LOGIN_FAILED, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGOUT } from '../constants';
+import { USER_LOGIN_FAILED, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGOUT } from '../types';
 
-const initialState = {
-    userInfo: {
-        accessToken: '',
-        refreshToken: '',
-        email: '',
-        username: '',
-    },
+const INITIAL_STATE = {
+    userInfo: null,
     isLogin: false,
     isLoading: false,
     error: '',
 };
 
-const accountReducer = (state, action) => {
+const authReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case USER_LOGIN_REQUEST: {
             return {
                 ...state,
-                userInfo: {},
+                userInfo: null,
                 isLoading: true,
                 error: '',
             };
@@ -36,7 +31,7 @@ const accountReducer = (state, action) => {
         case USER_LOGIN_FAILED:
             return {
                 ...state,
-                userInfo: {},
+                userInfo: null,
                 isLoading: false,
                 error: action.error,
             };
@@ -44,12 +39,7 @@ const accountReducer = (state, action) => {
         case USER_LOGOUT:
             return {
                 ...state,
-                userInfo: {
-                    accessToken: '',
-                    refreshToken: '',
-                    email: '',
-                    username: '',
-                },
+                userInfo: null,
                 isLogin: false,
                 isLoading: false,
                 error: '',
@@ -60,4 +50,4 @@ const accountReducer = (state, action) => {
     }
 };
 
-export { accountReducer, initialState };
+export default authReducer;

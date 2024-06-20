@@ -1,4 +1,4 @@
-import { CLOSE_MODAL, CLOSING_MODAL, OPEN_MODAL } from '../constants';
+import { CLOSE_MODAL, CLOSING_MODAL, OPEN_MODAL } from '../types';
 
 const openAuthModal = () => {
     return { type: OPEN_MODAL };

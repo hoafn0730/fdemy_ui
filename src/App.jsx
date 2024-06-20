@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Fragment, useEffect } from 'react';
 import io from 'socket.io-client';
 import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { DefaultLayout } from '~/layouts';
 import { privateRoutes, publicRoutes } from '~/routes';
@@ -10,25 +11,18 @@ import PrivateRoute from '~/components/PrivateRoute';
 import NotFound from '~/pages/NotFound';
 import Login from '~/pages/Login';
 import useLocalStorage from '~/hooks/useLocalStorage';
-import useTheme from '~/hooks/useTheme';
-import useAccount from '~/hooks/useAccount';
-import useAuthModal from '~/hooks/useAuthModal';
 import { changeTheme } from '~/store/actions/themeAction';
-import { doGetAccount } from '~/store/actions/accountAction';
+import { doGetAccount } from '~/store/actions/authAction';
 import { addNewNotification } from './store/actions/notificationAction';
-import useNotification from './hooks/useNotification';
 
 const socket = io('http://localhost:5000');
 
 function App() {
+    const { isDarkMode } = useSelector((state) => state.theme);
+    const { userInfo } = useSelector((state) => state.user);
+    const { isOpen } = useSelector((state) => state.authModal);
+    const dispatch = useDispatch();
     const [theme, setTheme] = useLocalStorage('theme');
-    const account = useAccount();
-    const modal = useAuthModal();
-    const { dispatch: dispatchNotify } = useNotification();
-    const {
-        state: { isDarkMode },
-        dispatch,
-    } = useTheme();
 
     useEffect(() => {
         if (theme) {
@@ -36,11 +30,13 @@ function App() {
         } else {
             setTheme('light');
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
-        if (!account?.state?.userInfo?.accessToken) {
-            doGetAccount({ ...account });
+    useEffect(() => {
+        if (!userInfo) {
+            dispatch(doGetAccount());
         }
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -60,9 +56,10 @@ function App() {
                 progress: undefined,
                 theme: 'light',
             });
-            dispatchNotify(addNewNotification(data));
+            dispatch(addNewNotification(data));
         });
-    }, [dispatchNotify]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <Router>
@@ -131,7 +128,7 @@ function App() {
                     <Route path={'*'} element={NotFound} />
                 </Routes>
 
-                {modal.state.isOpen && (
+                {isOpen && (
                     <AuthModal>
                         <Login />
                     </AuthModal>

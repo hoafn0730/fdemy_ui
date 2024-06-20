@@ -1,11 +1,11 @@
-import { CLOSE_MODAL, CLOSING_MODAL, OPEN_MODAL } from '../constants';
+import { CLOSE_MODAL, CLOSING_MODAL, OPEN_MODAL } from '../types';
 
-const initialState = {
+const INITIAL_STATE = {
     isOpen: false,
     isClosing: false,
 };
 
-const authModalReducer = (state, action) => {
+const authModalReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case OPEN_MODAL:
             return {
@@ -33,4 +33,4 @@ const authModalReducer = (state, action) => {
     }
 };
 
-export { authModalReducer, initialState };
+export default authModalReducer;

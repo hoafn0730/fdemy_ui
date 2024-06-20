@@ -1,17 +1,17 @@
 import classnames from 'classnames/bind';
 import ReactDOM from 'react-dom';
 import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 import styles from './Preview.module.scss';
 import IndexModule from '../IndexModule';
 import VideoPlayer from '../VideoPlayer';
-import usePreview from '~/hooks/usePreview';
 import { closePreview } from '~/store/actions/previewAction';
 
 const cx = classnames.bind(styles);
 
 function Preview({ title, video }) {
-    const { dispatch } = usePreview();
+    const dispatch = useDispatch();
     const div = document.createElement('div');
 
     useEffect(() => {
@@ -20,7 +20,7 @@ function Preview({ title, video }) {
         return () => {
             document.body.removeChild(div);
         };
-    }, []);
+    }, [div]);
 
     const handleClose = () => {
         dispatch(closePreview());

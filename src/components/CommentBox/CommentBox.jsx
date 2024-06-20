@@ -1,19 +1,18 @@
 import classnames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import styles from './CommentBox.module.scss';
 import Avatar from '../Avatar';
 import Button from '../Button';
-import useAccount from '~/hooks/useAccount';
 
 const cx = classnames.bind(styles);
 
 function CommentBox({ value, className, style, onChange }) {
     const [showAction, setShowAction] = useState(false);
-    const {
-        state: { userInfo },
-    } = useAccount();
+
+    const { userInfo } = useSelector((state) => state.user);
 
     return (
         <div

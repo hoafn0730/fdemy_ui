@@ -2,16 +2,15 @@ import PropTypes from 'prop-types';
 import HeadlessTippy from '@tippyjs/react/headless';
 import classnames from 'classnames/bind';
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './Menu.module.scss';
 import Header from './Header';
 import MenuItem from './MenuItem';
 import PopperWrapper from '~/components/Popper';
 import Image from '~/components/Image';
-import useTheme from '~/hooks/useTheme';
 import { changeTheme } from '~/store/actions/themeAction';
-import useAccount from '~/hooks/useAccount';
-import { doLogout } from '~/store/actions/accountAction';
+import { doLogout } from '~/store/actions/authAction';
 import useLocalStorage from '~/hooks/useLocalStorage';
 
 const cx = classnames.bind(styles);
@@ -19,12 +18,11 @@ const cx = classnames.bind(styles);
 function Menu({ children, isShow, isLogin, items = [], onHide }) {
     const [history, setHistory] = useState([{ data: items }]);
     const current = history[history.length - 1];
-    const {
-        state: { isDarkMode },
-        dispatch,
-    } = useTheme();
-    const account = useAccount();
+
+    const { isDarkMode } = useSelector((state) => state.theme);
+    // const user = useSelector((state) => state.user);
     const [, setAuth] = useLocalStorage('auth', null);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         setHistory([{ data: items }]);
@@ -63,7 +61,7 @@ function Menu({ children, isShow, isLogin, items = [], onHide }) {
                 return console.log(menuItem);
             }
             case 'logout': {
-                doLogout({ ...account });
+                dispatch(doLogout());
                 window.location.href = '/';
                 setAuth(null);
                 return;

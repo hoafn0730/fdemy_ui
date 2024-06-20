@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComments } from '@fortawesome/free-regular-svg-icons';
 import { useParams, useSearchParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import styles from './Watch.module.scss';
 import Header from './Header';
@@ -13,7 +14,6 @@ import ActionBar from '~/components/ActionBar';
 import Button from '~/components/Button';
 import Modal from '~/components/Modal';
 import Comment from '~/components/Comment';
-import useModal from '~/hooks/useModal';
 import { openModal } from '~/store/actions/modalAction';
 import * as watchService from '~/services/watchService';
 
@@ -29,7 +29,8 @@ function Watch() {
     const [isQuiz, setIsQuiz] = useState(false);
     const [isShowTracks, setIsShowTracks] = useState(true);
     const [isShowComments, setIsShowComments] = useState(false);
-    const { dispatch } = useModal();
+
+    const dispatch = useDispatch();
     const [searchParams, setSearchParams] = useSearchParams();
     const { slug } = useParams();
 

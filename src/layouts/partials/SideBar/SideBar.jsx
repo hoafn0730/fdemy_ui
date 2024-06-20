@@ -6,8 +6,8 @@ import {
     BlogIcon,
     HomeActiveIcon,
     HomeIcon,
-    MessageActiveIcon,
-    MessageIcon,
+    // MessageActiveIcon,
+    // MessageIcon,
     RoadMapActiveIcon,
     RoadMapIcon,
 } from '~/components/Icons';

@@ -7,15 +7,14 @@ import FieldGroup from '~/components/FieldGroup';
 import Field from '~/components/Field';
 import PhotoField from '~/components/PhotoField';
 import InputField from '~/components/InputField';
-import useAccount from '~/hooks/useAccount';
+import { useSelector } from 'react-redux';
 
 const cx = classnames.bind(styles);
 
 function SettingPage() {
+    const { userInfo } = useSelector((state) => state.user);
+
     const { page } = useOutletContext();
-    const {
-        state: { userInfo },
-    } = useAccount();
 
     return (
         <div className={cx('page')}>

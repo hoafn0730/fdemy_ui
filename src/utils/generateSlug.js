@@ -12,16 +12,19 @@ function generateSlug(str) {
             .replace(/ý|ỳ|ỷ|ỹ|ỵ/gi, 'y')
             .replace(/đ/gi, 'd')
             //Xóa các ký tự đặt biệt
-            .replace(/\`|\~|\!|\@|\#|\||\$|\%|\^|\&|\*|\(|\)|\+|\=|\,|\.|\/|\?|\>|\<|\'|\"|\:|\;|_/gi, '')
+            .replace(
+                /\\`|\\~|\\!|\\@|\\#|\||\$|\\%|\^|\\&|\*|\(|\)|\+|\\=|\\,|\.|\/|\?|\\>|\\<|\\'|\\"|\\:|\\;|_/gi,
+                '',
+            )
             //Đổi khoảng trắng thành ký tự gạch ngang
             .replace(/ /gi, '-')
             //Đổi nhiều ký tự gạch ngang liên tiếp thành 1 ký tự gạch ngang
             //Phòng trường hợp người nhập vào quá nhiều ký tự trắng
-            .replace(/\-\-\-\-\-/gi, '-')
-            .replace(/\-\-\-\-/gi, '-')
-            .replace(/\-\-\-/gi, '-')
-            .replace(/\-\-/gi, '-')
-            .replace(/\@\-|\-\@|\@/gi, '')
+            .replace(/\\-\\-\\-\\-\\-/gi, '-')
+            .replace(/\\-\\-\\-\\-/gi, '-')
+            .replace(/\/-\/-\/-/gi, '-')
+            .replace(/\/-\/-/gi, '-')
+            .replace(/\/@\/-|\/-\/@|\\@/gi, '')
     );
 }
 

@@ -1,21 +1,22 @@
 import { useEffect } from 'react';
-import useAccount from '~/hooks/useAccount';
-import useAuthModal from '~/hooks/useAuthModal';
+import { useDispatch, useSelector } from 'react-redux';
 import { openAuthModal } from '~/store/actions/authModalAction';
 
 function PrivateRoute({ children }) {
-    const {
-        state: { isLogin },
-    } = useAccount();
-    const { dispatch } = useAuthModal();
+    const { isLogin } = useSelector((state) => state.user);
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        const timeOut = setTimeout(() => {
+        const timeOut = new Promise((resolve) => {
+            setTimeout(resolve, 800);
+        });
+
+        timeOut.then(() => {
             if (!isLogin) {
                 dispatch(openAuthModal());
             }
-        }, 3000);
-        return () => clearTimeout(timeOut);
+        });
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

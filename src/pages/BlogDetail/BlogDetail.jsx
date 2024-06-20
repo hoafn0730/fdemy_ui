@@ -3,13 +3,13 @@ import { Link, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons';
 import { faBookmark } from '@fortawesome/free-regular-svg-icons';
+import { useEffect, useState } from 'react';
 
 import styles from './BlogDetail.module.scss';
 import IndexModule from '~/components/IndexModule';
 import Heading from '~/components/Heading';
 import MarkdownParser from '~/components/MarkdownParser';
 import Reaction from '~/components/Reaction';
-import { useEffect, useState } from 'react';
 import { getBlogBySlug } from '~/services/blogService';
 
 const cx = classnames.bind(styles);
@@ -20,7 +20,7 @@ function BlogDetail() {
 
     useEffect(() => {
         getBlogBySlug(slug).then((res) => setBlog(res.data));
-    }, []);
+    }, [slug]);
 
     return (
         <div className={cx('wrapper')}>

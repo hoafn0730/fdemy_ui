@@ -1,20 +1,18 @@
 import classnames from 'classnames/bind';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import styles from './InputField.module.scss';
 import Button from '../Button';
-import useAccount from '~/hooks/useAccount';
 import { updateProfile } from '~/services/authService';
 
 const cx = classnames.bind(styles);
 
 function InputField({ label, name, type = 'text', placeholder, desc }) {
-    const {
-        state: { userInfo },
-    } = useAccount();
-
     const [isEdit, setIsEdit] = useState(false);
     const [value, setValue] = useState('');
+
+    const { userInfo } = useSelector((state) => state.user);
 
     useEffect(() => {
         setValue(userInfo?.fullName);

@@ -19,7 +19,7 @@ function Search() {
 
     useEffect(() => {
         search(query, 'more', page).then((res) => setSearchResult(res));
-    }, [page]);
+    }, [page, query]);
 
     return (
         <div className={cx('wrapper')}>

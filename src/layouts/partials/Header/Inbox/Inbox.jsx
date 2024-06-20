@@ -7,14 +7,12 @@ import InboxItem from './InboxItem';
 import PopperWrapper from '~/components/Popper';
 import HeaderPopper from '~/components/Popper/Header';
 import Button from '~/components/Button';
-import useNotification from '~/hooks/useNotification';
+import { useSelector } from 'react-redux';
 
 const cx = classnames.bind(styles);
 
 function Inbox({ children, isShow, onHide }) {
-    const {
-        state: { items },
-    } = useNotification();
+    const { items } = useSelector((state) => state.notification);
 
     return (
         <div>

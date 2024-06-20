@@ -1,7 +1,5 @@
 import classnames from 'classnames/bind';
 import { useEffect, useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 
 import styles from './Quiz.module.scss';
 import Heading from '~/components/Heading';

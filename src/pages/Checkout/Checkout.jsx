@@ -11,8 +11,8 @@ import Button from '~/components/Button';
 import * as courseService from '~/services/courseService';
 import formatPrice from '~/utils/formatPrice';
 import * as couponService from '~/services/couponService';
-import useAccount from '~/hooks/useAccount';
 import { createInvoice } from '~/services/invoiceService';
+import { useSelector } from 'react-redux';
 
 const cx = classnames.bind(styles);
 
@@ -27,12 +27,11 @@ function Checkout() {
     const [course, setCourse] = useState();
     const [discount, setDiscount] = useState(0);
     const [data, setData] = useState({ ...cardInfo });
+
+    const { userInfo } = useSelector((state) => state.user);
     const { slug } = useParams();
     const couponInputRef = useRef();
     const navigate = useNavigate();
-    const {
-        state: { userInfo },
-    } = useAccount();
 
     useEffect(() => {
         courseService.getCourseBySlug(slug).then((res) => {

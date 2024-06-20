@@ -1,10 +1,10 @@
-import { CLOSE_PREVIEW, OPEN_PREVIEW } from '../constants';
+import { CLOSE_PREVIEW, OPEN_PREVIEW } from '../types';
 
-const initialState = {
+const INITIAL_STATE = {
     isOpen: false,
 };
 
-const previewReducer = (state, action) => {
+const previewReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case OPEN_PREVIEW:
             return {
@@ -23,4 +23,4 @@ const previewReducer = (state, action) => {
     }
 };
 
-export { previewReducer, initialState };
+export default previewReducer;

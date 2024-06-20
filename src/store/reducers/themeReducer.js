@@ -1,10 +1,10 @@
-import { CHANGE_THEME } from '../constants';
+import { CHANGE_THEME } from '../types';
 
-const initialState = {
+const INITIAL_STATE = {
     isDarkMode: false,
 };
 
-const themeReducer = (state, action) => {
+const themeReducer = (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case CHANGE_THEME: {
             return {
@@ -18,4 +18,4 @@ const themeReducer = (state, action) => {
     }
 };
 
-export { themeReducer, initialState };
+export default themeReducer;

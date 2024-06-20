@@ -3,18 +3,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBatteryFull, faCheck, faCirclePlay, faClock, faFilm, faGaugeHigh } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './CourseDetail.module.scss';
 import CurriculumOfCourse from './CurriculumOfCourse';
 import Button from '~/components/Button';
 import IndexModule from '~/components/IndexModule';
 import Preview from '~/components/Preview';
-import usePreview from '~/hooks/usePreview';
 import { openPreview } from '~/store/actions/previewAction';
 import * as courseService from '~/services/courseService';
 import * as registerService from '~/services/registerService';
-import useAccount from '~/hooks/useAccount';
-import useAuthModal from '~/hooks/useAuthModal';
 import { openAuthModal } from '~/store/actions/authModalAction';
 import formatPrice from '~/utils/formatPrice';
 
@@ -23,13 +21,10 @@ const cx = classnames.bind(styles);
 function CourseDetail() {
     const [course, setCourse] = useState();
     const [isRegistered, setIsRegistered] = useState(false);
-    const {
-        state: { isOpen },
-        dispatch,
-    } = usePreview();
-    const account = useAccount();
-    console.log('🚀 ~ CourseDetail ~ account:', account);
-    const modal = useAuthModal();
+
+    const { isOpen } = useSelector((state) => state.preview);
+    const user = useSelector((state) => state.user);
+    const dispatch = useDispatch();
     const { slug } = useParams();
     const navigate = useNavigate();
 
@@ -50,7 +45,7 @@ function CourseDetail() {
             navigate('/watch/' + course?.slug);
         } else {
             if (course.price === 0) {
-                if (account.state.isLogin) {
+                if (user.isLogin) {
                     registerService
                         .registerCourse({
                             courseId: course.id,
@@ -60,7 +55,7 @@ function CourseDetail() {
                             navigate('/watch/' + course?.slug);
                         });
                 } else {
-                    modal.dispatch(openAuthModal());
+                    dispatch(openAuthModal());
                 }
             } else {
                 navigate('/checkout/' + course?.slug);

@@ -3,28 +3,25 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCode } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './Login.module.scss';
-import FormGroup from '~/components/FormGroup';
-import FormControl from '~/components/FormControl';
-import FormLabel from '~/components/FormLabel';
 import Button from '~/components/Button';
 import config from '~/config';
-import { clearAccount, doLogin } from '~/store/actions/accountAction';
-import useAccount from '~/hooks/useAccount';
+import Form from '~/components/Form';
+import { clearAccount, doLogin } from '~/store/actions/authAction';
 
 const cx = classnames.bind(styles);
 
 function Login() {
-    const {
-        state: { error },
-        dispatch,
-    } = useAccount();
     const [isError, setIsError] = useState(false);
     const [formValue, setFormValue] = useState({
         email: '',
         password: '',
     });
+
+    const { error } = useSelector((state) => state.user);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (formValue.email && formValue.password) {
@@ -41,7 +38,7 @@ function Login() {
     };
 
     const handleSubmitLogin = () => {
-        doLogin({ dispatch, data: formValue });
+        dispatch(doLogin(formValue));
     };
 
     const handleFocusInput = () => {
@@ -67,9 +64,9 @@ function Login() {
                     </div>
                     <div className={cx('body')}>
                         <div className={cx('formBody')}>
-                            <FormGroup>
-                                <FormLabel label={'Email'} />
-                                <FormControl
+                            <Form.Group>
+                                <Form.Label label={'Email'} />
+                                <Form.Control
                                     value={formValue.email}
                                     name={'email'}
                                     type={'text'}
@@ -78,9 +75,9 @@ function Login() {
                                     onFocus={handleFocusInput}
                                     onChange={handleChangeFormValue}
                                 />
-                            </FormGroup>
-                            <FormGroup>
-                                <FormControl
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Control
                                     value={formValue.password}
                                     name={'password'}
                                     type={'password'}
@@ -89,7 +86,7 @@ function Login() {
                                     // onFocus={handleFocusInput}
                                     onChange={handleChangeFormValue}
                                 />
-                            </FormGroup>
+                            </Form.Group>
                             {(formValue.password || formValue.email) && isError && (
                                 <p className={cx('feedback')}>{error}</p>
                             )}

@@ -13,6 +13,7 @@ import {
     faPenToSquare,
     faPlus,
 } from '@fortawesome/free-solid-svg-icons';
+import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './Header.module.scss';
 import Search from '../Search';
@@ -34,10 +35,8 @@ import {
     SettingIcon,
     UserIcon,
 } from '~/components/Icons';
-import useAuthModal from '~/hooks/useAuthModal';
 import { openAuthModal } from '~/store/actions/authModalAction';
 import useLocalStorage from '~/hooks/useLocalStorage';
-import useNotification from '~/hooks/useNotification';
 
 const cx = classnames.bind(styles);
 
@@ -75,24 +74,24 @@ const MENU_ITEMS = [
 ];
 
 function Header() {
-    const modal = useAuthModal();
     const [showPopper, setShowPopper] = useState({
         category: false,
         inbox: false,
         myCourses: false,
         menu: false,
     });
-    const {
-        state: { items },
-    } = useNotification();
-    const [auth] = useLocalStorage('auth', null);
+
     const firstClickRef = useRef({ inbox: false, myCourses: false });
+
+    const { items } = useSelector((state) => state.notification);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
     const isTabletOrMobile = useMediaQuery({ query: '(min-width: 900px)' });
     const isMobile = useMediaQuery({ query: '(min-width: 630px)' });
+    const [auth] = useLocalStorage('persist:auth');
 
-    const { userInfo, isLogin } = auth ? JSON.parse(auth) : { userInfo: {}, isLogin: false };
+    const userInfo = JSON.parse(auth.userInfo);
 
     const userMenu = [
         {
@@ -169,7 +168,7 @@ function Header() {
     };
 
     const handleClickLogin = () => {
-        modal.dispatch(openAuthModal());
+        dispatch(openAuthModal());
     };
 
     return (
@@ -217,7 +216,7 @@ function Header() {
                 )}
 
                 <div className={cx('actions')}>
-                    {isLogin ? (
+                    {userInfo ? (
                         <>
                             {isTabletOrMobile && (
                                 <MyCourses isShow={showPopper.myCourses} onHide={handleHidePopper}>
@@ -257,11 +256,11 @@ function Header() {
                     {isTabletOrMobile ? (
                         <Menu
                             isShow={showPopper.menu}
-                            isLogin={isLogin}
-                            items={isLogin ? userMenu : MENU_ITEMS}
+                            isLogin={!!userInfo}
+                            items={!!userInfo ? userMenu : MENU_ITEMS}
                             onHide={handleHidePopper}
                         >
-                            {isLogin ? (
+                            {!!userInfo ? (
                                 <button id="menu" className={cx('action-btn')} onClick={handleShowPopper}>
                                     <Image className={cx('avatar')} src={userInfo?.avatar} alt="avatar" />
                                 </button>

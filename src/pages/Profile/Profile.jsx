@@ -2,13 +2,13 @@ import { useNavigate, useParams } from 'react-router-dom';
 import classnames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse, faUserGroup } from '@fortawesome/free-solid-svg-icons';
+import { useEffect } from 'react';
 
 import styles from './Profile.module.scss';
 import IndexModule from '~/components/IndexModule';
 import images from '~/assets/images';
 import Avatar from '~/components/Avatar';
 import Box from '~/components/Box';
-import { useEffect } from 'react';
 
 const cx = classnames.bind(styles);
 
@@ -20,7 +20,7 @@ function Profile() {
         if (!username.startsWith('@')) {
             navigate('/not-found');
         }
-    }, []);
+    }, [navigate, username]);
 
     return (
         <div className={cx('wrapper')}>

@@ -1,4 +1,4 @@
-import { CLOSE_PREVIEW, OPEN_PREVIEW } from '../constants';
+import { CLOSE_PREVIEW, OPEN_PREVIEW } from '../types';
 
 const openPreview = () => {
     return { type: OPEN_PREVIEW };

@@ -1,13 +1,14 @@
 import classnames from 'classnames/bind';
+import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './AuthModal.module.scss';
-import useAuthModal from '~/hooks/useAuthModal';
 import { closeAuthModal, closingAuthModal } from '~/store/actions/authModalAction';
 
 const cx = classnames.bind(styles);
 
 function AuthModal({ children }) {
-    const { state, dispatch } = useAuthModal();
+    const { isClosing } = useSelector((state) => state.authModal);
+    const dispatch = useDispatch();
 
     const handleCloseAuthModal = () => {
         dispatch(closingAuthModal());
@@ -19,7 +20,7 @@ function AuthModal({ children }) {
     return (
         <div
             className={cx('wrapper', {
-                closing: state.isClosing,
+                closing: isClosing,
             })}
         >
             <div className={cx('overlay')} onClick={handleCloseAuthModal}></div>
