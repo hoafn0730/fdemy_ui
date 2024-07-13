@@ -7,11 +7,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import styles from './Menu.module.scss';
 import Header from './Header';
 import MenuItem from './MenuItem';
-import PopperWrapper from '~/components/Popper';
 import Image from '~/components/Image';
 import { changeTheme } from '~/store/actions/themeAction';
 import { doLogout } from '~/store/actions/authAction';
-import useLocalStorage from '~/hooks/useLocalStorage';
+import Popper from '~/components/Popper';
 
 const cx = classnames.bind(styles);
 
@@ -21,7 +20,7 @@ function Menu({ children, isShow, isLogin, items = [], onHide }) {
 
     const { isDarkMode } = useSelector((state) => state.theme);
     // const user = useSelector((state) => state.user);
-    const [, setAuth] = useLocalStorage('auth', null);
+    // const [, setAuth] = useLocalStorage('auth', null);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -63,7 +62,6 @@ function Menu({ children, isShow, isLogin, items = [], onHide }) {
             case 'logout': {
                 dispatch(doLogout());
                 window.location.href = '/';
-                setAuth(null);
                 return;
             }
             default:
@@ -82,7 +80,7 @@ function Menu({ children, isShow, isLogin, items = [], onHide }) {
             interactive
             placement="bottom-end"
             render={(attrs) => (
-                <PopperWrapper
+                <Popper.Wrapper
                     className={cx('wrapper')}
                     position={{ top: '-16px', right: '28px' }}
                     tabIndex={-1}
@@ -107,7 +105,7 @@ function Menu({ children, isShow, isLogin, items = [], onHide }) {
                         )}
                         <div className={cx('body')}>{renderItems()}</div>
                     </div>
-                </PopperWrapper>
+                </Popper.Wrapper>
             )}
             onClickOutside={onHide}
         >

@@ -1,7 +1,7 @@
 import classnames from 'classnames/bind';
+import { Link } from 'react-router-dom';
 
 import styles from './Category.module.scss';
-import { Link } from 'react-router-dom';
 
 const cx = classnames.bind(styles);
 

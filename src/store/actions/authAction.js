@@ -8,6 +8,7 @@ const doLogin = (payload) => {
         authService
             .login(payload)
             .then((res) => {
+                console.log('🚀 ~ .then ~ res:', res);
                 if (res.code === 0) {
                     dispatch({ type: USER_LOGIN_SUCCESS, payload: res.data });
                     window.location.reload();

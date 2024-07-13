@@ -4,10 +4,9 @@ import classnames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 
 import styles from './MyCourses.module.scss';
-import PopperWrapper from '~/components/Popper';
-import HeaderPopper from '~/components/Popper/Header';
 import MyCourseItem from './MyCourseItem';
 import * as courseService from '~/services/courseService';
+import Popper from '~/components/Popper';
 
 const cx = classnames.bind(styles);
 
@@ -30,13 +29,13 @@ function MyCourses({ children, isShow, onHide }) {
                 placement="bottom-end"
                 render={(attrs) => {
                     return (
-                        <PopperWrapper
+                        <Popper.Wrapper
                             className={cx('wrapper')}
                             position={{ top: '-16px', right: '154px' }}
                             tabIndex={-1}
                             {...attrs}
                         >
-                            <HeaderPopper title={'My Courses'} titleBtn={'View all'} to={'/courses'} />
+                            <Popper.Header title={'My Courses'} titleBtn={'View all'} to={'/courses'} />
                             <div className={cx('content')}>
                                 {courses.map((course) => (
                                     <MyCourseItem
@@ -49,7 +48,7 @@ function MyCourses({ children, isShow, onHide }) {
                                     />
                                 ))}
                             </div>
-                        </PopperWrapper>
+                        </Popper.Wrapper>
                     );
                 }}
                 onClickOutside={onHide}

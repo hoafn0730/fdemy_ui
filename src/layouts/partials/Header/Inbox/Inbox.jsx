@@ -1,13 +1,12 @@
 import PropTypes from 'prop-types';
 import HeadlessTippy from '@tippyjs/react/headless';
 import classnames from 'classnames/bind';
+import { useSelector } from 'react-redux';
 
 import styles from './Inbox.module.scss';
 import InboxItem from './InboxItem';
-import PopperWrapper from '~/components/Popper';
-import HeaderPopper from '~/components/Popper/Header';
 import Button from '~/components/Button';
-import { useSelector } from 'react-redux';
+import Popper from '~/components/Popper';
 
 const cx = classnames.bind(styles);
 
@@ -24,13 +23,13 @@ function Inbox({ children, isShow, onHide }) {
                 placement="bottom-end"
                 render={(attrs) => {
                     return (
-                        <PopperWrapper
+                        <Popper.Wrapper
                             className={cx('wrapper')}
                             position={{ top: '-16px', right: '68px' }}
                             tabIndex={-1}
                             {...attrs}
                         >
-                            <HeaderPopper title={'Notifications'} titleBtn={'Mark as read'} />
+                            <Popper.Header title={'Notifications'} titleBtn={'Mark as read'} />
                             <div className={cx('content')}>
                                 {items.length > 0 &&
                                     items.map((item, index) => (
@@ -47,7 +46,7 @@ function Inbox({ children, isShow, onHide }) {
                             <Button to={'/notifications'} className={cx('seeAll')}>
                                 See all notifications
                             </Button>
-                        </PopperWrapper>
+                        </Popper.Wrapper>
                     );
                 }}
                 onClickOutside={onHide}

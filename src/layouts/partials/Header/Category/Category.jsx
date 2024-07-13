@@ -5,9 +5,8 @@ import { useEffect, useState } from 'react';
 
 import styles from './Category.module.scss';
 import CategoryItem from './CategoryItem';
-import PopperWrapper from '~/components/Popper';
-import HeaderPopper from '~/components/Popper/Header';
 import * as categoryService from '~/services/categoryService';
+import Popper from '~/components/Popper';
 
 const cx = classnames.bind(styles);
 
@@ -28,13 +27,13 @@ function Category({ children, isShow, onHide }) {
                 placement="bottom-start"
                 render={(attrs) => {
                     return (
-                        <PopperWrapper
+                        <Popper.Wrapper
                             className={cx('wrapper')}
                             position={{ top: '-16px', left: '40px' }}
                             tabIndex={-1}
                             {...attrs}
                         >
-                            <HeaderPopper title={'Categories'} />
+                            <Popper.Header title={'Categories'} />
                             <div className={cx('content')}>
                                 {categories &&
                                     categories.map((category) => (
@@ -45,7 +44,7 @@ function Category({ children, isShow, onHide }) {
                                         />
                                     ))}
                             </div>
-                        </PopperWrapper>
+                        </Popper.Wrapper>
                     );
                 }}
                 onClickOutside={onHide}

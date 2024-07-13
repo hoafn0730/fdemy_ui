@@ -3,8 +3,8 @@ import classnames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 
 import styles from './Slideshow.module.scss';
-import Image from '../Image';
-import Button from '../Button';
+import Image from '~/components/Image';
+import Button from '~/components/Button';
 
 const cx = classnames.bind(styles);
 

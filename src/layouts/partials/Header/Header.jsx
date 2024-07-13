@@ -84,14 +84,14 @@ function Header() {
     const firstClickRef = useRef({ inbox: false, myCourses: false });
 
     const { items } = useSelector((state) => state.notification);
+    const { userInfo: info } = useSelector((state) => state.user);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
     const isTabletOrMobile = useMediaQuery({ query: '(min-width: 900px)' });
     const isMobile = useMediaQuery({ query: '(min-width: 630px)' });
     const [auth] = useLocalStorage('persist:auth');
-
-    const userInfo = JSON.parse(auth.userInfo);
+    const userInfo = auth ? JSON.parse(auth.userInfo) : info;
 
     const userMenu = [
         {

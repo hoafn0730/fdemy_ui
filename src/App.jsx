@@ -23,6 +23,7 @@ function App() {
     const { isOpen } = useSelector((state) => state.authModal);
     const dispatch = useDispatch();
     const [theme, setTheme] = useLocalStorage('theme');
+    const [auth] = useLocalStorage('persist:auth');
 
     useEffect(() => {
         if (theme) {
@@ -34,7 +35,7 @@ function App() {
     }, []);
 
     useEffect(() => {
-        if (!userInfo) {
+        if (!auth || !userInfo) {
             dispatch(doGetAccount());
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
