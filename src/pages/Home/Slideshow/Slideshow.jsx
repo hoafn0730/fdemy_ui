@@ -41,20 +41,21 @@ function Slideshow() {
     return (
         <div className={cx('wrapper')}>
             <Slider {...settings}>
-                {slides.map((item, index) => {
-                    const style = JSON.parse(`[${item.style}]`)[0];
-                    return (
-                        <SlideItem
-                            key={index}
-                            title={item.title}
-                            desc={item.description}
-                            linkTo={item.linkTo}
-                            ctaTitle={item.ctaTitle}
-                            image={item.image}
-                            styles={{ ...style }}
-                        />
-                    );
-                })}
+                {slides?.length > 0 &&
+                    slides.map((item, index) => {
+                        const style = JSON.parse(`${item.style}`);
+                        return (
+                            <SlideItem
+                                key={index}
+                                title={item.title}
+                                desc={item.description}
+                                linkTo={item.linkTo}
+                                ctaTitle={item.ctaTitle}
+                                image={item.image}
+                                styles={{ ...style }}
+                            />
+                        );
+                    })}
             </Slider>
         </div>
     );

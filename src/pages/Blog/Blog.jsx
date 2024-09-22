@@ -24,15 +24,16 @@ function Blog() {
                     <IndexModule className={cx('col', 'l-9')}>
                         <div className={cx('body')}>
                             <div className={cx('list')}>
-                                {blogs.map((item) => (
-                                    <PostItem
-                                        key={item.id}
-                                        title={item.title}
-                                        description={item.description}
-                                        slug={item.slug}
-                                        image={item.image}
-                                    />
-                                ))}
+                                {blogs.length > 0 &&
+                                    blogs.map((item) => (
+                                        <PostItem
+                                            key={item.id}
+                                            title={item.title}
+                                            description={item.description}
+                                            slug={item.slug}
+                                            image={item.image}
+                                        />
+                                    ))}
                             </div>
                         </div>
                     </IndexModule>
