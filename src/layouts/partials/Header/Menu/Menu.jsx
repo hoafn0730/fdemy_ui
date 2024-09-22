@@ -61,7 +61,7 @@ function Menu({ children, isShow, isLogin, items = [], onHide }) {
             }
             case 'logout': {
                 dispatch(doLogout());
-                window.location.href = '/';
+
                 return;
             }
             default:

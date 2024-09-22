@@ -12,7 +12,7 @@ import themeReducer from './themeReducer';
 const authPersistConfig = {
     key: 'auth',
     storage: storage,
-    whitelist: ['userInfo'],
+    whitelist: ['userInfo', 'isLogin'],
 };
 
 const rootReducer = combineReducers({

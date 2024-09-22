@@ -29,6 +29,8 @@ const doLogout = () => {
             .then((res) => {
                 if (res.code === 0) {
                     dispatch({ type: USER_LOGOUT });
+                    const delay = new Promise((resolve) => setTimeout(resolve, 1000));
+                    delay.then(() => (window.location.href = '/'));
                 }
             })
             .catch((err) => {
@@ -45,6 +47,8 @@ const doGetAccount = () => {
             .getCurrentUser()
             .then((res) => {
                 if (res.code === 0) {
+                    console.log(res);
+
                     dispatch({ type: USER_LOGIN_SUCCESS, payload: res.data });
                 } else {
                     dispatch({ type: USER_LOGIN_FAILED });

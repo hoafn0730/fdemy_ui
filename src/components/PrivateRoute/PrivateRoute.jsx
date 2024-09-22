@@ -16,9 +16,8 @@ function PrivateRoute({ children }) {
                 dispatch(openAuthModal());
             }
         });
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [dispatch]);
 
     return isLogin ? children : <div></div>;
 }

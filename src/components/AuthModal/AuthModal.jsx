@@ -17,6 +17,8 @@ function AuthModal({ children }) {
         }, 300);
     };
 
+    // <iframe title="1" src="http://localhost:3000/login" className={cx('iframe')} frameborder="0"></iframe>
+
     return (
         <div
             className={cx('wrapper', {
@@ -28,8 +30,7 @@ function AuthModal({ children }) {
                 <button className={cx('close')} onClick={handleCloseAuthModal}>
                     <span>×</span>
                 </button>
-                {/* <div className={cx('iframe')}>{children}</div> */}
-                <iframe title="1" src="http://localhost:3000/login" className={cx('iframe')} frameborder="0"></iframe>
+                <div className={cx('iframe')}>{children}</div>
             </div>
         </div>
     );
