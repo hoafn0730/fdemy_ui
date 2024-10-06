@@ -8,7 +8,7 @@ const login = async (data) => {
 };
 
 const logout = async () => {
-    return axios.get('http://localhost:8080/api/v1/auth/logout', { withCredentials: true });
+    return axios.get(process.env.REACT_APP_SSO_BACKEND_URL + '/api/v1/auth/logout', { withCredentials: true });
 };
 
 const getCurrentUser = async () => {
@@ -17,7 +17,11 @@ const getCurrentUser = async () => {
 };
 
 const refreshToken = async () => {
-    const res = await axios.post('http://localhost:8080/api/v1/auth/refresh-token', {}, { withCredentials: true });
+    const res = await axios.post(
+        process.env.REACT_APP_SSO_BACKEND_URL + '/api/v1/auth/refresh-token',
+        {},
+        { withCredentials: true },
+    );
     return res.data;
 };
 
