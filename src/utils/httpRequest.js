@@ -1,5 +1,6 @@
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
+import authService from '~/services/authService';
 
 const httpRequest = axios.create({
     baseURL: process.env.REACT_APP_BACKEND_URL,
@@ -45,9 +46,13 @@ httpRequest.interceptors.response.use(
         return response.data;
     },
     function (error) {
-        // if (error.response.status === 405) {
-        //     console.log('🚀 ~ error:', error);
-        // }
+        if (error.response.status === 405) {
+            authService.refreshToken().catch((err) => {
+                return Promise.reject(err);
+            });
+
+            // return error.
+        }
         // Do something with response error
         if (error?.response?.data) {
             return error.response.data;

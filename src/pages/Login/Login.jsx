@@ -56,7 +56,7 @@ function Login() {
                         <Link to={config.routes.home} className={cx('logo')}>
                             <FontAwesomeIcon className={cx('icon')} icon={faCode} />
                         </Link>
-                        <h1 className={cx('title')}>Login in CodeLearn</h1>
+                        <h1 className={cx('title')}>Login in Fdemy</h1>
                         <p className={cx('desc')}>
                             Mỗi người nên sử dụng riêng một tài khoản, tài khoản nhiều người sử dụng chung có thể sẽ bị
                             khóa.

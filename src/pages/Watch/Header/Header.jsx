@@ -28,7 +28,7 @@ function Header({ track, process, isQuiz, onCloseQuiz }) {
             </div>
             <Link to={config.routes.home} className={cx('logo')}>
                 <FontAwesomeIcon className={cx('icon')} icon={faCode} />
-                <strong>CodeLearn</strong>
+                <strong>Fdemy</strong>
             </Link>
             <div className={cx('actions')}>
                 <div className={cx('process')}>

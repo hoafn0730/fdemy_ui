@@ -37,16 +37,17 @@ function MyCourses({ children, isShow, onHide }) {
                         >
                             <Popper.Header title={'My Courses'} titleBtn={'View all'} to={'/courses'} />
                             <div className={cx('content')}>
-                                {courses.map((course) => (
-                                    <MyCourseItem
-                                        key={course.id}
-                                        title={course.title}
-                                        image={course.image}
-                                        to={'/courses/' + course.slug}
-                                        process={course.userProcess}
-                                        createdAt={course.createdAt}
-                                    />
-                                ))}
+                                {courses.length > 0 &&
+                                    courses.map((course) => (
+                                        <MyCourseItem
+                                            key={course.id}
+                                            title={course.title}
+                                            image={course.image}
+                                            to={'/courses/' + course.slug}
+                                            process={course.userProcess}
+                                            createdAt={course.createdAt}
+                                        />
+                                    ))}
                             </div>
                         </Popper.Wrapper>
                     );

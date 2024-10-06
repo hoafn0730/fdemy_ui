@@ -11,6 +11,7 @@ import MdEditor from '~/components/MdEditor';
 import Button from '~/components/Button';
 import { createPost } from '~/services/blogService';
 import generateSlug from '~/utils/generateSlug';
+import { delay } from '~/utils/delay';
 
 const cx = classnames.bind(styles);
 
@@ -40,20 +41,22 @@ function NewPost() {
             slug: generateSlug(title),
             content: value,
         }).then(() => {
-            toast.success('🦄 Wow so easy!', {
-                position: 'top-center',
-                autoClose: 5000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: false,
-                draggable: true,
-                progress: undefined,
-                theme: 'light',
+            const resolveWithSomeData = delay(1000);
+            toast.promise(resolveWithSomeData, {
+                pending: {
+                    render() {
+                        document.title = titleRef.current;
+                        return;
+                    },
+                    icon: false,
+                },
+                success: {
+                    render() {
+                        navigate('/');
+                        return;
+                    },
+                },
             });
-            document.title = titleRef.current;
-            setTimeout(() => {
-                navigate('/');
-            }, 3000);
         });
     };
 

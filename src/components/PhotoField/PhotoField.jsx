@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCamera } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useRef, useState } from 'react';
 import Button from '../Button';
-import { updateProfile } from '~/services/authService';
+import authService from '~/services/authService';
 
 const cx = classnames.bind(styles);
 
@@ -37,7 +37,7 @@ function PhotoField({ label, name, value, desc }) {
     };
 
     const handleSave = () => {
-        updateProfile({ avatar: photo }).catch((err) => console.log(err));
+        authService.updateProfile({ avatar: photo }).catch((err) => console.log(err));
         setIsEdit(false);
     };
 
