@@ -15,7 +15,7 @@ import { changeTheme } from '~/store/actions/themeAction';
 import { doGetAccount } from '~/store/actions/authAction';
 import { addNewNotification } from './store/actions/notificationAction';
 
-const socket = io('http://localhost:5000');
+const socket = io(process.env.REACT_APP_SOCKET_BACKEND_URL);
 
 function App() {
     const { isDarkMode } = useSelector((state) => state.theme);
