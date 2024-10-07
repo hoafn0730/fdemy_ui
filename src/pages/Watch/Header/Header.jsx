@@ -10,7 +10,7 @@ const cx = classnames.bind(styles);
 
 function Header({ track, process, isQuiz, onCloseQuiz }) {
     const navigate = useNavigate();
-    const userProcess = (process.length / track?.steps.length) * 100 || 0;
+    const userProcess = (process?.length / track?.steps?.length) * 100 || 0;
 
     return (
         <header className={cx('wrapper')}>
@@ -36,7 +36,7 @@ function Header({ track, process, isQuiz, onCloseQuiz }) {
                 </div>
                 <span className={cx('completed-msg')}>
                     <strong>
-                        {process.length}/{track?.steps.length}{' '}
+                        {process?.length}/{track?.steps?.length}{' '}
                     </strong>
                     bài học
                 </span>

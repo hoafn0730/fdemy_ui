@@ -49,7 +49,7 @@ function CourseDetail() {
                     registerService
                         .registerCourse({
                             courseId: course.id,
-                            userId: 1,
+                            userId: user.userInfo.id,
                         })
                         .then((res) => {
                             navigate('/watch/' + course?.slug);

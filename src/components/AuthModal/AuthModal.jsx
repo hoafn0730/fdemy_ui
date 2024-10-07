@@ -31,8 +31,8 @@ function AuthModal({ children }) {
                 {/* <div className={cx('iframe')}>{children}</div> */}
                 <iframe
                     title="1"
-                    src={`https://accounts.fdemy.id.vn/login?serviceURL=${encodeURIComponent(
-                        'http://localhost:3000',
+                    src={`${process.env.REACT_APP_ACCOUNTS_LOGIN_URL}?serviceURL=${encodeURIComponent(
+                        window.location.origin,
                     )}&popup=true`}
                     className={cx('iframe')}
                     frameborder="0"

@@ -39,7 +39,7 @@ function App() {
         }
 
         window.addEventListener('message', (event) => {
-            if (event.origin === 'https://accounts.fdemy.id.vn') {
+            if (event.origin === process.env.REACT_APP_ACCOUNTS_URL) {
                 // Thay đổi với tên miền của trang đăng nhập
                 if (event.data === 'loginSuccess') {
                     window.location.reload(); // Tải lại trang chính
