@@ -1,4 +1,4 @@
-import * as authService from '~/services/authService';
+import authService from '~/services/authService';
 import { USER_LOGIN_FAILED, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGOUT } from '../types';
 
 const doLogin = (payload) => {
@@ -27,9 +27,9 @@ const doLogout = () => {
         authService
             .logout()
             .then((res) => {
-                if (res.code === 0) {
+                if (res.data.statusCode === 200) {
                     dispatch({ type: USER_LOGOUT });
-                    const delay = new Promise((resolve) => setTimeout(resolve, 1000));
+                    const delay = new Promise((resolve) => setTimeout(resolve, 500));
                     delay.then(() => (window.location.href = '/'));
                 }
             })
@@ -46,9 +46,7 @@ const doGetAccount = () => {
         authService
             .getCurrentUser()
             .then((res) => {
-                if (res.code === 0) {
-                    console.log(res);
-
+                if (res.statusCode === 200) {
                     dispatch({ type: USER_LOGIN_SUCCESS, payload: res.data });
                 } else {
                     dispatch({ type: USER_LOGIN_FAILED });

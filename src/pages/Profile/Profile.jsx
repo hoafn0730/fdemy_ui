@@ -46,7 +46,7 @@ function Profile() {
                                         </div>
                                         <span>
                                             Thành viên của
-                                            <span className={cx('highlight')}> CodeLearn </span>
+                                            <span className={cx('highlight')}> Fdemy </span>
                                             từ 10 tháng trước
                                         </span>
                                     </div>

@@ -10,7 +10,7 @@ const cx = classnames.bind(styles);
 
 function Header({ track, process, isQuiz, onCloseQuiz }) {
     const navigate = useNavigate();
-    const userProcess = (process.length / track?.steps.length) * 100 || 0;
+    const userProcess = (process?.length / track?.steps?.length) * 100 || 0;
 
     return (
         <header className={cx('wrapper')}>
@@ -28,7 +28,7 @@ function Header({ track, process, isQuiz, onCloseQuiz }) {
             </div>
             <Link to={config.routes.home} className={cx('logo')}>
                 <FontAwesomeIcon className={cx('icon')} icon={faCode} />
-                <strong>CodeLearn</strong>
+                <strong>Fdemy</strong>
             </Link>
             <div className={cx('actions')}>
                 <div className={cx('process')}>
@@ -36,7 +36,7 @@ function Header({ track, process, isQuiz, onCloseQuiz }) {
                 </div>
                 <span className={cx('completed-msg')}>
                     <strong>
-                        {process.length}/{track?.steps.length}{' '}
+                        {process?.length}/{track?.steps?.length}{' '}
                     </strong>
                     bài học
                 </span>

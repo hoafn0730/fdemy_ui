@@ -15,7 +15,7 @@ import { changeTheme } from '~/store/actions/themeAction';
 import { doGetAccount } from '~/store/actions/authAction';
 import { addNewNotification } from './store/actions/notificationAction';
 
-const socket = io('http://localhost:5000');
+const socket = io(process.env.REACT_APP_SOCKET_BACKEND_URL);
 
 function App() {
     const { isDarkMode } = useSelector((state) => state.theme);
@@ -23,7 +23,6 @@ function App() {
     const { isOpen } = useSelector((state) => state.authModal);
     const dispatch = useDispatch();
     const [theme, setTheme] = useLocalStorage('theme');
-    const [auth] = useLocalStorage('persist:auth');
 
     useEffect(() => {
         if (theme) {
@@ -35,9 +34,19 @@ function App() {
     }, []);
 
     useEffect(() => {
-        if (!auth || !userInfo) {
-            dispatch(doGetAccount());
+        dispatch(doGetAccount());
+        if (!userInfo) {
         }
+
+        window.addEventListener('message', (event) => {
+            if (event.origin === process.env.REACT_APP_ACCOUNTS_URL) {
+                // Thay đổi với tên miền của trang đăng nhập
+                if (event.data === 'loginSuccess') {
+                    window.location.reload(); // Tải lại trang chính
+                }
+            }
+        });
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -94,7 +103,6 @@ function App() {
                             </Route>
                         );
                     })}
-
                     {privateRoutes.map((route, index) => {
                         const Page = route.component;
                         let Layout = DefaultLayout;
@@ -125,7 +133,6 @@ function App() {
                             </Route>
                         );
                     })}
-
                     <Route path={'*'} element={NotFound} />
                 </Routes>
 

@@ -1,3 +1,4 @@
+import axios from 'axios';
 import httpRequest from '~/utils/httpRequest';
 
 const login = async (data) => {
@@ -7,11 +8,21 @@ const login = async (data) => {
 };
 
 const logout = async () => {
-    return httpRequest.get('/auth/logout');
+    return axios.get(process.env.REACT_APP_SSO_BACKEND_URL + '/api/v1/auth/logout', { withCredentials: true });
 };
 
 const getCurrentUser = async () => {
-    return httpRequest.get('/auth/current-user');
+    const res = await httpRequest.get('/auth/current-user');
+    return res;
+};
+
+const refreshToken = async () => {
+    const res = await axios.post(
+        process.env.REACT_APP_SSO_BACKEND_URL + '/api/v1/auth/refresh-token',
+        {},
+        { withCredentials: true },
+    );
+    return res.data;
 };
 
 const updateProfile = async (data) => {
@@ -22,4 +33,4 @@ const updateProfile = async (data) => {
     });
 };
 
-export { login, logout, getCurrentUser, updateProfile };
+export default { login, logout, getCurrentUser, refreshToken, updateProfile };

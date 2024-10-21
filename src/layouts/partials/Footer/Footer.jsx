@@ -18,7 +18,7 @@ function Footer() {
                     <IndexModule className={cx('col', 'l-3')}>
                         <Link to="/" className={cx('logo-link')}>
                             <FontAwesomeIcon icon={faCode} className={cx('logo')} />
-                            CodeLearn
+                            Fdemy
                         </Link>
                     </IndexModule>
                     <IndexModule className={cx('col', 'l-2')}>
@@ -121,7 +121,7 @@ function Footer() {
                     </IndexModule>
                 </IndexModule>
                 <div className={cx('bottom')}>
-                    <p className={cx('text')}>© 2018 - 2023 CodeLearn. Nền tảng học lập trình hàng đầu Việt Nam</p>
+                    <p className={cx('text')}>© 2018 - 2023 Fdemy. Nền tảng học lập trình hàng đầu Việt Nam</p>
                 </div>
             </IndexModule>
         </footer>

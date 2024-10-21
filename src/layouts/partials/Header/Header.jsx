@@ -84,14 +84,14 @@ function Header() {
     const firstClickRef = useRef({ inbox: false, myCourses: false });
 
     const { items } = useSelector((state) => state.notification);
-    const { userInfo: info } = useSelector((state) => state.user);
+    const { userInfo } = useSelector((state) => state.user);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
     const isTabletOrMobile = useMediaQuery({ query: '(min-width: 900px)' });
     const isMobile = useMediaQuery({ query: '(min-width: 630px)' });
-    const [auth] = useLocalStorage('persist:auth');
-    const userInfo = auth ? JSON.parse(auth.userInfo) : info;
+    // const [auth] = useLocalStorage('persist:auth');
+    // const userInfo = auth ? JSON.parse(auth.userInfo) : info;
 
     const userMenu = [
         {
@@ -177,7 +177,7 @@ function Header() {
                 <div className={cx('logo')}>
                     <Link to={config.routes.home} className={cx('logo-link')}>
                         <FontAwesomeIcon className={cx('icon')} icon={faCode} />
-                        <strong>CodeLearn</strong>
+                        <strong>Fdemy</strong>
                     </Link>
 
                     {isTabletOrMobile && (
@@ -219,22 +219,27 @@ function Header() {
                     {userInfo ? (
                         <>
                             {isTabletOrMobile && (
-                                <MyCourses isShow={showPopper.myCourses} onHide={handleHidePopper}>
-                                    <Tippy delay={[0, 200]} disabled={showPopper.myCourses} content="My Courses">
-                                        <button id="my-courses" className={cx('action-btn')} onClick={handleShowPopper}>
-                                            <span>My Courses</span>
-                                        </button>
+                                <>
+                                    <MyCourses isShow={showPopper.myCourses} onHide={handleHidePopper}>
+                                        <Tippy delay={[0, 200]} disabled={showPopper.myCourses} content="My Courses">
+                                            <button
+                                                id="my-courses"
+                                                className={cx('action-btn')}
+                                                onClick={handleShowPopper}
+                                            >
+                                                <span>My Courses</span>
+                                            </button>
+                                        </Tippy>
+                                    </MyCourses>
+                                    <Tippy offset={[0, 14]} delay={[0, 200]} content="New post">
+                                        <div>
+                                            <Button to={'/new-post'} className={cx('action-btn', 'newPostBtn')}>
+                                                <FontAwesomeIcon icon={faPlus} />
+                                            </Button>
+                                        </div>
                                     </Tippy>
-                                </MyCourses>
+                                </>
                             )}
-
-                            <Tippy offset={[0, 14]} delay={[0, 200]} content="New post">
-                                <div>
-                                    <Button to={'/new-post'} className={cx('action-btn', 'newPostBtn')}>
-                                        <FontAwesomeIcon icon={faPlus} />
-                                    </Button>
-                                </div>
-                            </Tippy>
 
                             <Inbox isShow={showPopper.inbox} onHide={handleHidePopper}>
                                 <Tippy offset={[0, 3]} delay={[0, 200]} disabled={showPopper.inbox} content="Inbox">
@@ -253,28 +258,22 @@ function Header() {
                         </>
                     )}
 
-                    {isTabletOrMobile ? (
-                        <Menu
-                            isShow={showPopper.menu}
-                            isLogin={!!userInfo}
-                            items={!!userInfo ? userMenu : MENU_ITEMS}
-                            onHide={handleHidePopper}
-                        >
-                            {!!userInfo ? (
-                                <button id="menu" className={cx('action-btn')} onClick={handleShowPopper}>
-                                    <Image className={cx('avatar')} src={userInfo?.avatar} alt="avatar" />
-                                </button>
-                            ) : (
-                                <button id="menu" className={cx('action-btn')} onClick={handleShowPopper}>
-                                    <FontAwesomeIcon icon={faEllipsisVertical} />
-                                </button>
-                            )}
-                        </Menu>
-                    ) : (
-                        <button className={cx('action-btn')}>
-                            <FontAwesomeIcon icon={faBars} />
-                        </button>
-                    )}
+                    <Menu
+                        isShow={showPopper.menu}
+                        isLogin={!!userInfo}
+                        items={!!userInfo ? userMenu : MENU_ITEMS}
+                        onHide={handleHidePopper}
+                    >
+                        {!!userInfo ? (
+                            <button id="menu" className={cx('action-btn')} onClick={handleShowPopper}>
+                                <Image className={cx('avatar')} src={userInfo?.avatar} alt="avatar" />
+                            </button>
+                        ) : (
+                            <button id="menu" className={cx('action-btn')} onClick={handleShowPopper}>
+                                <FontAwesomeIcon icon={faEllipsisVertical} />
+                            </button>
+                        )}
+                    </Menu>
                 </div>
             </div>
         </header>

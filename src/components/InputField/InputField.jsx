@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import styles from './InputField.module.scss';
 import Button from '../Button';
-import { updateProfile } from '~/services/authService';
+import authService from '~/services/authService';
 
 const cx = classnames.bind(styles);
 
@@ -23,7 +23,7 @@ function InputField({ label, name, type = 'text', placeholder, desc }) {
     };
 
     const handleSave = () => {
-        updateProfile({ fullName: value }).catch((err) => console.log(err));
+        authService.updateProfile({ fullName: value }).catch((err) => console.log(err));
         setIsEdit(false);
     };
 
