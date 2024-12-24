@@ -34,6 +34,7 @@ function App() {
     }, []);
 
     useEffect(() => {
+        sendNotification('Hello');
         dispatch(doGetAccount());
         if (!userInfo) {
         }
