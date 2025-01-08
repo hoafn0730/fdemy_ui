@@ -3,13 +3,13 @@ import classnames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPause, faPlay } from '@fortawesome/free-solid-svg-icons';
 import { memo, useRef, useState } from 'react';
+import YouTube from 'react-youtube';
 
 import styles from './VideoPlayer.module.scss';
-import YouTube from 'react-youtube';
 
 const cx = classnames.bind(styles);
 
-function VideoPlayer({ title, video, type, onStateChange }) {
+function VideoPlayer({ title, video, type, onReady, onStateChange }) {
     const [isPlay, setIsPlay] = useState(false);
     const [showButton, setShowButton] = useState(false);
     const videoRef = useRef();
@@ -59,12 +59,13 @@ function VideoPlayer({ title, video, type, onStateChange }) {
                         videoId={video}
                         className={cx('video-steam')}
                         iframeClassName={cx('video-steam')}
-                        onStateChange={onStateChange}
                         opts={{
                             playerVars: {
                                 autoplay: 1,
                             },
                         }}
+                        onReady={onReady}
+                        onStateChange={onStateChange}
                     />
                 ) : (
                     <>

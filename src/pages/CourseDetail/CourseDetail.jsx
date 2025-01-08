@@ -1,66 +1,66 @@
 import classnames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBatteryFull, faCheck, faCirclePlay, faClock, faFilm, faGaugeHigh } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './CourseDetail.module.scss';
 import CurriculumOfCourse from './CurriculumOfCourse';
 import Button from '~/components/Button';
-import IndexModule from '~/components/IndexModule';
 import Preview from '~/components/Preview';
-import { openPreview } from '~/store/actions/previewAction';
+import IndexModule from '~/components/IndexModule';
+import ReviewComment from '~/components/ReviewComment';
 import * as courseService from '~/services/courseService';
 import * as registerService from '~/services/registerService';
-import { openAuthModal } from '~/store/actions/authModalAction';
 import formatPrice from '~/utils/formatPrice';
+import { openModal } from '~/store/actions/modalAction';
 
 const cx = classnames.bind(styles);
 
 function CourseDetail() {
-    const [course, setCourse] = useState();
-    const [isRegistered, setIsRegistered] = useState(false);
-
-    const { isOpen } = useSelector((state) => state.preview);
-    const user = useSelector((state) => state.user);
     const dispatch = useDispatch();
     const { slug } = useParams();
     const navigate = useNavigate();
+    const location = useLocation();
+    const [course, setCourse] = useState();
+    const [openPreview, setOpenPreview] = useState(false);
+    const [isRegistered, setIsRegistered] = useState(false);
+    const userInfo = useSelector((state) => state.user.userInfo);
 
     useEffect(() => {
         courseService.getCourseBySlug(slug).then((res) => {
             setCourse(res.course);
-            setIsRegistered(res.isRegistered);
+
+            setIsRegistered(userInfo?.courseIds.includes(res.course.id));
         });
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const handleOpenPreview = () => {
-        dispatch(openPreview());
-    };
+    const handleOpenPreview = () => setOpenPreview(true);
 
     const handleClickLearnNow = () => {
-        if (isRegistered) {
-            navigate('/watch/' + course?.slug);
-        } else {
-            if (course.price === 0) {
-                if (user.isLogin) {
-                    registerService
-                        .registerCourse({
-                            courseId: course.id,
-                            userId: user.userInfo.id,
-                        })
-                        .then((res) => {
-                            navigate('/watch/' + course?.slug);
-                        });
-                } else {
-                    dispatch(openAuthModal());
-                }
-            } else {
-                navigate('/checkout/' + course?.slug);
-            }
+        if (!userInfo) {
+            return dispatch(openModal());
         }
+
+        if (isRegistered) {
+            return navigate('/watch/' + slug);
+        }
+
+        if (course.price !== 0) {
+            return navigate('/checkout/' + slug, { state: { backgroundLocation: location } });
+        }
+
+        registerService
+            .registerCourse({
+                courseId: course.id,
+                userId: userInfo.id,
+            })
+            .then((res) => {
+                navigate('/watch/' + slug);
+            });
     };
 
     return (
@@ -108,6 +108,8 @@ function CourseDetail() {
                             </IndexModule>
                         </IndexModule>
                     </div>
+
+                    <ReviewComment />
                 </IndexModule>
 
                 <IndexModule className={cx('col', 'l-4', 'm-10', 'c-12')}>
@@ -150,7 +152,9 @@ function CourseDetail() {
                             </li>
                         </ul>
                     </div>
-                    {isOpen && <Preview title={course.title} video={course.video} />}
+                    {openPreview && (
+                        <Preview title={course.title} video={course.video} onClose={() => setOpenPreview(false)} />
+                    )}
                 </IndexModule>
             </IndexModule>
         </IndexModule>

@@ -1,8 +1,7 @@
 import classnames from 'classnames/bind';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
 import styles from './NewPost.module.scss';
 import IndexModule from '~/components/IndexModule';
@@ -11,7 +10,6 @@ import MdEditor from '~/components/MdEditor';
 import Button from '~/components/Button';
 import { createPost } from '~/services/blogService';
 import generateSlug from '~/utils/generateSlug';
-import { delay } from '~/utils/delay';
 
 const cx = classnames.bind(styles);
 
@@ -35,29 +33,29 @@ function NewPost() {
     };
 
     const handlePublishPost = () => {
-        createPost({
-            userId: 1,
-            title: title,
-            slug: generateSlug(title),
-            content: value,
-        }).then(() => {
-            const resolveWithSomeData = delay(1000);
-            toast.promise(resolveWithSomeData, {
+        toast.promise(
+            createPost({
+                userId: 1,
+                title: title,
+                slug: generateSlug(title),
+                content: value,
+            }),
+            {
                 pending: {
                     render() {
                         document.title = titleRef.current;
-                        return;
+                        return 'Uploading...';
                     },
-                    icon: false,
                 },
                 success: {
+                    type: 'success',
                     render() {
                         navigate('/');
-                        return;
+                        return 'Uploaded successfully!';
                     },
                 },
-            });
-        });
+            },
+        );
     };
 
     return (
@@ -81,18 +79,6 @@ function NewPost() {
                                 style={{ marginBottom: '31px', height: 'calc(-100px + 100vh)' }}
                             />
                         </div>
-                        <ToastContainer
-                            position="top-center"
-                            autoClose={5000}
-                            hideProgressBar
-                            newestOnTop={false}
-                            closeOnClick
-                            rtl={false}
-                            pauseOnFocusLoss
-                            draggable
-                            pauseOnHover={false}
-                            theme="light"
-                        />
                     </div>
                 </IndexModule>
             </IndexModule>

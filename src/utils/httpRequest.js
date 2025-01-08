@@ -46,7 +46,7 @@ httpRequest.interceptors.response.use(
         return response.data;
     },
     function (error) {
-        if (error?.response?.status === 405) {
+        if (error?.response?.status === 410) {
             authService.refreshToken().catch((err) => {
                 return Promise.reject(err);
             });

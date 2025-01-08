@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
+import { BrowserRouter } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 import App from './App';
 import store, { persistor } from '~/store';
@@ -16,7 +18,10 @@ root.render(
         <PersistGate loading={<div>loading...</div>} persistor={persistor}>
             {/* <React.StrictMode> */}
             <GlobalStyles>
-                <App />
+                <BrowserRouter>
+                    <App />
+                    <ToastContainer />
+                </BrowserRouter>
             </GlobalStyles>
             {/* </React.StrictMode> */}
         </PersistGate>

@@ -20,6 +20,23 @@ function Footer() {
                             <FontAwesomeIcon icon={faCode} className={cx('logo')} />
                             Fdemy
                         </Link>
+                        <ul className={cx('list')}>
+                            <li className={cx('item')}>
+                                <a href="/" className={cx('item-link')}>
+                                    Điện thoại : 034****518
+                                </a>
+                            </li>
+                            <li className={cx('item')}>
+                                <a href="/" className={cx('item-link')}>
+                                    Email: fdemy.contact@gmail.com
+                                </a>
+                            </li>
+                            <li className={cx('item')}>
+                                <a href="/" className={cx('item-link')}>
+                                    Địa chỉ : số 1 ngõ 41 , Trần Duy Hưng , Hà Nội
+                                </a>
+                            </li>
+                        </ul>
                     </IndexModule>
                     <IndexModule className={cx('col', 'l-2')}>
                         <h1 className={cx('heading')}>Thông tin</h1>

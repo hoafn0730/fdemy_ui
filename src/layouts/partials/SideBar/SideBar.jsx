@@ -6,8 +6,8 @@ import {
     BlogIcon,
     HomeActiveIcon,
     HomeIcon,
-    // MessageActiveIcon,
-    // MessageIcon,
+    MessageActiveIcon,
+    MessageIcon,
     RoadMapActiveIcon,
     RoadMapIcon,
 } from '~/components/Icons';
@@ -36,12 +36,12 @@ const LIST_SIDEBAR = [
         icon: <BlogIcon />,
         iconActive: <BlogActiveIcon />,
     },
-    // {
-    //     title: 'Messages',
-    //     path: config.routes.message,
-    //     icon: <MessageIcon />,
-    //     iconActive: <MessageActiveIcon />,
-    // },
+    {
+        title: 'Messages',
+        path: config.routes.message,
+        icon: <MessageIcon />,
+        iconActive: <MessageActiveIcon />,
+    },
 ];
 
 function SideBar() {

@@ -10,11 +10,11 @@ import Button from '~/components/Button';
 
 const cx = classnames.bind(styles);
 
-function Video({ title, video, type, content, hasQuiz, onOpenQuiz, onStateChange }) {
+function Video({ title, video, type, content, hasQuiz, onOpenQuiz, onReady, onStateChange }) {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('video')}>
-                <VideoPlayer title={title} video={video} type={type} onStateChange={onStateChange} />
+                <VideoPlayer title={title} video={video} type={type} onReady={onReady} onStateChange={onStateChange} />
             </div>
             <div className={cx('content')}>
                 <Heading title={title} updatedAt="tháng 11 năm 2022" />

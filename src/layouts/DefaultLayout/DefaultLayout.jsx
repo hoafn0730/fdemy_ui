@@ -5,9 +5,9 @@ import { useMediaQuery } from 'react-responsive';
 import styles from './DefaultLayout.module.scss';
 import Header from '../partials/Header';
 import SideBar from '../partials/SideBar';
-import Footer from '../partials/Footer';
 import useOffline from '~/hooks/useOffline';
 import NoInternet from '~/pages/NoInternet';
+import Footer from '../partials/Footer';
 
 const cx = classnames.bind(styles);
 

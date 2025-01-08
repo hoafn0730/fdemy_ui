@@ -1,21 +1,23 @@
 import classnames from 'classnames/bind';
-import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
 import { useEffect, useRef, useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import styles from './Checkout.module.scss';
-import Card from './Card';
 import Heading from '~/components/Heading';
 import IndexModule from '~/components/IndexModule';
 import Button from '~/components/Button';
-import * as courseService from '~/services/courseService';
+import Modal from '~/components/Modal';
+import Image from '~/components/Image';
 import formatPrice from '~/utils/formatPrice';
+import * as courseService from '~/services/courseService';
 import * as couponService from '~/services/couponService';
 import { createInvoice } from '~/services/invoiceService';
-import { useSelector } from 'react-redux';
 
 const cx = classnames.bind(styles);
-
 const cardInfo = {
     nameOnCard: 'Trần Đình Hoàn',
     cardNumber: '1234 5678 9012 3193',
@@ -24,10 +26,10 @@ const cardInfo = {
 };
 
 function Checkout() {
+    const { state } = useLocation();
     const [course, setCourse] = useState();
     const [discount, setDiscount] = useState(0);
     const [data, setData] = useState({ ...cardInfo });
-
     const { userInfo } = useSelector((state) => state.user);
     const { slug } = useParams();
     const couponInputRef = useRef();
@@ -82,99 +84,95 @@ function Checkout() {
         });
     };
 
-    const handleCheck = (e, info) => {
-        setData((prev) => ({ ...prev, ...info }));
-    };
-
     return (
-        <div className={cx('wrapper')}>
-            <IndexModule className={cx('grid')}>
-                <Heading className={cx('header')} title="Checkout" />
-                <div className={cx('body')}>
-                    <IndexModule className={cx('row')}>
-                        <IndexModule className={cx('col', 'l-7')}>
-                            <h3 className={cx('header')}>Saved card:</h3>
-                            <div className={cx('checkoutOption')}>
-                                <Card
-                                    isChecked={true}
-                                    info={cardInfo}
-                                    title={cardInfo.cardNumber}
-                                    name={'card'}
-                                    onChange={handleCheck}
-                                />
-                                <Card
-                                    isChecked={false}
-                                    title={'**** **** **** 3193'}
-                                    name={'card'}
-                                    onChange={handleCheck}
-                                />
-                            </div>
-                            <h3 className={cx('header')}>Thêm thông tin thẻ:</h3>
+        <Modal open={!!state} size="1200px" onClose={() => navigate(-1)}>
+            <div className={cx('wrapper')}>
+                <IndexModule className={cx('grid')}>
+                    <Heading className={cx('header')} title="Checkout" />
+                    <div className={cx('body')}>
+                        <IndexModule className={cx('row')}>
+                            <IndexModule className={cx('col', 'l-7')}>
+                                {/* <h3 className={cx('header')}>Course detail:</h3> */}
+                                <div className={cx('info')}>
+                                    <div>
+                                        <Image src={course?.image} alt={course?.title} className={cx('image')} />
+                                        <h3 className={cx('header')}>{course?.title}</h3>
+                                    </div>
 
-                            <div className={cx('group')}>
-                                <label className={cx('label')}>Name on card</label>
-                                <input className={cx('control')} type="text" placeholder="Name on card" />
-                            </div>
-                            <div className={cx('group')}>
-                                <label className={cx('label')}>Card number</label>
-                                <input className={cx('control')} type="text" placeholder="1234 5678 9012 3456" />
-                            </div>
-                            <div className={cx('stripe-container')}>
-                                <div className={cx('group')}>
-                                    <label className={cx('label')}>Expiry date </label>
-                                    <input className={cx('control')} type="text" placeholder="MM/YY" />
-                                </div>
-                                <div className={cx('group')}>
-                                    <label className={cx('label')}>CVV </label>
-                                    <input className={cx('control')} type="text" placeholder="CVC" />
-                                </div>
-                            </div>
+                                    <p className={cx('desc')}>{course?.description}</p>
 
-                            <Button primary rounded>
-                                Thêm thẻ
-                            </Button>
-                        </IndexModule>
-                        <IndexModule className={cx('col', 'l-5')}>
-                            <div className={cx('summary')}>
-                                <h2 className={cx('heading')}>Summary</h2>
-                                <span className={cx('label')}>Course Name:</span>
-                                <span className={cx('title')}>{course?.title}</span>
-                                <div className={cx('coupon')}>
-                                    <input
-                                        ref={couponInputRef}
-                                        className={cx('control', 'couponInput')}
-                                        type="text"
-                                        placeholder="Enter coupon"
-                                    />
-                                    <Button outline className={cx('applyBtn')} onClick={applyCouponCode}>
-                                        Apply
+                                    <ul className={cx('list', 'column')}>
+                                        <li>
+                                            <FontAwesomeIcon className={cx('icon')} icon={faCheck} />
+                                            <span>Máy vi tính kết nối internet (Windows, Ubuntu hoặc MacOS)</span>
+                                        </li>
+                                        <li>
+                                            <FontAwesomeIcon className={cx('icon')} icon={faCheck} />
+                                            <span>
+                                                Ý thức tự học cao, trách nhiệm cao, kiên trì bền bỉ không ngại cái khó
+                                            </span>
+                                        </li>
+                                        <li>
+                                            <FontAwesomeIcon className={cx('icon')} icon={faCheck} />
+                                            <span>Không được nóng vội, bình tĩnh học, làm bài tập sau mỗi bài học</span>
+                                        </li>
+                                        <li>
+                                            <FontAwesomeIcon className={cx('icon')} icon={faCheck} />
+                                            <span>
+                                                Khi học nếu có khúc mắc hãy tham gia hỏi/đáp tại group FB: Học lập trình
+                                                web (fullstack.edu.vn)
+                                            </span>
+                                        </li>
+                                        <li>
+                                            <FontAwesomeIcon className={cx('icon')} icon={faCheck} />
+                                            <span>
+                                                Bạn không cần biết gì hơn nữa, trong khóa học tôi sẽ chỉ cho bạn những
+                                                gì bạn cần phải biết
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </IndexModule>
+                            <IndexModule className={cx('col', 'l-5')}>
+                                <div className={cx('summary')}>
+                                    <h2 className={cx('heading')}>Summary</h2>
+                                    <span className={cx('title')}>{course?.title}</span>
+                                    <div className={cx('coupon')}>
+                                        <input
+                                            ref={couponInputRef}
+                                            className={cx('control', 'couponInput')}
+                                            type="text"
+                                            placeholder="Enter coupon"
+                                        />
+                                        <Button outline className={cx('applyBtn')} onClick={applyCouponCode}>
+                                            Apply
+                                        </Button>
+                                    </div>
+                                    <div className={cx('price')}>
+                                        <div className={cx('originalPrice')}>
+                                            <span>Original Price:</span>
+                                            <span>{formatPrice(course?.price)}</span>
+                                        </div>
+                                        <div className={cx('originalPrice')}>
+                                            <span>Discount:</span>
+                                            <span>{'- ' + formatPrice(discount)}</span>
+                                        </div>
+                                        <div className={cx('divider')}></div>
+                                        <div className={cx('totalPrice')}>
+                                            <span>Original Price:</span>
+                                            <span>{course?.price && formatPrice(+course?.price - discount)}</span>
+                                        </div>
+                                    </div>
+                                    <Button primary className={cx('checkoutBtn')} onClick={handleCheckout}>
+                                        Hoàn tất thanh toán
                                     </Button>
                                 </div>
-                                <div className={cx('price')}>
-                                    <div className={cx('originalPrice')}>
-                                        <span>Original Price:</span>
-                                        <span>{formatPrice(course?.price)}</span>
-                                    </div>
-                                    <div className={cx('originalPrice')}>
-                                        <span>Discount:</span>
-                                        <span>{'- ' + formatPrice(discount)}</span>
-                                    </div>
-                                    <div className={cx('divider')}></div>
-                                    <div className={cx('totalPrice')}>
-                                        <span>Original Price:</span>
-                                        <span>{course?.price && formatPrice(+course?.price - discount)}</span>
-                                    </div>
-                                </div>
-                                <Button primary className={cx('checkoutBtn')} onClick={handleCheckout}>
-                                    Hoàn tất thanh toán
-                                </Button>
-                            </div>
+                            </IndexModule>
                         </IndexModule>
-                    </IndexModule>
-                </div>
-                <ToastContainer />
-            </IndexModule>
-        </div>
+                    </div>
+                </IndexModule>
+            </div>
+        </Modal>
     );
 }
 

@@ -9,7 +9,7 @@ import Button from '../Button';
 
 const cx = classnames.bind(styles);
 
-function ActionBar({ prevStep, nextStep, isShowTracks, canNext, onChangeShow }) {
+function ActionBar({ canNext, prevStep, nextStep, isShowTracks, onChangeShow }) {
     const [, setSearchParams] = useSearchParams();
 
     const handleClickPrevStep = () => {
@@ -25,6 +25,7 @@ function ActionBar({ prevStep, nextStep, isShowTracks, canNext, onChangeShow }) 
             return params;
         });
     };
+
     return (
         <div className={cx('wrapper')}>
             <Button

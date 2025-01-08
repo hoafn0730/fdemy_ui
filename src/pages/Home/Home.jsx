@@ -36,7 +36,7 @@ function Home() {
     }, []);
 
     return (
-        <IndexModule className={cx('grid', 'wide')}>
+        <IndexModule className={cx('grid')}>
             {loading && (
                 <div style={{ height: '90vh', display: 'flex', alignItems: 'center' }}>
                     <DotLoader
@@ -60,9 +60,9 @@ function Home() {
                             title={'Khóa học Pro'}
                             render={() =>
                                 courses &&
-                                courses?.proCourses.map(({ title, image, ctaTitle, oldPrice, price, slug }, index) => (
+                                courses?.proCourses.map(({ title, image, ctaTitle, oldPrice, price, slug }, idx) => (
                                     <CourseItem
-                                        key={index}
+                                        key={idx}
                                         title={title}
                                         linkTo={'/courses/' + slug}
                                         image={image}
@@ -79,9 +79,9 @@ function Home() {
                             render={() =>
                                 courses &&
                                 courses?.freeCourses.map(
-                                    ({ title, image, ctaTitle, oldPrice, mainPrice, slug }, index) => (
+                                    ({ title, image, ctaTitle, oldPrice, mainPrice, slug }, idx) => (
                                         <CourseItem
-                                            key={index}
+                                            key={idx}
                                             title={title}
                                             linkTo={'/courses/' + slug}
                                             image={image}

@@ -1,7 +1,8 @@
-import { CLOSE_MODAL, OPEN_MODAL } from '../types';
+import { CLOSE_MODAL, CLOSING_MODAL, OPEN_MODAL } from '../types';
 
 const INITIAL_STATE = {
-    isOpen: true,
+    isOpen: false,
+    isClosing: false,
 };
 
 const modalReducer = (state = INITIAL_STATE, action) => {
@@ -10,6 +11,13 @@ const modalReducer = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 isOpen: true,
+            };
+
+        case CLOSING_MODAL:
+            return {
+                ...state,
+                isOpen: true,
+                isClosing: true,
             };
 
         case CLOSE_MODAL:

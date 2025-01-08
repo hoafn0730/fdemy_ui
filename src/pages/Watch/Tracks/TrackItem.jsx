@@ -6,7 +6,7 @@ import styles from './Tracks.module.scss';
 
 const cx = classnames.bind(styles);
 
-function TrackItem({ title, isDisabled, uuid, image, index }) {
+function TrackItem({ title, disabled, uuid, image, index }) {
     const [searchParams, setSearchParams] = useSearchParams();
 
     const handleClickTrack = () => {
@@ -20,7 +20,7 @@ function TrackItem({ title, isDisabled, uuid, image, index }) {
         <div
             className={cx('item', {
                 active: searchParams.get('id') === uuid,
-                disabled: isDisabled,
+                disabled: disabled,
             })}
             onClick={handleClickTrack}
         >

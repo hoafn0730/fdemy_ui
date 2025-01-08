@@ -35,8 +35,8 @@ import {
     SettingIcon,
     UserIcon,
 } from '~/components/Icons';
-import { openAuthModal } from '~/store/actions/authModalAction';
-import useLocalStorage from '~/hooks/useLocalStorage';
+// import useLocalStorage from '~/hooks/useLocalStorage';
+import { openModal } from '~/store/actions/modalAction';
 
 const cx = classnames.bind(styles);
 
@@ -168,7 +168,7 @@ function Header() {
     };
 
     const handleClickLogin = () => {
-        dispatch(openAuthModal());
+        dispatch(openModal());
     };
 
     return (

@@ -6,7 +6,8 @@ import TrackItem from './TrackItem';
 
 const cx = classnames.bind(styles);
 
-function Tracks({ data, process, onChangeShow }) {
+function Tracks({ steps, process, onChangeShow }) {
+    console.log('🚀 ~ Tracks ~ process:', process);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('container')} id="learn-playlist">
@@ -17,8 +18,8 @@ function Tracks({ data, process, onChangeShow }) {
                     </button>
                 </header>
                 <div className={cx('body')}>
-                    {data?.steps &&
-                        data.steps.map((item, index) => {
+                    {!!steps?.length &&
+                        steps.map((item, index) => {
                             const isCheckExist = process.includes(item.id);
 
                             return (
@@ -32,7 +33,7 @@ function Tracks({ data, process, onChangeShow }) {
                                             : item?.lesson?.image
                                     }
                                     index={index + 1}
-                                    isDisabled={!isCheckExist}
+                                    disabled={!isCheckExist}
                                 />
                             );
                         })}

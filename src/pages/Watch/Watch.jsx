@@ -2,8 +2,9 @@ import classnames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComments } from '@fortawesome/free-regular-svg-icons';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import styles from './Watch.module.scss';
 import Header from './Header';
@@ -12,77 +13,76 @@ import Tracks from './Tracks';
 import Quiz from './Quiz';
 import ActionBar from '~/components/ActionBar';
 import Button from '~/components/Button';
-import Modal from '~/components/Modal';
 import Comment from '~/components/Comment';
+import Drawer from '~/components/Drawer';
 import { openModal } from '~/store/actions/modalAction';
 import * as watchService from '~/services/watchService';
 
 const cx = classnames.bind(styles);
 
 function Watch() {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const [searchParams] = useSearchParams();
+    const { slug } = useParams();
+    const { id: stepId } = Object.fromEntries([...searchParams]);
+
     const [track, setTrack] = useState();
     const [process, setProcess] = useState([]);
-    const [lesson, setLesson] = useState({});
+    const [currentStep, setCurrentStep] = useState();
     const [nextStep, setNextStep] = useState();
     const [prevStep, setPrevStep] = useState();
-    const [isUpdateTrack, setIsUpdateTrack] = useState(false);
-    const [isQuiz, setIsQuiz] = useState(false);
     const [isShowTracks, setIsShowTracks] = useState(true);
     const [isShowComments, setIsShowComments] = useState(false);
-
-    const dispatch = useDispatch();
-    const [searchParams, setSearchParams] = useSearchParams();
-    const { slug } = useParams();
+    const [isShowQuiz, setIsShowQuiz] = useState(false);
+    const [player, setPlayer] = useState(null);
+    const [previousTime, setPreviousTime] = useState(0); // Thời gian phát trước đó
+    const skipThreshold = 10; // Ngưỡng tua cho phép (giây)
+    const { lesson } = currentStep || { lesson: {} };
 
     useEffect(() => {
         (async () => {
-            const { data } = await watchService.getTracks(slug);
-            setTrack(data.track);
-            setProcess(data.userProcess);
+            const {
+                data: { track, userProcess },
+            } = await watchService.getTracks(slug);
 
-            if (data.userProcess.length < 1 && data.track.steps.length > 0) {
-                await watchService.saveUserProcess(data.track.steps[0].uuid);
-            }
+            if (!stepId) {
+                if (!userProcess.length && !!track.steps.length) {
+                    await watchService.saveUserProcess(track.steps[0].uuid);
+                    userProcess.push(track.steps[0].id);
 
-            if (!searchParams.has('id')) {
-                const currentStep = data.track.steps?.find(
-                    (step) => step.id === data.userProcess[data.userProcess.length - 1],
-                );
-                if (currentStep) {
-                    setSearchParams((params) => {
-                        params.set('id', currentStep.uuid);
-                        return params;
-                    });
+                    navigate(`/watch/${slug}?id=${track.steps[0].uuid}`, { replace: true });
                 } else {
-                    if (data.track.steps.length > 0) {
-                        setSearchParams((params) => {
-                            params.set('id', data.track.steps[0].uuid);
-                            return params;
-                        });
-                    }
+                    const latestStep = track.steps?.find((step) => step.id === userProcess[userProcess.length - 1]);
+
+                    navigate(`/watch/${slug}?id=${latestStep.uuid}`, { replace: true });
+                }
+            } else {
+                if (!userProcess.length && !!track.steps.length && stepId === track.steps[0].uuid) {
+                    await watchService.saveUserProcess(track.steps[0].uuid);
+                    userProcess.push(track.steps[0].id);
                 }
             }
+
+            setTrack(track);
+            setProcess(userProcess);
         })();
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isUpdateTrack]);
+    }, []);
 
     useEffect(() => {
         (async () => {
-            if (searchParams.has('id')) {
-                const res = await watchService.getStep(searchParams.get('id'));
-                setLesson(res.data.step.lesson);
+            if (stepId) {
+                const res = await watchService.getStep(stepId);
+
+                setCurrentStep(res.data.step);
                 setNextStep(res.data.nextStep);
                 setPrevStep(res.data.prevStep);
-
-                if (!process.includes(res.data.step.id)) {
-                    nextStep && (await watchService.saveUserProcess(nextStep));
-                    setProcess((prev) => [...prev, res.data.step.id]);
-                }
             }
-            setIsQuiz(false);
         })();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [searchParams]);
+        return () => clearInterval(window.videoInterval);
+    }, [stepId]);
 
     const handleShowTracks = () => {
         setIsShowTracks((prev) => !prev);
@@ -96,43 +96,72 @@ function Watch() {
         }
     };
 
-    const checkElapsedTime = (e) => {
-        const interval = setInterval(async () => {
-            const duration = e.target.getDuration();
-            const currentTime = e.target.getCurrentTime();
-            if (e.target.getPlayerState() > 1) {
-                clearInterval(interval);
-            }
+    const handleReady = (event) => {
+        const playerInstance = event.target;
+        setPlayer(playerInstance);
+    };
 
-            const step = track.steps?.find((step) => step.uuid === nextStep);
-            if (process.includes(step?.id)) {
-                setIsUpdateTrack(true);
-                clearInterval(interval);
-            } else {
-                if ((currentTime / duration) * 100 > 70) {
-                    nextStep && (await watchService.saveUserProcess(nextStep));
-                    setIsUpdateTrack(true);
-                    clearInterval(interval);
+    const handleStateChange = async (event) => {
+        // Kiểm tra trạng thái video
+        if (event.data === 1) {
+            // PLAYING state
+            // Đảm bảo không tạo nhiều interval khi hàm được gọi nhiều lần
+            if (window.videoInterval) return;
+
+            const duration = player.getDuration();
+            window.videoInterval = setInterval(async () => {
+                if (player) {
+                    const currentTime = player.getCurrentTime();
+                    const step = track?.steps?.find((step) => step.uuid === nextStep);
+
+                    if (process.includes(step?.id)) {
+                        clearInterval(window.videoInterval); // Dọn dẹp interval
+                        return (window.videoInterval = null); // Reset interval tracker
+                    }
+
+                    // Kiểm tra nếu người dùng tua nhanh hơn ngưỡng cho phép
+                    if (Math.round(currentTime - previousTime) > skipThreshold) {
+                        toast('Bạn đã tua quá nhanh! Đưa về thời gian trước đó.');
+                        player.seekTo(previousTime); // Đưa video về thời gian trước đó
+                    } else {
+                        console.log(123);
+
+                        if (Math.round(currentTime / duration) * 100 > 70 && !process.includes(step?.id)) {
+                            watchService.saveUserProcess(step.uuid).then(() => {
+                                setProcess((prev) => [...prev, step.id]);
+                                toast('Quá trình được lưu thành công!');
+                            });
+
+                            clearInterval(window.videoInterval); // Dọn dẹp interval
+                            return (window.videoInterval = null); // Reset interval tracker
+                        }
+
+                        setPreviousTime(currentTime); // Cập nhật thời gian hiện tại
+                    }
                 }
-            }
-        }, 1000);
+            }, 1000); // Kiểm tra mỗi giây
+        } else {
+            // Khi video dừng hoặc không phải PLAYING, xóa interval
+            clearInterval(window.videoInterval);
+            window.videoInterval = null;
+        }
     };
 
     const handleOpenQuiz = () => {
         if (lesson?.quizzes.length > 0) {
-            setIsQuiz(true);
+            setIsShowQuiz(true);
         }
     };
 
     const handleCloseQuiz = () => {
-        setIsQuiz(false);
+        setIsShowQuiz(false);
     };
 
     return (
         <div className={cx('wrapper')}>
-            <Header track={track} process={process} isQuiz={isQuiz} onCloseQuiz={handleCloseQuiz} />
+            <Header track={track} process={process} isQuiz={isShowQuiz} onCloseQuiz={handleCloseQuiz} />
             <div className={cx('content')}>
-                {isQuiz && lesson?.quizzes.length > 0 ? (
+                {isShowQuiz && lesson?.quizzes.length > 0 ? (
                     <Quiz data={lesson?.quizzes} onClose={handleCloseQuiz} />
                 ) : (
                     <Video
@@ -140,18 +169,19 @@ function Watch() {
                         video={lesson?.video}
                         type={lesson?.videoType}
                         content={lesson?.content}
-                        hasQuiz={lesson?.quizzes && lesson?.quizzes.length > 0}
+                        hasQuiz={!!lesson?.quizzes?.length}
                         onOpenQuiz={handleOpenQuiz}
-                        onStateChange={checkElapsedTime}
+                        onReady={handleReady}
+                        onStateChange={handleStateChange}
                     />
                 )}
 
-                {isShowTracks && <Tracks data={track} process={process} onChangeShow={handleShowTracks} />}
+                {isShowTracks && <Tracks steps={track?.steps} process={process} onChangeShow={handleShowTracks} />}
             </div>
             <ActionBar
+                canNext={process?.includes(track?.steps?.find((step) => step.uuid === nextStep)?.id)}
                 prevStep={prevStep}
                 nextStep={nextStep}
-                canNext={isUpdateTrack}
                 isShowTracks={isShowTracks}
                 onChangeShow={handleShowTracks}
             />
@@ -163,11 +193,9 @@ function Watch() {
             >
                 Hỏi đáp
             </Button>
-            {isShowComments && (
-                <Modal>
-                    <Comment />
-                </Modal>
-            )}
+            <Drawer open={isShowComments} onClose={() => setIsShowComments(false)}>
+                <Comment />
+            </Drawer>
         </div>
     );
 }

@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { Fragment, useEffect } from 'react';
 import io from 'socket.io-client';
 import { toast } from 'react-toastify';
@@ -6,38 +6,32 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { DefaultLayout } from '~/layouts';
 import { privateRoutes, publicRoutes } from '~/routes';
-import AuthModal from '~/components/AuthModal';
-import PrivateRoute from '~/components/PrivateRoute';
+import Modal from '~/components/Modal';
+// import PrivateRoute from '~/components/PrivateRoute';
 import NotFound from '~/pages/NotFound';
-import Login from '~/pages/Login';
 import useLocalStorage from '~/hooks/useLocalStorage';
 import { changeTheme } from '~/store/actions/themeAction';
 import { doGetAccount } from '~/store/actions/authAction';
 import { addNewNotification } from './store/actions/notificationAction';
+import Checkout from './pages/Checkout';
+import config from './config';
+import { closeModal } from './store/actions/modalAction';
 
 const socket = io(process.env.REACT_APP_SOCKET_BACKEND_URL);
 
 function App() {
-    const { isDarkMode } = useSelector((state) => state.theme);
-    const { userInfo } = useSelector((state) => state.user);
-    const { isOpen } = useSelector((state) => state.authModal);
     const dispatch = useDispatch();
+    const location = useLocation();
+    const { isDarkMode } = useSelector((state) => state.theme);
+    // const { userInfo } = useSelector((state) => state.user);
+    const { isOpen } = useSelector((state) => state.modal);
     const [theme, setTheme] = useLocalStorage('theme');
+    const state = location.state;
 
     useEffect(() => {
-        if (theme) {
-            dispatch(changeTheme(theme === 'dark'));
-        } else {
-            setTheme('light');
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    useEffect(() => {
-        sendNotification('Hello');
+        // if (!userInfo) {
         dispatch(doGetAccount());
-        if (!userInfo) {
-        }
+        // }
 
         window.addEventListener('message', (event) => {
             if (event.origin === process.env.REACT_APP_ACCOUNTS_URL) {
@@ -48,14 +42,6 @@ function App() {
             }
         });
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    useEffect(() => {
-        setTheme(isDarkMode ? 'dark' : 'light');
-    }, [isDarkMode, setTheme]);
-
-    useEffect(() => {
         socket.on('notification', (data) => {
             toast.success(data.message, {
                 position: 'top-right',
@@ -69,81 +55,101 @@ function App() {
             });
             dispatch(addNewNotification(data));
         });
+
+        if (theme) {
+            dispatch(changeTheme(theme === 'dark'));
+        } else {
+            setTheme('light');
+        }
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    useEffect(() => {
+        setTheme(isDarkMode ? 'dark' : 'light');
+    }, [isDarkMode, setTheme]);
+
     return (
-        <Router>
-            <div className={'App' + (isDarkMode ? ' dark' : '')}>
+        <div className={'App' + (isDarkMode ? ' dark' : '')}>
+            <Routes location={state?.backgroundLocation || location}>
+                {publicRoutes.map((route, index) => {
+                    const Page = route.component;
+                    let Layout = DefaultLayout;
+
+                    if (route.layout) {
+                        Layout = route.layout;
+                    } else if (route.layout === null) {
+                        Layout = Fragment;
+                    }
+
+                    return (
+                        <Route
+                            key={index}
+                            path={route.path}
+                            element={
+                                <Layout>
+                                    <Page />
+                                </Layout>
+                            }
+                        >
+                            {route.children &&
+                                route.children.map((routeChild, index) => {
+                                    const PageChild = routeChild.component;
+                                    return <Route key={index} path={routeChild.path} element={<PageChild />} />;
+                                })}
+                        </Route>
+                    );
+                })}
+                {privateRoutes.map((route, index) => {
+                    const Page = route.component;
+                    let Layout = DefaultLayout;
+
+                    if (route.layout) {
+                        Layout = route.layout;
+                    } else if (route.layout === null) {
+                        Layout = Fragment;
+                    }
+
+                    return (
+                        <Route
+                            key={index}
+                            path={route.path}
+                            element={
+                                // <PrivateRoute>
+                                <Layout>
+                                    <Page />
+                                </Layout>
+                                // </PrivateRoute>
+                            }
+                        >
+                            {route.children &&
+                                route.children.map((routeChild, index) => {
+                                    const PageChild = routeChild.component;
+                                    return <Route key={index} path={routeChild.path} element={<PageChild />} />;
+                                })}
+                        </Route>
+                    );
+                })}
+                <Route path={'*'} element={NotFound} />
+            </Routes>
+
+            {state?.backgroundLocation && (
                 <Routes>
-                    {publicRoutes.map((route, index) => {
-                        const Page = route.component;
-                        let Layout = DefaultLayout;
-
-                        if (route.layout) {
-                            Layout = route.layout;
-                        } else if (route.layout === null) {
-                            Layout = Fragment;
-                        }
-
-                        return (
-                            <Route
-                                key={index}
-                                path={route.path}
-                                element={
-                                    <Layout>
-                                        <Page />
-                                    </Layout>
-                                }
-                            >
-                                {route.children &&
-                                    route.children.map((routeChild, index) => {
-                                        const PageChild = routeChild.component;
-                                        return <Route key={index} path={routeChild.path} element={<PageChild />} />;
-                                    })}
-                            </Route>
-                        );
-                    })}
-                    {privateRoutes.map((route, index) => {
-                        const Page = route.component;
-                        let Layout = DefaultLayout;
-
-                        if (route.layout) {
-                            Layout = route.layout;
-                        } else if (route.layout === null) {
-                            Layout = Fragment;
-                        }
-
-                        return (
-                            <Route
-                                key={index}
-                                path={route.path}
-                                element={
-                                    <PrivateRoute>
-                                        <Layout>
-                                            <Page />
-                                        </Layout>
-                                    </PrivateRoute>
-                                }
-                            >
-                                {route.children &&
-                                    route.children.map((routeChild, index) => {
-                                        const PageChild = routeChild.component;
-                                        return <Route key={index} path={routeChild.path} element={<PageChild />} />;
-                                    })}
-                            </Route>
-                        );
-                    })}
-                    <Route path={'*'} element={NotFound} />
+                    <Route path={config.routes.checkout} element={<Checkout />} />
                 </Routes>
+            )}
 
-                {isOpen && (
-                    <AuthModal>
-                        <Login />
-                    </AuthModal>
-                )}
-            </div>
-        </Router>
+            {/* Login Modal */}
+            <Modal open={isOpen} onClose={() => dispatch(closeModal())}>
+                <iframe
+                    title="1"
+                    src={`${process.env.REACT_APP_ACCOUNTS_LOGIN_URL}?continue=${encodeURIComponent(
+                        window.location.origin,
+                    )}&popup=1`}
+                    frameborder="0"
+                ></iframe>
+            </Modal>
+        </div>
     );
 }
 

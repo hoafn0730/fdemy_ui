@@ -7,6 +7,25 @@
     margin-left: 8px;
 }
 
+.image {
+    // width: 80px;
+    height: 80px;
+    border-radius: 16px;
+    object-fit: cover;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+
+    div {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+}
+
 .heading {
     font-size: 2.2rem;
     margin-bottom: 10px;
@@ -63,6 +82,11 @@
     margin: 6px 0;
 }
 
+.desc {
+    font-size: 1.4rem;
+    color: var(--text-color);
+}
+
 .coupon {
     width: 100%;
     display: flex;
@@ -70,17 +94,17 @@
 }
 
 .couponInput {
-    border: 2px solid var(--text-color);
+    border: 1px solid var(--text-color);
     padding: 10px 12px;
-    border-radius: 10px;
+    border-radius: 8px;
 
     &:focus {
-        border: 2px solid var(--primary-color);
+        border: 1px solid var(--primary-color);
     }
 }
 
 .applyBtn {
-    border-radius: 10px;
+    border-radius: 8px;
     margin-left: 10px;
     color: var(--primary-color);
     font-size: 1.4rem;
@@ -109,8 +133,36 @@
 }
 
 .checkoutBtn {
-    margin: 0 auto;
+    margin-left: auto;
+    border-radius: 20px;
     margin-top: 12px;
-    padding-top: 12px;
-    padding-bottom: 12px;
+}
+
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+    padding-left: 0;
+
+    &.column {
+        flex-direction: column;
+    }
+
+    li {
+        color: var(--text-color);
+        flex-basis: 50%;
+        font-size: 1.4rem;
+        line-height: 1.6;
+        margin-bottom: 12px;
+        padding: 0 24px;
+        position: relative;
+
+        .icon {
+            color: var(--primary-color);
+            font-size: 1.4rem;
+            left: 0;
+            position: absolute;
+            top: 2px;
+        }
+    }
 }
