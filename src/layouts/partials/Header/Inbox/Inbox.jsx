@@ -44,7 +44,7 @@ function Inbox({ children, isShow, onHide }) {
                                 <InboxItem />
                             </div>
                             <Button to={'/notifications'} className={cx('seeAll')}>
-                                See all notifications
+                                Xem tất cả
                             </Button>
                         </Popper.Wrapper>
                     );

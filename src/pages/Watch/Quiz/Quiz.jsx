@@ -58,13 +58,13 @@ function Quiz({ data }) {
 
                 <div className={cx('footer')}>
                     <Button rounded primary className={cx('submit')} onClick={handleSubmit}>
-                        Reply
+                        Trả lời
                     </Button>
                 </div>
 
                 {showExplanation && (
                     <div className={cx('explanation')}>
-                        <h2>Explanation</h2>
+                        <h2>Giải thích</h2>
                         <MarkdownParser
                             content={_answer.explanation}
                             style={{ '--font-size': '1.6rem', '--line-height': 2 }}

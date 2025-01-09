@@ -5,19 +5,14 @@ import { useMediaQuery } from 'react-responsive';
 import styles from './DefaultLayout.module.scss';
 import Header from '../partials/Header';
 import SideBar from '../partials/SideBar';
-import useOffline from '~/hooks/useOffline';
-import NoInternet from '~/pages/NoInternet';
 import Footer from '../partials/Footer';
 
 const cx = classnames.bind(styles);
 
 function DefaultLayout({ children }) {
     const isTabletOrMobile = useMediaQuery({ query: '(min-width: 1224px)' });
-    const isOffline = useOffline();
 
-    return isOffline ? (
-        <NoInternet />
-    ) : (
+    return (
         <div className={cx('wrapper')}>
             <Header />
             <main className={cx('container')}>

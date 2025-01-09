@@ -5,3 +5,19 @@
 .wrapper {
     margin-top: 70px;
 }
+
+.action-btn {
+    color: var(--primary-color);
+    margin-left: auto;
+    transition: all ease 0.3s;
+
+    & svg {
+        font-size: 1.4rem;
+        transition: 0.3s ease;
+        margin-left: 4px;
+    }
+
+    &:hover svg {
+        transform: translateX(4px);
+    }
+}

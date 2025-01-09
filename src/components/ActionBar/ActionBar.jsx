@@ -35,7 +35,7 @@ function ActionBar({ canNext, prevStep, nextStep, isShowTracks, onChangeShow }) 
                 leftIcon={<FontAwesomeIcon icon={faAngleLeft} />}
                 onClick={handleClickPrevStep}
             >
-                Previous
+                Bài trước
             </Button>
             <Button
                 className={cx('btn')}
@@ -44,10 +44,10 @@ function ActionBar({ canNext, prevStep, nextStep, isShowTracks, onChangeShow }) 
                 rightIcon={<FontAwesomeIcon icon={faAngleRight} />}
                 onClick={handleClickNextStep}
             >
-                Next
+                Tiếp tục
             </Button>
             <div className={cx('toggle-wrap')}>
-                <h3 className={cx('track-title')}>Track List</h3>
+                <h3 className={cx('track-title')}>Danh sách bài học</h3>
                 <button className={cx('toggle-btn')} onClick={onChangeShow}>
                     {isShowTracks ? <FontAwesomeIcon icon={faArrowRight} /> : <FontAwesomeIcon icon={faBars} />}
                 </button>

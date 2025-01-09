@@ -9,9 +9,11 @@ const cx = classnames.bind(styles);
 
 function CurriculumOfCourse({ track = {} }) {
     const [isSeeMore, setIsSeeMore] = useState(false);
+
     const handleSeeMore = () => {
         setIsSeeMore((prev) => !prev);
     };
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('headerSticky')}>
@@ -35,7 +37,7 @@ function CurriculumOfCourse({ track = {} }) {
                 </div>
                 {track?.steps && track.steps.length > 5 && (
                     <Button className={cx('seeMore')} onClick={handleSeeMore}>
-                        {isSeeMore ? 'See less' : 'See more'}
+                        {isSeeMore ? 'Thu gọn' : 'Xem thêm'}
                     </Button>
                 )}
             </div>

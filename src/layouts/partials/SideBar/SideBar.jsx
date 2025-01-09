@@ -19,19 +19,19 @@ const cx = classnames.bind(styles);
 
 const LIST_SIDEBAR = [
     {
-        title: 'Home',
+        title: 'Trang chủ',
         path: config.routes.home,
         icon: <HomeIcon />,
         iconActive: <HomeActiveIcon />,
     },
     {
-        title: 'Road Map',
+        title: 'Lộ trình',
         path: config.routes.roadMap,
         icon: <RoadMapIcon />,
         iconActive: <RoadMapActiveIcon />,
     },
     {
-        title: 'Blogs',
+        title: 'Bài viết',
         path: config.routes.blog,
         icon: <BlogIcon />,
         iconActive: <BlogActiveIcon />,

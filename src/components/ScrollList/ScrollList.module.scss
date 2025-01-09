@@ -12,14 +12,21 @@
     color: #242424;
     font-size: 2.4rem;
     font-weight: 900;
-    margin-right: auto;
     margin-top: 16px;
+    margin-right: 8px;
 }
 
 .sub-heading {
     color: #82919b;
     font-size: 1.4rem;
     margin-bottom: 0;
+}
+
+.label {
+    background: var(--primary-gradient);
+    border-radius: 8px;
+    color: var(--white-color);
+    padding: 2px 8px;
 }
 
 .body {

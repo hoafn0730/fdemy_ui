@@ -92,6 +92,7 @@ function RoadMapDetail() {
             ],
         },
     ];
+
     return (
         <div className={cx('wrapper')}>
             <IndexModule className={cx('grid')}>

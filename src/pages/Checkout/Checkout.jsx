@@ -88,7 +88,7 @@ function Checkout() {
         <Modal open={!!state} size="1200px" onClose={() => navigate(-1)}>
             <div className={cx('wrapper')}>
                 <IndexModule className={cx('grid')}>
-                    <Heading className={cx('header')} title="Checkout" />
+                    <Heading className={cx('header')} title="Thanh toán" />
                     <div className={cx('body')}>
                         <IndexModule className={cx('row')}>
                             <IndexModule className={cx('col', 'l-7')}>
@@ -135,7 +135,7 @@ function Checkout() {
                             </IndexModule>
                             <IndexModule className={cx('col', 'l-5')}>
                                 <div className={cx('summary')}>
-                                    <h2 className={cx('heading')}>Summary</h2>
+                                    <h2 className={cx('heading')}>Chi tiết</h2>
                                     <span className={cx('title')}>{course?.title}</span>
                                     <div className={cx('coupon')}>
                                         <input
@@ -145,21 +145,21 @@ function Checkout() {
                                             placeholder="Enter coupon"
                                         />
                                         <Button outline className={cx('applyBtn')} onClick={applyCouponCode}>
-                                            Apply
+                                            Áp dụng
                                         </Button>
                                     </div>
                                     <div className={cx('price')}>
                                         <div className={cx('originalPrice')}>
-                                            <span>Original Price:</span>
+                                            <span>Giá gốc:</span>
                                             <span>{formatPrice(course?.price)}</span>
                                         </div>
                                         <div className={cx('originalPrice')}>
-                                            <span>Discount:</span>
+                                            <span>Giả giám:</span>
                                             <span>{'- ' + formatPrice(discount)}</span>
                                         </div>
                                         <div className={cx('divider')}></div>
                                         <div className={cx('totalPrice')}>
-                                            <span>Original Price:</span>
+                                            <span>Thành Tiền:</span>
                                             <span>{course?.price && formatPrice(+course?.price - discount)}</span>
                                         </div>
                                     </div>

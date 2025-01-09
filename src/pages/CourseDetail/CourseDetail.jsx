@@ -23,6 +23,7 @@ function CourseDetail() {
     const { slug } = useParams();
     const navigate = useNavigate();
     const location = useLocation();
+
     const [course, setCourse] = useState();
     const [openPreview, setOpenPreview] = useState(false);
     const [isRegistered, setIsRegistered] = useState(false);

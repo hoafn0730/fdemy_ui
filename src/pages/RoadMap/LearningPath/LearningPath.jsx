@@ -26,7 +26,7 @@ function LearningPath({ title, desc, slug, image }) {
             </div>
             <div className={cx('cta')}>
                 <Button primary rounded to={'/road-map/' + slug}>
-                    View detail
+                    Xem chi tiết
                 </Button>
             </div>
         </div>

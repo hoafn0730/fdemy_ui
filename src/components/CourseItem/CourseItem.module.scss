@@ -125,22 +125,15 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #f9f9f9;
-    padding: 10px;
+    // background-color: #f9f9f9;
+    padding: 10px 0;
     border-radius: 8px;
-    font-family: Arial, sans-serif;
 }
 
 .info-user-courses-avatar {
     display: flex;
     align-items: center;
     gap: 10px;
-}
-
-.avatar-image {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
 }
 
 .user-name {
@@ -159,18 +152,6 @@
     display: flex;
     align-items: center;
     gap: 5px;
-    font-size: 14px;
-    color: #555;
-}
-
-.icon-play::before {
-    content: '▶';
-    font-size: 14px;
-    color: #555;
-}
-
-.icon-time::before {
-    content: '⏱';
     font-size: 14px;
     color: #555;
 }

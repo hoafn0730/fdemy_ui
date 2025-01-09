@@ -22,7 +22,7 @@ function Post() {
         const currentRoute = location.pathname.split('/')[location.pathname.split('/').length - 1];
         setTab(currentRoute);
     }, [location.pathname]);
-    //
+
     return (
         <div className={cx('wrapper')}>
             <IndexModule className={cx('grid')}>

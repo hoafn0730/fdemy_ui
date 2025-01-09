@@ -78,7 +78,7 @@ function Search() {
                             </div>
 
                             <div className={cx('heading')}>
-                                <h5>KHÓA HỌC</h5>
+                                <h5>Khoá học</h5>
                                 <Link to={'/search?q=' + debouncedValue} className={cx('seeMore')}>
                                     Xem thêm
                                 </Link>
@@ -103,7 +103,7 @@ function Search() {
                     value={searchValue}
                     type="text"
                     className={cx('search-input')}
-                    placeholder="search..."
+                    placeholder="Tìm kiếm khóa học, bài viết, video, ..."
                     onChange={handleChange}
                     onFocus={handleFocus}
                 />

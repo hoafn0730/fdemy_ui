@@ -12,13 +12,12 @@ import { search } from '~/services/searchService';
 const cx = classnames.bind(styles);
 
 function Search() {
-    const [searchResult, setSearchResult] = useState({});
     const [searchParams] = useSearchParams();
-    const query = searchParams.get('q');
-    const page = searchParams.has('page') ? searchParams.get('page') : 1;
+    const { q: query, page } = Object.fromEntries([...searchParams]);
+    const [searchResult, setSearchResult] = useState({});
 
     useEffect(() => {
-        search(query, 'more', page).then((res) => setSearchResult(res));
+        search(query, 'more', page || 1).then((res) => setSearchResult(res));
     }, [page, query]);
 
     return (

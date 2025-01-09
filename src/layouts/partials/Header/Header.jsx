@@ -5,19 +5,11 @@ import 'tippy.js/dist/tippy.css';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useMediaQuery } from 'react-responsive';
-import {
-    faAngleLeft,
-    faBars,
-    faCode,
-    faEllipsisVertical,
-    faPenToSquare,
-    faPlus,
-} from '@fortawesome/free-solid-svg-icons';
+import { faAngleLeft, faCode, faEllipsisVertical, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './Header.module.scss';
-import Search from '../Search';
-import Category from './Category';
+import Search from './Search';
 import MyCourses from './MyCourses';
 import Inbox from './Inbox';
 import Menu from './Menu';
@@ -42,10 +34,10 @@ const cx = classnames.bind(styles);
 
 const MENU_ITEMS = [
     {
-        title: 'English',
+        title: 'Ngôn ngữ',
         icon: <LanguageIcon />,
         children: {
-            title: 'language',
+            title: 'Ngôn ngữ',
             data: [
                 {
                     type: 'language',
@@ -61,12 +53,12 @@ const MENU_ITEMS = [
         },
     },
     {
-        title: 'Feedback and help',
+        title: 'Phản hồi và hỗ trọ',
         icon: <FeedBackIcon />,
         to: '/feedback',
     },
     {
-        title: 'Dark mode',
+        title: 'Chế độ màu',
         type: 'theme',
         icon: <DarkModeIcon />,
         toggle: true,
@@ -74,50 +66,49 @@ const MENU_ITEMS = [
 ];
 
 function Header() {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const isTabletOrMobile = useMediaQuery({ query: '(min-width: 900px)' });
+    const isMobile = useMediaQuery({ query: '(min-width: 630px)' });
+
+    const firstClickRef = useRef({ inbox: false, myCourses: false });
+    const { items } = useSelector((state) => state.notification);
+    const { userInfo } = useSelector((state) => state.user);
     const [showPopper, setShowPopper] = useState({
         category: false,
         inbox: false,
         myCourses: false,
         menu: false,
     });
-
-    const firstClickRef = useRef({ inbox: false, myCourses: false });
-
-    const { items } = useSelector((state) => state.notification);
-    const { userInfo } = useSelector((state) => state.user);
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const location = useLocation();
-    const isTabletOrMobile = useMediaQuery({ query: '(min-width: 900px)' });
-    const isMobile = useMediaQuery({ query: '(min-width: 630px)' });
     // const [auth] = useLocalStorage('persist:auth');
     // const userInfo = auth ? JSON.parse(auth.userInfo) : info;
 
     const userMenu = [
         {
-            title: 'Profile',
+            title: 'Trang cá nhân',
             icon: <UserIcon />,
             to: '/@' + userInfo?.username,
         },
         {
-            title: 'Bookmarks',
+            title: 'Đánh dấu',
             icon: <BookMarkIcon />,
             to: '/me/bookmarks',
         },
         {
-            title: 'Posts',
+            title: 'Bài đăng',
             icon: <FontAwesomeIcon icon={faPenToSquare} />,
             to: '/me/posts/drafts',
         },
         {
-            title: 'Settings',
+            title: 'Cài đặt',
             icon: <SettingIcon />,
             to: '/settings/personal',
         },
         ...MENU_ITEMS,
         {
             type: 'logout',
-            title: 'Log out',
+            title: 'Đăng xuất',
             icon: <LogoutIcon />,
             separate: true,
         },
@@ -180,32 +171,20 @@ function Header() {
                         <strong>Fdemy</strong>
                     </Link>
 
-                    {isTabletOrMobile && (
-                        <>
-                            {location.pathname === '/' ? (
-                                <Category isShow={showPopper.category} onHide={handleHidePopper}>
-                                    <Tippy delay={[0, 200]} disabled={showPopper.category} content="Categories">
-                                        <button id="category" className={cx('action-btn')} onClick={handleShowPopper}>
-                                            <span>Categories</span>
-                                        </button>
-                                    </Tippy>
-                                </Category>
-                            ) : (
-                                <button
-                                    className={cx('btn-back')}
-                                    onClick={() => {
-                                        if (['/road-map', '/blogs', '/messages'].includes(location.pathname)) {
-                                            navigate('/');
-                                        } else {
-                                            navigate(-1);
-                                        }
-                                    }}
-                                >
-                                    <FontAwesomeIcon icon={faAngleLeft} />
-                                    <span>Back</span>
-                                </button>
-                            )}
-                        </>
+                    {location.pathname === '/' && (
+                        <button
+                            className={cx('btn-back')}
+                            onClick={() => {
+                                if (['/road-map', '/blogs', '/messages'].includes(location.pathname)) {
+                                    navigate('/');
+                                } else {
+                                    navigate(-1);
+                                }
+                            }}
+                        >
+                            <FontAwesomeIcon icon={faAngleLeft} />
+                            <span>Quay lại</span>
+                        </button>
                     )}
                 </div>
 
@@ -221,28 +200,25 @@ function Header() {
                             {isTabletOrMobile && (
                                 <>
                                     <MyCourses isShow={showPopper.myCourses} onHide={handleHidePopper}>
-                                        <Tippy delay={[0, 200]} disabled={showPopper.myCourses} content="My Courses">
+                                        <Tippy
+                                            delay={[0, 200]}
+                                            disabled={showPopper.myCourses}
+                                            content="Khóa học của tôi"
+                                        >
                                             <button
                                                 id="my-courses"
                                                 className={cx('action-btn')}
                                                 onClick={handleShowPopper}
                                             >
-                                                <span>My Courses</span>
+                                                <span>Khóa học của tôi</span>
                                             </button>
                                         </Tippy>
                                     </MyCourses>
-                                    <Tippy offset={[0, 14]} delay={[0, 200]} content="New post">
-                                        <div>
-                                            <Button to={'/new-post'} className={cx('action-btn', 'newPostBtn')}>
-                                                <FontAwesomeIcon icon={faPlus} />
-                                            </Button>
-                                        </div>
-                                    </Tippy>
                                 </>
                             )}
 
                             <Inbox isShow={showPopper.inbox} onHide={handleHidePopper}>
-                                <Tippy offset={[0, 3]} delay={[0, 200]} disabled={showPopper.inbox} content="Inbox">
+                                <Tippy offset={[0, 3]} delay={[0, 200]} disabled={showPopper.inbox} content="Thông báo">
                                     <button id="inbox" className={cx('action-btn')} onClick={handleShowPopper}>
                                         {showPopper.inbox ? <InboxActiveIcon /> : <InboxIcon />}
                                         {items.length > 0 && <span className={cx('number')}>{items.length}</span>}
@@ -253,7 +229,7 @@ function Header() {
                     ) : (
                         <>
                             <Button primary rounded className={cx('login-btn')} onClick={handleClickLogin}>
-                                Login
+                                Đăng nhập
                             </Button>
                         </>
                     )}

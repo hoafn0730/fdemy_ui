@@ -14,11 +14,11 @@ import generateSlug from '~/utils/generateSlug';
 const cx = classnames.bind(styles);
 
 function NewPost() {
+    const navigate = useNavigate();
     const [title, setTitle] = useState('');
     const [value, setValue] = useState('');
     const contentEditableRef = useRef();
     const titleRef = useRef(document.title);
-    const navigate = useNavigate();
 
     useEffect(() => {
         document.title = title || titleRef.current;
@@ -44,14 +44,14 @@ function NewPost() {
                 pending: {
                     render() {
                         document.title = titleRef.current;
-                        return 'Uploading...';
+                        return 'Đang đăng bài viết...';
                     },
                 },
                 success: {
                     type: 'success',
                     render() {
                         navigate('/');
-                        return 'Uploaded successfully!';
+                        return 'Đăng thành công!';
                     },
                 },
             },

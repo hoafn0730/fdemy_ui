@@ -8,12 +8,15 @@ import Slideshow from '~/pages/Home/Slideshow';
 import ScrollList from '~/components/ScrollList';
 import CourseItem from '~/components/CourseItem';
 import * as courseService from '~/services/courseService';
+import Button from '~/components/Button';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classnames.bind(styles);
 
 function Home() {
     const [courses, setCourses] = useState();
-    let [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
 
     const override = {
         display: 'block',
@@ -58,6 +61,13 @@ function Home() {
                     <div className={cx('wrapper')}>
                         <ScrollList
                             title={'Khóa học Pro'}
+                            label="Mới"
+                            action={
+                                <Button text className={cx('action-btn')}>
+                                    <span>Xem thêm</span>
+                                    <FontAwesomeIcon icon={faAngleRight} />
+                                </Button>
+                            }
                             render={() =>
                                 courses &&
                                 courses?.proCourses.map(({ title, image, ctaTitle, oldPrice, price, slug }, idx) => (
@@ -76,6 +86,12 @@ function Home() {
                         <ScrollList
                             title={'Khóa học Free'}
                             subTitle={'386.894+ người khác đã học'}
+                            action={
+                                <Button text className={cx('action-btn')}>
+                                    <span>Xem thêm</span>
+                                    <FontAwesomeIcon icon={faAngleRight} />
+                                </Button>
+                            }
                             render={() =>
                                 courses &&
                                 courses?.freeCourses.map(

@@ -7,7 +7,6 @@ import TrackItem from './TrackItem';
 const cx = classnames.bind(styles);
 
 function Tracks({ steps, process, onChangeShow }) {
-    console.log('🚀 ~ Tracks ~ process:', process);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('container')} id="learn-playlist">

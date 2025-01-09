@@ -15,7 +15,7 @@ import GlobalStyles from '~/components/GlobalStyles';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <Provider store={store}>
-        <PersistGate loading={<div>loading...</div>} persistor={persistor}>
+        <PersistGate loading={<div>Đang tải...</div>} persistor={persistor}>
             {/* <React.StrictMode> */}
             <GlobalStyles>
                 <BrowserRouter>

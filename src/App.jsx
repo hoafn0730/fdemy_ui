@@ -16,12 +16,15 @@ import { addNewNotification } from './store/actions/notificationAction';
 import Checkout from './pages/Checkout';
 import config from './config';
 import { closeModal } from './store/actions/modalAction';
+import useOffline from './hooks/useOffline';
+import NoInternet from './pages/NoInternet';
 
 const socket = io(process.env.REACT_APP_SOCKET_BACKEND_URL);
 
 function App() {
     const dispatch = useDispatch();
     const location = useLocation();
+    const isOffline = useOffline();
     const { isDarkMode } = useSelector((state) => state.theme);
     // const { userInfo } = useSelector((state) => state.user);
     const { isOpen } = useSelector((state) => state.modal);
@@ -68,6 +71,8 @@ function App() {
     useEffect(() => {
         setTheme(isDarkMode ? 'dark' : 'light');
     }, [isDarkMode, setTheme]);
+
+    if (isOffline) return <NoInternet />;
 
     return (
         <div className={'App' + (isDarkMode ? ' dark' : '')}>

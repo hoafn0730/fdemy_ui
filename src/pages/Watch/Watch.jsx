@@ -36,8 +36,8 @@ function Watch() {
     const [isShowComments, setIsShowComments] = useState(false);
     const [isShowQuiz, setIsShowQuiz] = useState(false);
     const [player, setPlayer] = useState(null);
-    const [previousTime, setPreviousTime] = useState(0); // Thời gian phát trước đó
-    const skipThreshold = 10; // Ngưỡng tua cho phép (giây)
+    const [previousTime, setPreviousTime] = useState(0);
+    const skipThreshold = 10;
     const { lesson } = currentStep || { lesson: {} };
 
     useEffect(() => {

@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import classnames from 'classnames/bind';
 import { Link, useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClock, faPlay } from '@fortawesome/free-solid-svg-icons';
 
 import styles from './CourseItem.module.scss';
 import CommonItem from '../CommonItem';
@@ -50,16 +52,16 @@ function CourseItem({ title, desc, linkTo, image, ctaTitle, oldPrice, mainPrice,
                     </div>
                     <div className={cx('info-user-courses')}>
                         <div className={cx('info-user-courses-avatar')}>
-                            <img src="https://via.placeholder.com/40" alt="Avatar" className={cx('avatar-image')} />
+                            <img src="https://via.placeholder.com/30" alt="Avatar" className={cx('avatar')} />
                             <span className={cx('user-name')}>Sơn Đặng</span>
                         </div>
                         <div className={cx('info-user-courses-details')}>
                             <div className={cx('info-item')}>
-                                <i className={cx('icon-play')}></i>
+                                <FontAwesomeIcon icon={faPlay} />
                                 <span>590</span>
                             </div>
                             <div className={cx('info-item')}>
-                                <i className={cx('icon-time')}></i>
+                                <FontAwesomeIcon icon={faClock} />
                                 <span>116h44p</span>
                             </div>
                         </div>

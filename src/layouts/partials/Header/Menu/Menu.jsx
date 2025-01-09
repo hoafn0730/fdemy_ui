@@ -8,20 +8,18 @@ import styles from './Menu.module.scss';
 import Header from './Header';
 import MenuItem from './MenuItem';
 import Image from '~/components/Image';
+import Popper from '~/components/Popper';
 import { changeTheme } from '~/store/actions/themeAction';
 import { doLogout } from '~/store/actions/authAction';
-import Popper from '~/components/Popper';
 
 const cx = classnames.bind(styles);
 
 function Menu({ children, isShow, isLogin, items = [], onHide }) {
+    const dispatch = useDispatch();
+    const { isDarkMode } = useSelector((state) => state.theme);
+    const { userInfo } = useSelector((state) => state.user);
     const [history, setHistory] = useState([{ data: items }]);
     const current = history[history.length - 1];
-
-    const { isDarkMode } = useSelector((state) => state.theme);
-    // const user = useSelector((state) => state.user);
-    // const [, setAuth] = useLocalStorage('auth', null);
-    const dispatch = useDispatch();
 
     useEffect(() => {
         setHistory([{ data: items }]);
@@ -90,15 +88,11 @@ function Menu({ children, isShow, isLogin, items = [], onHide }) {
                         {history.length > 1 && <Header title={current.title} onBack={handleBack} />}
                         {isLogin && !(history.length > 1) && (
                             <div className={cx('user')}>
-                                <Image
-                                    src="http://localhost:3000/static/media/avatar.629fae61566dbce528a0.jpg"
-                                    alt=""
-                                    className={cx('avatar')}
-                                />
+                                <Image src={userInfo.avatar} alt={userInfo.fullName} className={cx('avatar')} />
                                 <div className={cx('info')}>
-                                    <span className={cx('name')}>Hoàn Trần</span>
+                                    <span className={cx('name')}>{userInfo.fullName}</span>
                                     <div className={cx('username')}>
-                                        @<span>hoafn.t</span>
+                                        @<span>{userInfo.username}</span>
                                     </div>
                                 </div>
                             </div>
