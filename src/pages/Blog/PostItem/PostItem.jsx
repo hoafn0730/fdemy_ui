@@ -7,10 +7,12 @@ import { Link } from 'react-router-dom';
 import styles from './PostItem.module.scss';
 import Reaction from '~/components/Reaction';
 import Presentation from '~/components/Presentation';
+import { formatDistanceToNow } from 'date-fns';
+import { vi } from 'date-fns/locale';
 
 const cx = classnames.bind(styles);
 
-function PostItem({ title, description, slug, image }) {
+function PostItem({ title, description, slug, image, post }) {
     const video = '';
 
     return (
@@ -28,7 +30,14 @@ function PostItem({ title, description, slug, image }) {
                         <span>hoafn.t_</span>
                     </Link>
 
-                    <div className={cx('createdAt')}>~ 1 tháng trước</div>
+                    <div className={cx('createdAt')}>
+                        ~{' '}
+                        {formatDistanceToNow(new Date(post.createdAt || new Date()), {
+                            addSuffix: true,
+                            includeSeconds: true,
+                            locale: vi,
+                        })}
+                    </div>
                 </div>
                 <div className={cx('actions')}>
                     <div className={cx('bookmark_toggleBtn', 'optionBtn')}>
@@ -41,6 +50,8 @@ function PostItem({ title, description, slug, image }) {
             </div>
 
             <div className={cx('body')}>
+                {(image || video) && <Presentation imageUrl={image} videoUrl={video} />}
+
                 <div className={cx('info')}>
                     <Link to={'/blogs/' + slug}>
                         <h3 className={cx('title')}>{title}</h3>
@@ -50,12 +61,9 @@ function PostItem({ title, description, slug, image }) {
                         #reactjs
                     </Link>
                 </div>
-                {(image || video) && <Presentation imageUrl={image} videoUrl={video} />}
             </div>
 
-            <div className={cx('footer')}>
-                <Reaction />
-            </div>
+            <div className={cx('footer')}>{/* <Reaction /> */}</div>
         </div>
     );
 }

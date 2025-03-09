@@ -2,25 +2,35 @@ import { useNavigate, useParams } from 'react-router-dom';
 import classnames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHouse, faUserGroup } from '@fortawesome/free-solid-svg-icons';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { vi } from 'date-fns/locale';
+import { formatDistanceToNow } from 'date-fns';
 
 import styles from './Profile.module.scss';
 import IndexModule from '~/components/IndexModule';
 import images from '~/assets/images';
 import Avatar from '~/components/Avatar';
 import Box from '~/components/Box';
+import { getUser } from '~/services/userService';
 
 const cx = classnames.bind(styles);
 
 function Profile() {
     const { username } = useParams();
     const navigate = useNavigate();
+    const [user, setUser] = useState();
 
     useEffect(() => {
         if (!username.startsWith('@')) {
-            navigate('/not-found');
+            return navigate('/not-found');
         }
-    }, [navigate, username]);
+        getUser(username.substring(1)).then((res) => setUser(res));
+
+        // * check profile exist
+        if (username.substring(1) !== user.username) {
+            // navigate('/not-found');
+        }
+    }, [navigate, user, username]);
 
     return (
         <div className={cx('wrapper')}>
@@ -28,10 +38,10 @@ function Profile() {
                 <div className={cx('banner')} style={{ backgroundImage: `url(${images.banner})` }}>
                     <div className={cx('user')}>
                         <div className={cx('user-avatar')}>
-                            <Avatar src={images.avatar} alt={''} />
+                            <Avatar src={user.avatar} alt={user.fullName} />
                         </div>
                         <div className={cx('user-name')}>
-                            <span>Hoàn Trần</span>
+                            <span>{user.fullName}</span>
                         </div>
                     </div>
                 </div>
@@ -47,7 +57,11 @@ function Profile() {
                                         <span>
                                             Thành viên của
                                             <span className={cx('highlight')}> Fdemy </span>
-                                            từ 10 tháng trước
+                                            từ{' '}
+                                            {formatDistanceToNow(new Date(user.createdAt || new Date()), {
+                                                addSuffix: true,
+                                                locale: vi,
+                                            })}
                                         </span>
                                     </div>
                                     <div>

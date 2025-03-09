@@ -1,21 +1,30 @@
 import classnames from 'classnames/bind';
 import { useOutletContext } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 import styles from './MyPosts.module.scss';
 import MyPostItem from './MyPostItem';
+import { getBlogs } from '~/services/blogService';
 
 const cx = classnames.bind(styles);
 
 function MyPosts() {
     const { tab } = useOutletContext();
+    const [posts, setPosts] = useState([]);
+
+    useEffect(() => {
+        getBlogs().then((res) => setPosts(res.data));
+
+        // eslint-disable-next-line
+    }, []);
 
     return (
         <div className={cx('wrapper')}>
             {tab === 'drafts' ? (
                 <>
-                    <MyPostItem />
-                    <MyPostItem />
-                    <MyPostItem />
+                    {posts.map((post) => (
+                        <MyPostItem post={post} />
+                    ))}
                 </>
             ) : (
                 tab === 'published' && (
