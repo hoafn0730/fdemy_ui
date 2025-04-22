@@ -101,7 +101,7 @@ function Checkout() {
             toast.success('Transaction successfully:');
 
             setTimeout(() => {
-                window.location.reload();
+                window.location.href = '/courses/' + course.slug;
             }, 3000);
         });
 
