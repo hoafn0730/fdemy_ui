@@ -4,7 +4,6 @@ const images = {
     avatar: require('./avatar.jpg'),
     banner: require('./banner.jpg'),
     fallbackUser: require('./fallback-user.jpg'),
-    anh1: require('./anh1.jpg'),
 };
 
 export default images;

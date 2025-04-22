@@ -16,7 +16,6 @@ function Blog() {
     useEffect(() => {
         getBlogs().then((res) => setBlogs(res.data));
     }, []);
-
     return (
         <div className={cx('wrapper')}>
             <Heading className={cx('heading')} title="Bài viết nổi bật" />
@@ -33,7 +32,6 @@ function Blog() {
                                             description={item.description}
                                             slug={item.slug}
                                             image={item.image}
-                                            post={item}
                                         />
                                     ))}
                             </div>
