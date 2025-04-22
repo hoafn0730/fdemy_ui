@@ -150,8 +150,8 @@ const Message = () => {
                         {chats.map((chat, index) => (
                             <div
                                 key={index}
-                                className={`ai-message ${chat.sender === 'user' ? 'outgoing' : 'incoming'} ${
-                                    chat.isError ? 'error' : ''
+                                className={`ai-message ${chat?.sender === 'user' ? 'outgoing' : 'incoming'} ${
+                                    chat?.isError ? 'error' : ''
                                 }`}
                             >
                                 <div className="ai-message-content">
@@ -159,19 +159,19 @@ const Message = () => {
                                     <img
                                         className="ai-avatar"
                                         src={
-                                            chat.sender === 'user'
+                                            chat?.sender === 'user'
                                                 ? 'https://img.icons8.com/?size=100&id=ScJCfhkd77yD&format=png&color=000000'
                                                 : 'https://img.icons8.com/?size=100&id=kTuxVYRKeKEY&format=png&color=000000'
                                         }
-                                        alt={chat.sender === 'user' ? 'User avatar' : 'AI avatar'}
+                                        alt={chat?.sender === 'user' ? 'User avatar' : 'AI avatar'}
                                     />
                                     <div className="ai-message-bubble">
                                         {/* Nội dung tin nhắn */}
                                         <p className="ai-text">
-                                            <MarkdownParser content={chat.text || ''} className="text-color" />{' '}
+                                            <MarkdownParser content={chat?.text || ''} className="text-color" />{' '}
                                         </p>
                                         {/* Thời gian gửi tin nhắn */}
-                                        <span className="ai-message-time">{formatTimestamp(chat.createdAt)}</span>
+                                        <span className="ai-message-time">{formatTimestamp(chat?.createdAt)}</span>
                                     </div>
                                 </div>
                             </div>
