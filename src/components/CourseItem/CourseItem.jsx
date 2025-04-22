@@ -50,22 +50,6 @@ function CourseItem({ title, desc, linkTo, image, ctaTitle, oldPrice, mainPrice,
                             </span>
                         </>
                     </div>
-                    <div className={cx('info-user-courses')}>
-                        <div className={cx('info-user-courses-avatar')}>
-                            <img src="https://via.placeholder.com/30" alt="Avatar" className={cx('avatar')} />
-                            <span className={cx('user-name')}>Sơn Đặng</span>
-                        </div>
-                        <div className={cx('info-user-courses-details')}>
-                            <div className={cx('info-item')}>
-                                <FontAwesomeIcon icon={faPlay} />
-                                <span>590</span>
-                            </div>
-                            <div className={cx('info-item')}>
-                                <FontAwesomeIcon icon={faClock} />
-                                <span>116h44p</span>
-                            </div>
-                        </div>
-                    </div>
                 </CommonItem>
             )}
         </>
