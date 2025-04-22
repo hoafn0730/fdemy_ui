@@ -196,7 +196,7 @@ function Checkout() {
                                     {/* https://qr.sepay.vn/img?acc=${acc}&bank=${bank}&amount=${amount}&des=${'Dang%20ky%20tai%20khoan%20Pro'}&user_id=${user_id}*/}
                                     <Image
                                         // src={`https://qr.sepay.vn/img?acc=0975882405&bank=MBBank&amount=${'10000'}&des=Dang%20ky%20tai%20khoan%20Pro`}
-                                        src={`https://qr.sepay.vn/img?acc=${acc}&bank=${bank}&amount=${price}&des=${encodeURIComponent(
+                                        src={`https://qr.sepay.vn/img?acc=${acc}&bank=${bank}&amount=${'10000'}&des=${encodeURIComponent(
                                             des,
                                         )}`}
                                         alt={course?.title}
