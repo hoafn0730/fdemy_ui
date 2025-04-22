@@ -37,7 +37,7 @@ const LIST_SIDEBAR = [
         iconActive: <BlogActiveIcon />,
     },
     {
-        title: 'Messages',
+        title: 'Chat',
         path: config.routes.message,
         icon: <MessageIcon />,
         iconActive: <MessageActiveIcon />,

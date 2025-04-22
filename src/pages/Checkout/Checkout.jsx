@@ -16,6 +16,7 @@ import formatPrice from '~/utils/formatPrice';
 import * as courseService from '~/services/courseService';
 import * as couponService from '~/services/couponService';
 import { createInvoice } from '~/services/invoiceService';
+import socket from '~/utils/socket';
 
 const cx = classnames.bind(styles);
 const cardInfo = {
@@ -25,12 +26,17 @@ const cardInfo = {
     cvv: '123',
 };
 
+const acc = '0975882405';
+const bank = 'MBBank';
+
 function Checkout() {
     const { state } = useLocation();
     const [course, setCourse] = useState();
     const [discount, setDiscount] = useState(0);
     const [data, setData] = useState({ ...cardInfo });
     const { userInfo } = useSelector((state) => state.user);
+
+    const [price, setPrice] = useState(0);
     const { slug } = useParams();
     const couponInputRef = useRef();
     const navigate = useNavigate();
@@ -38,7 +44,9 @@ function Checkout() {
     useEffect(() => {
         courseService.getCourseBySlug(slug).then((res) => {
             setCourse(res.course);
+            setPrice(res?.course?.price);
         });
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -49,7 +57,10 @@ function Checkout() {
                 .getCouponByCode(couponCode)
                 .then((res) => {
                     if (res) {
-                        setDiscount(course.price * res.discount * 0.01);
+                        const discount = res.discount * 0.01 * course.price;
+                        setDiscount(discount);
+
+                        setPrice(+res?.course?.price - discount);
                         setData((prev) => ({ ...prev, couponCode: couponCode }));
                         toast.success('Apply coupon code success!');
                     } else {
@@ -84,6 +95,23 @@ function Checkout() {
         });
     };
 
+    useEffect(() => {
+        socket.on('transaction-update', (data) => {
+            console.log('Transaction update received:', data);
+            toast.success('Transaction successfully:');
+
+            setTimeout(() => {
+                window.location.reload();
+            }, 3000);
+        });
+
+        return () => {
+            socket.off('transaction-update');
+        };
+    }, []);
+
+    const des = `Dang ky tai khoan Pro - UID_${userInfo?.id} - CID_${course?.id}`;
+
     return (
         <Modal open={!!state} size="1200px" onClose={() => navigate(-1)}>
             <div className={cx('wrapper')}>
@@ -93,6 +121,7 @@ function Checkout() {
                         <IndexModule className={cx('row')}>
                             <IndexModule className={cx('col', 'l-7')}>
                                 {/* <h3 className={cx('header')}>Course detail:</h3> */}
+
                                 <div className={cx('info')}>
                                     <div>
                                         <Image src={course?.image} alt={course?.title} className={cx('image')} />
@@ -163,7 +192,23 @@ function Checkout() {
                                             <span>{course?.price && formatPrice(+course?.price - discount)}</span>
                                         </div>
                                     </div>
-                                    <Button primary className={cx('checkoutBtn')} onClick={handleCheckout}>
+
+                                    {/* https://qr.sepay.vn/img?acc=${acc}&bank=${bank}&amount=${amount}&des=${'Dang%20ky%20tai%20khoan%20Pro'}&user_id=${user_id}*/}
+                                    <Image
+                                        // src={`https://qr.sepay.vn/img?acc=0975882405&bank=MBBank&amount=${'10000'}&des=Dang%20ky%20tai%20khoan%20Pro`}
+                                        src={`https://qr.sepay.vn/img?acc=${acc}&bank=${bank}&amount=${price}&des=${encodeURIComponent(
+                                            des,
+                                        )}`}
+                                        alt={course?.title}
+                                        style={{ width: '200px', height: '200px', margin: '0 auto' }}
+                                    />
+
+                                    <Button
+                                        primary
+                                        className={cx('checkoutBtn')}
+                                        style={{ margin: '0 auto', marginTop: '20px' }}
+                                        onClick={handleCheckout}
+                                    >
                                         Hoàn tất thanh toán
                                     </Button>
                                 </div>

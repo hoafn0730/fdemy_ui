@@ -23,7 +23,7 @@ function DefaultLayout({ children }) {
                 )}
                 <div className={cx('content')}>{children}</div>
             </main>
-            <Footer />
+            {/* <Footer /> */}
         </div>
     );
 }
